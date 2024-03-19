@@ -187,6 +187,9 @@
                                 },
                                 success: function (response) {
                                     if (response.code === 200) {
+                                        userList = [];
+                                        arradd = [];
+                                        $("#list-after").empty();
                                         $("#skip").trigger("click");
                                     } else {
                                         console.log(response.msg);
