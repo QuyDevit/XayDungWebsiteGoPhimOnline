@@ -158,13 +158,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBestTyping.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\CLASSROOMVIEW.cs" />
     <Compile Include="Models\DTO\COMPETITIONVIEWMODEL.cs" />
     <Compile Include="Models\DTO\EDITTEXTPRACTICEVIEW.cs" />
     <Compile Include="Models\DTO\GAMETYPING.cs" />
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
     <Compile Include="Models\DTO\RESULTCOMPETITIONVIEWMODEL.cs" />
+    <Compile Include="Models\DTO\ROOMSETTINGVIEW.cs" />
     <Compile Include="Models\DTO\SETTINGVIEW.cs" />
-    <Compile Include="Models\DTO\SIDEBARNEW.cs" />
+    <Compile Include="Models\DTO\PROGRESSUSER.cs" />
     <Compile Include="Models\DTO\TABLERESULTCOMPETITION.cs" />
     <Compile Include="Models\DTO\TABLEJOINCOMPETITION.cs" />
     <Compile Include="Models\DTO\TABLERESULTGAME.cs" />
@@ -277,6 +279,7 @@
     <Content Include="Theme\js\login-social.js" />
     <Content Include="Theme\js\main.js" />
     <Content Include="Theme\js\mytextpractice.js" />
+    <Content Include="Theme\js\settingroomedu.js" />
     <Content Include="Theme\js\settinguser.js" />
     <Content Include="Theme\js\textpracticetest.js" />
     <Content Include="Theme\sound\key-sound_Default.wav" />
@@ -318,12 +321,14 @@
     <Content Include="Views\Home\TextPracticeLike.cshtml" />
     <Content Include="Views\Home\TextPracticeTest.cshtml" />
     <Content Include="Views\Competition\Competitions.cshtml" />
-    <Content Include="Views\Home\DashboardEdu.cshtml" />
+    <Content Include="Views\Home\_PartialSideBarEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\DashboardEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\ManageGroupEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\SettingClassRoom.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\CompetitionsTyping\" />
-    <Folder Include="Views\DashBoardEdu\" />
     <Folder Include="Views\TextPractice\" />
     <Folder Include="Views\TypingGame\" />
     <Folder Include="Views\TypingTestAdvanced\" />

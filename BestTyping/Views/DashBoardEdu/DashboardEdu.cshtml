@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-@using BestTyping.Models
-@{ 
-    USER user = (USER)Session["User"];
-}
 
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
 
@@ -16,35 +12,7 @@
 </header>
 
 <div class="wrapper">
-    <aside id="sidebar">
-        <div class="h-100 sidebar__content">
-
-            <div class="sidebar-edu__wrapper">
-                <div class="sidebar-edu__wrapper-box">
-                    <img src="@user.Avatar" />
-                    <p>@user.HoTen</p>
-                </div>
-                <div class="box_setting">
-                    <a href=""><i class="fa fa-user" aria-hidden="true"></i><span>Hồ sơ</span></a>
-                    <a href=""><i class="fa fa-cog" aria-hidden="true"><span>Thiết lập</span></i></a>
-                </div>
-                <div class="box_setting">
-                    <a href=""><i class="fa fa-bell" aria-hidden="true"></i><span>Thông báo</span></a>
-                    <a href="@Url.Action("LogoutEdu","Account")"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Đăng xuất</span></a>
-                </div>
-                <div class="box_wrapper-dashboard">
-                    <ul class="list-dashboard">
-                        <li><a href=""><i class="fa fa-tachometer" aria-hidden="true"></i><span>Bảng điều khiển</span></a></li>
-                        <li><a href=""><i class="fa fa-users" aria-hidden="true"></i><span>Quản lý nhóm</span></a></li>
-                        <li><a href=""><i class="fa fa-tasks" aria-hidden="true"></i><span>Quản lý bài kiểm tra</span></a></li>
-                        <li><a href=""><i class="fa fa-plus" aria-hidden="true"></i><span>Tạo văn bản</span></a></li>
-
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </aside>
+    @Html.Action("_PartialSideBarEdu", "Home")
     <!-- Main Component -->
     <div class="main">
         <main class="content col-md-11 px-3 py-2">
@@ -105,7 +73,7 @@
 <div id="modaladduser" class="modal">
     <div class="modal-content">
         <div class="modal-header_title">
-            <p>Thêm thành viên vào nhóm</p>
+            <p id="title-class">Thêm thành viên vào nhóm</p>
         </div>
         <div class="modal-body">
             <form class="form-control form-custom">
@@ -113,17 +81,8 @@
                 <input id="emailfilter" class="form-control" type="text" placeholder="Bắt đầu nhập Email" />
                 <div class="filter-box">
                     <ul id="list-user">
-                        @*<li class="list-user_item form-control" data-email="pingvocuc333@gmail.com" data-name="Qúy Nguyễn">
-                                <span>Qúy Nguyễn</span>
-                                <span>pingvocuc333@gmail.com</span>
-                            </li>*@
                     </ul>
                     <ul id="list-after">
-                        @*<li class="list-after_item form-control">
-                                <span>Qúy Nguyễn</span>
-                                <span>pingvocuc333@gmail.com</span>
-                                <span class="remove">&times;</span>
-                            </li>*@
                     </ul>
                 </div>
 

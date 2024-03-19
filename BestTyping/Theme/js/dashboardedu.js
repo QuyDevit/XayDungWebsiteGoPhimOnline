@@ -172,6 +172,7 @@
                         idRoom = response.roomID;
                         userList = response.list;
                         $("#cancel").trigger("click");
+                        $("#title-class").html(`Thêm thành viên vào nhóm <strong>${name}</strong>`);
                         setTimeout(function () {
                             $("body").addClass("modal-open");
                         }, 100)
@@ -189,8 +190,12 @@
                                     if (response.code === 200) {
                                         userList = [];
                                         arradd = [];
+                                        $("#list-user").empty();
                                         $("#list-after").empty();
                                         $("#skip").trigger("click");
+                                        setTimeout(function () {
+                                            location.href = `../DashBoardEdu/SettingClassRoom/${idRoom}`;
+                                        },700)
                                     } else {
                                         console.log(response.msg);
                                     }
@@ -246,6 +251,9 @@
         modaladduserContent.css('animation', 'zoomOut 0.6s');
         setTimeout(function () {
             modaladduser.hide();
+            setTimeout(function () {
+                location.href = `../DashBoardEdu/SettingClassRoom/${idRoom}`;
+            }, 700)
         }, 500); 
     });
 

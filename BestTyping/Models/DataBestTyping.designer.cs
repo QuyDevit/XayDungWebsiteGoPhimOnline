@@ -2221,6 +2221,8 @@ namespace BestTyping.Models
 		
 		private System.Nullable<long> _CreateDate;
 		
+		private string _ListUserRequest;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2245,6 +2247,8 @@ namespace BestTyping.Models
     partial void OnListUserJoinChanged();
     partial void OnCreateDateChanging(System.Nullable<long> value);
     partial void OnCreateDateChanged();
+    partial void OnListUserRequestChanging(string value);
+    partial void OnListUserRequestChanged();
     #endregion
 		
 		public CLASSROOM()
@@ -2448,6 +2452,26 @@ namespace BestTyping.Models
 					this._CreateDate = value;
 					this.SendPropertyChanged("CreateDate");
 					this.OnCreateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListUserRequest", DbType="NVarChar(MAX)")]
+		public string ListUserRequest
+		{
+			get
+			{
+				return this._ListUserRequest;
+			}
+			set
+			{
+				if ((this._ListUserRequest != value))
+				{
+					this.OnListUserRequestChanging(value);
+					this.SendPropertyChanging();
+					this._ListUserRequest = value;
+					this.SendPropertyChanged("ListUserRequest");
+					this.OnListUserRequestChanged();
 				}
 			}
 		}

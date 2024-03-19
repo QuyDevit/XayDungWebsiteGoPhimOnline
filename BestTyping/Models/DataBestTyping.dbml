@@ -118,6 +118,7 @@
       <Column Name="PassClassRoom" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
       <Column Name="ListUserJoin" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
       <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ListUserRequest" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

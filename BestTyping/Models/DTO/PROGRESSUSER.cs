@@ -5,7 +5,7 @@ using System.Web;
 
 namespace BestTyping.Models.DTO
 {
-    public class SIDEBARNEW
+    public class PROGRESSUSER
     {
         public string Name { get; set; }
         public string Avartar { get; set; }

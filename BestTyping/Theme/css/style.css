@@ -486,7 +486,7 @@ strong {
     opacity: 1;
     visibility: visible;
 }
-.dropdown-menu-account li{   
+.dropdown-menu-account li a{   
     padding: 0 15px;
 }
 .dropdown-menu-account li a:hover{

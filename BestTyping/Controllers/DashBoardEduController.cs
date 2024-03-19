@@ -12,7 +12,98 @@ namespace BestTyping.Controllers
     public class DashBoardEduController : Controller
     {
         DataBestTypingDataContext db = new DataBestTypingDataContext();
-        // GET: DashBoardEdu
+        public static string ConvertTimestampToDate(long timestamp)
+        {
+
+            long timestampInSeconds = timestamp / 1000;
+
+  
+            if (timestampInSeconds < -62135596800 || timestampInSeconds > 253402300799)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timestamp), "Timestamp is out of range.");
+            }
+
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(timestampInSeconds);
+            var dateTime = dateTimeOffset.LocalDateTime; // Hoặc .UtcDateTime nếu bạn muốn thời gian UTC
+
+            // Định dạng ngày tháng theo yêu cầu: ngày/tháng/năm
+            string formattedDate = dateTime.ToString("dd/MM/yyyy");
+
+            return formattedDate;
+        }
+        public ActionResult DashboardEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult SettingClassRoom(int id)
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var getRoom = db.CLASSROOMs.FirstOrDefault(r => r.UserCreate == user.Id && r.ClassRoomId == id);
+                if(getRoom == null)
+                {
+                    return RedirectToAction("CheckTyping", "Home");
+                }
+                else
+                {
+                    ROOMSETTINGVIEW room = new ROOMSETTINGVIEW();
+                    room.RoomId = getRoom.ClassRoomId;
+                    room.AvatarClassRoom = getRoom.AvatarClassRoom;
+                    room.ClassName = getRoom.ClassName;
+                    room.Description = getRoom.Description;
+                    room.IsPrivate = getRoom.IsPrivate ?? true;
+                    room.JoinCode = getRoom.JoinCode;
+                    room.PassClassRoom = getRoom.PassClassRoom;
+                    var dataUserJoin = JsonConvert.DeserializeObject<List<USERROOM>>(getRoom.ListUserJoin);
+                    var dataUserRequest = JsonConvert.DeserializeObject<List<USERROOM>>(getRoom.ListUserRequest);
+                    room.ListMember = dataUserJoin;
+                    room.ListUserRequest = dataUserRequest;
+                    return View(room);
+                }
+            }
+        }
+        public ActionResult ManageGroupEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var listClassByUser = db.CLASSROOMs.Where(c => c.UserCreate == user.Id).OrderByDescending(c=>c.ClassRoomId).ToList();
+                List<CLASSROOMVIEW> list = new List<CLASSROOMVIEW>();
+                foreach(var item in listClassByUser)
+                {
+
+                    var data = JsonConvert.DeserializeObject<List<USERROOM>>(item.ListUserJoin);
+                    CLASSROOMVIEW room = new CLASSROOMVIEW();
+                    room.RoomId = item.ClassRoomId;
+                    room.ClassName = item.ClassName;
+                    room.CreateDate = ConvertTimestampToDate(item.CreateDate ?? 0);
+                    room.Status = item.IsPrivate ?? true;
+                    room.JoinCode = item.JoinCode;
+                    room.SumPeopleJoin = data.Count();
+                    list.Add(room);
+                }
+                return View(list);
+            }
+        }
+
         [HttpPost]
         public JsonResult CreateClassRoom(string name, string description, bool isprivate, long createdate)
         {
@@ -34,10 +125,11 @@ namespace BestTyping.Controllers
                         CLASSROOM room = new CLASSROOM();
                         room.UserCreate = user.Id;
                         room.ClassName = name;
+                        room.AvatarClassRoom = "https://firebasestorage.googleapis.com/v0/b/login-besttyping.appspot.com/o/Group%2Fdefault-group.jpg?alt=media&token=36fc580f-e759-440e-b6f9-7c23f169df09";
                         room.Description = description;
-                        room.AvatarClassRoom = "";
                         room.IsPrivate = isprivate;
                         room.ListUserJoin = "[]";
+                        room.ListUserRequest = "[]";
                         room.CreateDate = createdate;
                         db.CLASSROOMs.InsertOnSubmit(room);
                         db.SubmitChanges();
@@ -46,10 +138,13 @@ namespace BestTyping.Controllers
                         var listuser = db.USERs.ToList();
                         foreach(var item in listuser)
                         {
-                            USERFILTER u = new USERFILTER();
-                            u.name = item.HoTen;
-                            u.email = item.Email;
-                            listemail.Add(u);
+                            if(item.Id != user.Id)
+                            {
+                                USERFILTER u = new USERFILTER();
+                                u.name = item.HoTen;
+                                u.email = item.Email;
+                                listemail.Add(u);
+                            }
                         }
                         
                         return Json(new { code = 200, msg = "Lấy dữ liệu thành công" , roomID = newRoomID, list = listemail });
@@ -100,7 +195,7 @@ namespace BestTyping.Controllers
                                     if(existingUser == null)
                                     {
                                         long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                                        datajs.Add(new USERROOM { UserId = getUser.Id, Email = getUser.Email, DateJoin = currentTimestamp });
+                                        datajs.Add(new USERROOM { UserId = getUser.Id,UserName = getUser.HoTen,UserAvatar = getUser.Avatar, Email = getUser.Email, DateJoin = currentTimestamp });
                                     }
                                 }
                             }

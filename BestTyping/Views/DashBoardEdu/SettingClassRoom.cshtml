@@ -1,0 +1,227 @@
+﻿@model BestTyping.Models.DTO.ROOMSETTINGVIEW
+
+@{
+    ViewBag.Title = "SettingClassRoom";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@using BestTyping.Models
+@{
+    USER user = (USER)Session["User"];
+}
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Nhóm @Model.ClassName</h3>
+                    <ul class="list-group flex-row nav__tab">
+                        <li class="nav-item">
+                            <button id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
+                                <i class="fa fa-users nav__tab-icon" aria-hidden="true"></i>
+                                <span>Thành viên</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="tests-taken-tab" class="button__tab-background" data-tab="browse-members">
+                                <i class="fa fa-bullhorn nav__tab-icon" aria-hidden="true"></i>
+                                <span>Yêu cầu đang chờ xử lý</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="global-challenge-tab" class="button__tab-background" data-tab="setting-room">
+                                <i class="fa fa-cogs nav__tab-icon" aria-hidden="true"></i>
+                                <span>Cài đặt</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab__wrapper">
+                        <div class="tab__wrapper-content" id="list-member">
+                            <p id="btn-owner"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Chủ sở hữu (1)</span></p>
+                            <div class="table_wrapper" id="owner">
+                                <table class="table">
+                                    <thead style="background-color: #8caec3; ">
+                                        <tr>
+                                            <th style="padding:8px" scope="col">Tên</th>
+                                            <th style="padding:8px" scope="col">Email</th>
+                                            <th style="padding:8px" scope="col">Vai trò</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <tr>
+                                            <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;border-radius:50%;" src="@user.Avatar" />@user.HoTen</td>
+                                            <td style=" padding: 5px">@user.Email</td>
+                                            <td style="padding:5px">Chủ sớ hữu</td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p id="btn-member"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Thành viên và khách</span></p>
+                            <div class="table_wrapper" id="member">
+                                <table class="table">
+                                    <thead style="background-color: #8caec3; ">
+                                        <tr>
+                                            <th style="padding:8px" scope="col">Tên</th>
+                                            <th style="padding:8px" scope="col">Email</th>
+                                            <th style="padding:8px" scope="col">Vai trò</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.ListMember.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="4" style="padding:0;">
+                                                    <p style="text-align:center">Chưa có thành viên nào</p>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model.ListMember)
+                                            {
+                                                <tr>
+                                                    <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;border-radius:50%;" src="@item.UserAvatar" />@item.UserName</td>
+                                                    <td style=" padding: 5px">@item.Email</td>
+                                                    <td style="padding:5px">Thành viên</td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab__wrapper-content" id="browse-members" style="display:none">
+                            <div class="table_wrapper">
+                                <table class="table">
+                                    <thead style="background-color: #8caec3; ">
+                                        <tr>
+                                            <th style="padding:8px" scope="col">Tên</th>
+                                            <th style="padding:8px" scope="col">Email</th>
+                                            <th style="padding:8px" scope="col">Vai trò</th>
+                                            <th style="padding:8px;text-align:center" scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.ListUserRequest.Count() == 0)
+                                        {
+
+                                            
+                                            <tr>
+                                                <td colspan="4" style="padding:0;">
+                                                    <p style="text-align:center">Không có yêu cầu nào</p>
+                                                </td>
+                                            </tr>
+
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model.ListUserRequest)
+                                            {
+                                                <tr>
+                                                    <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;border-radius:50%;" src="@user.Avatar" />@user.HoTen</td>
+                                                    <td style=" padding: 5px">@user.Email</td>
+                                                    <td style="padding:5px">Chủ sớ hữu</td>
+                                                    <td style="text-align:center">
+                                                        <a class="operations-setting"><i class="fa fa-plus operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px">Chấp nhận</span></a>
+                                                        <a class="operations-delete"><i class="fa fa-trash operations-icon" aria-hidden="true"></i><span style="color: white; margin-left: 5px">Hủy</span></a>
+                                                    </td>
+                                                </tr>
+
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab__wrapper-content" id="setting-room" style="display:none">
+                            <div class="title-item">
+                                <p id="btnopen-img"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Ảnh nhóm</span></p>
+                                <p class="note-role">Thêm ảnh nhóm</p>
+                            </div>
+
+                            <div class="box__wrapper-item" id="setting-img" style="display:none">
+                                <img style=" width: 55px; margin-bottom: 10px; height: 55px;" id="img-room" src="@Model.AvatarClassRoom" />
+                                <div class="btn-option">
+                                    <a class="btn-option__item"><i class="fa fa-upload" aria-hidden="true"></i><span>Thay đổi ảnh</span></a>
+                                </div>
+                            </div>
+                            <div class="title-item">
+                                <p id="btnopen-description"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Mô tả nhóm</span></p>
+                                <p class="note-role">Thêm chi tiết mô tả về nhóm</p>
+                            </div>
+
+                            <div class="box__wrapper-item" id="setting-description" style="display:none">
+                                <input class="form-control" type="text" value="@Model.Description" style="width:500px;margin-bottom:15px;" />
+                                <button id="create-description" type="button">Lưu</button>
+                            </div>
+
+                            <div class="title-item">
+                                <p id="btnopen-status"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Trang thái</span></p>
+                                <p class="note-role">Thay đổi trạng thái Lớp học</p>
+                            </div>
+
+                            <div class="box__wrapper-item" id="setting-status" style="display:none">                              
+                                <button id="change-status" data-status="@Model.IsPrivate" type="button">Đổi trạng thái</button>
+                            </div>
+
+                            <div class="title-item">
+                                <p id="btnopen-code"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Mã Nhóm</span></p>
+                                <p class="note-role">Chia sẻ mã này để mọi người có thể tham gia trực tiếp vào nhóm- bạn sẽ không nhận được yêu cầu tham gia</p>
+                            </div>
+
+                            <div class="box__wrapper-item" id="setting-code" style="display:none">
+                                @if (@Model.JoinCode == null)
+                                {
+                                    <button id="create-code" type="button">Tạo mã</button>
+                                    <div class="render-code">
+
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="render-code">
+                                        <p id="code-room">@Model.JoinCode</p>
+                                        <div class="btn-option">
+                                            <a class="btn-option__item"><i class="fa fa-arrows-alt" aria-hidden="true"></i><span>Toàn màn hình</span></a>
+                                            <a class="btn-option__item"><i class="fa fa-repeat" aria-hidden="true"></i><span>Đặt lại</span></a>
+                                            <a class="btn-option__item"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Xóa</span></a>
+                                            <a id="copy-coderoom" class="btn-option__item"><i class="fa fa-clone" aria-hidden="true"></i><span>Sao chép</span></a>
+                                        </div>
+                                    </div>
+                                }
+                                <p>Lưu ý: khách sẽ không thể tham gia bằng mã nhóm</p>
+                            </div>
+                            <div class="title-item">
+                                <p id="btnopen-pass"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Mật khẩu</span></p>
+                                <p class="note-role">Chia sẻ mật khẩu này để mọi người có thể điền và tham gia nhóm</p>
+                            </div>
+
+                            <div class="box__wrapper-item" id="setting-pass" style="display:none">
+                                <div style="display: flex;align-items:center; margin-bottom: 10px;">
+                                    <input id="pass-room" class="form-control" type="password" style="width:300px;margin-right:15px;" value="@Model.PassClassRoom" />
+                                    <a id="copy-pass" class="btn-option__item"><i class="fa fa-clone" aria-hidden="true"></i><span>Sao chép</span></a>
+                                </div>
+                                <button id="create-pass" type="button">Tạo mật khẩu</button>
+                                <p>Lưu ý: Mật khẩu tối thiểu phải 6 ký tự bao gồm chữ và số</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/Theme/js/settingroomedu.js"></script>

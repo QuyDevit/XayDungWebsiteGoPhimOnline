@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.5, 8.5" name="DataBestTyping">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 17.625, 8.5" name="DataBestTyping">
   <DataContextMoniker Name="/DataBestTypingDataContext" />
   <nestedChildShapes>
     <classShape Id="2d0ee5df-15e3-4f70-8349-3af0ae05f045" absoluteBounds="5.75, 1.625, 2, 1.9631982421875">
@@ -56,10 +56,10 @@
         <elementListCompartment Id="3f848505-e66f-40d1-842c-6089f60dd40c" absoluteBounds="10.765, 5.085, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f830203e-4261-4fd3-8b3b-1238cf43c18d" absoluteBounds="15.25, 1.625, 2, 2.7324039713541666">
+    <classShape Id="945ab1d9-05f4-455a-8315-d360cd1f9765" absoluteBounds="15.375, 2.5, 2, 2.9247054036458331">
       <DataClassMoniker Name="/DataBestTypingDataContext/CLASSROOM" />
       <nestedChildShapes>
-        <elementListCompartment Id="0f00bee5-c6a4-4dee-a68c-14bfcbd48da5" absoluteBounds="15.265, 2.085, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="76caa13f-5d98-42a7-8666-8c0e1c52f503" absoluteBounds="15.39, 2.96, 1.9700000000000002, 2.364705403645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

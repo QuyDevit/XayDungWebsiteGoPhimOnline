@@ -17,17 +17,10 @@ namespace BestTyping.Controllers
         {
             return View();
         }
-        public ActionResult DashboardEdu()
+       
+        public ActionResult _PartialSideBarEdu()
         {
-            USER user = (USER)Session["User"];
-            if(user == null)
-            {
-                return RedirectToAction("CheckTyping", "Home");
-            }
-            else
-            {
-                return View();
-            }
+            return PartialView();
         }
 
 
@@ -645,12 +638,12 @@ namespace BestTyping.Controllers
                              t.WPM,
                              e.ExerciseID,
                          }).Take(10);
-            List<SIDEBARNEW> list = new List<SIDEBARNEW>();
+            List<PROGRESSUSER> list = new List<PROGRESSUSER>();
             foreach (var item in query)
             {
                 var exercise = db.EXERCISEs.FirstOrDefault(e => e.ExerciseId == item.ExerciseID);
                 var user = db.USERs.FirstOrDefault(u => u.Id == item.UserID);
-                SIDEBARNEW element = new SIDEBARNEW();
+                PROGRESSUSER element = new PROGRESSUSER();
                 element.Name = user.HoTen;
                 element.Avartar = user.Avatar;
                 element.ExerciseName = exercise.Title;

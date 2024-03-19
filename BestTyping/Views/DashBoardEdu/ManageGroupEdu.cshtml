@@ -1,0 +1,64 @@
+﻿@model IEnumerable<BestTyping.Models.DTO.CLASSROOMVIEW>
+
+@{
+    ViewBag.Title = "ManageGroupEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Danh sách nhóm học</h3>
+                    <div class="table_wrapper">
+                        <table class="table">
+                            <thead style="background-color: rgb(105 148 155)">
+                                <tr>
+                                    <th scope="col">#</th>
+                                    <th scope="col">Nhóm học</th>
+                                    <th scope="col">Trạng thái</th>
+                                    <th style="text-align:center" scope="col">Mã tham gia</th>
+                                    <th style="text-align:center" scope="col">Số lượng tham gia</th>
+                                    <th scope="col">Ngày tạo</th>
+                                    <th scope="col">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 1;
+                                }
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td>@item.ClassName</td>
+                                        <td class="status"><span class="@(item.Status == true ? "private" :"public")">@(item.Status == true ? "Riêng tư" :"Công khai")</span></td>
+                                        <td style="text-align:center">@(item.JoinCode == null ? "Chưa tạo" : item.JoinCode)</td>
+                                        <td style="text-align:center">@item.SumPeopleJoin</td>
+                                        <td>@item.CreateDate</td>
+                                        <td>
+                                            <a class="operations-setting" href="@Url.Action("SettingClassRoom","DashBoardEdu",new { id = item.RoomId})"><i class="fa fa-cog operations-icon" aria-hidden="true"></i></a>
+                                            <a class="operations-delete" href=""><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                        </td>
+                                    </tr>
+                                    index++;
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+</div>
