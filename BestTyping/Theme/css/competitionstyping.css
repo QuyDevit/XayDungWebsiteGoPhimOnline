@@ -1,0 +1,198 @@
+﻿.competitions-typing {
+    margin-top: 50px;
+}
+.container-competitions {
+    background: #eaeff9;
+    padding: 0 0 10px 0;
+    border-radius: 0 10px 10px 10px;
+}
+.nav__tab-competitions {
+    list-style: none;
+}
+
+.button__competitions-background {
+    border-top-left-radius: 10px;
+    background-color: #d1def8;
+    position: relative;
+    border: none;
+    padding: 6px 90px 6px 36px;
+    transition: background-color 0.2s ease;
+}
+
+    .button__competitions-background::before {
+        cursor: default;
+        content: "";
+        position: absolute;
+        width: 50px;
+        top: 0;
+        right: 0;
+        background-color: var(--white-color);
+        height: 100%;
+        clip-path: polygon(100% 0, 0 0%, 100% 100%);
+    }
+
+    .button__competitions-background span {
+        font-size: 14px;
+    }
+
+    .button__competitions-background.show {
+        background: #eaeff9;
+    }
+
+.container-competitions__tab {
+    padding: 29px 34px 36px 33px;
+}
+.linkjoin {
+    margin-left:50px;
+    font-size: 15px;
+    padding: 5px 30px;
+    background: #f8faff;
+    border-radius: 10px;
+    border: 1px solid #4a7fd7;
+}
+.linkjoin i{
+    margin-left:5px;
+}
+.table-custom, .table-custom th, .table-custom td, .table-custom tr {
+    border: 1px solid #c0d4df;
+}
+.linkjoin:hover {
+    background: #80d0c7;
+    color: white;
+    border: 1px solid #80d0c7;
+}
+.title-bold{
+    font-size:24px;
+    color:black;
+    font-weight:600;
+    margin-bottom:8px;
+}
+.title-note{
+    font-size: 15px;
+}
+
+.check-typing__create-private {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .check-typing__create-private #checkprivate {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        width: 22px;
+        height: 22px;
+        border-radius: 5px;
+        margin-right: 10px;
+        border: 2px solid #e0e0e0;
+        background-color: #fafafa;
+        cursor: pointer;
+        position: relative;
+    }
+
+        .check-typing__create-private #checkprivate:checked {
+            background-color: #639bbb;
+        }
+
+            .check-typing__create-private #checkprivate:checked:after {
+                content: '';
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                width: 6px;
+                height: 11px;
+                margin-left: -3px;
+                margin-top: -7px;
+                border: solid white;
+                border-width: 0 2px 2px 0;
+                animation: checkmark-bounce 0.5s ease forwards;
+                transform: rotate(45deg);
+            }
+
+@keyframes checkmark-bounce {
+    0% {
+        transform: scale(0) rotate(45deg);
+        opacity: 0;
+    }
+
+    25% {
+        transform: scale(1.8) rotate(45deg);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.4) rotate(45deg);
+    }
+
+    75% {
+        transform: scale(1.6) rotate(45deg);
+    }
+
+    100% {
+        transform: scale(1) rotate(45deg);
+    }
+}
+
+.title-language{
+    font-size:16px;
+    color:black;
+}
+
+.check-language__game {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.check-language__game-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    border: 2px solid #e5e2e2; 
+    transition: background-color 0.2s, border-color 0.2s; 
+}
+
+    .check-language__game-input:checked {
+        background-color: white; 
+        border: 2px solid #639bbb; 
+    }
+
+        .check-language__game-input:checked:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 10px; 
+            height: 10px;
+            margin-left: -5px; 
+            margin-top: -5px;
+            background-color: #639bbb; 
+            border-radius: 50%; 
+            transition: width 0.2s, height 0.2s, margin-left 0.2s, margin-top 0.2s; 
+        }
+
+.btn-create__game{
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+    .btn-create__game button {
+        font-size: 15px;
+        border: none;
+        background: #68bdb3;
+        padding: 5px 10px;
+        border-radius: 10px;
+        color: white;
+        min-height:40px;
+        min-width:300px;
+    }
+        .btn-create__game button:hover {
+            background: #45b3a6;
+        }

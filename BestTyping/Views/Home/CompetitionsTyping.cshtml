@@ -1,0 +1,99 @@
+﻿@model BestTyping.Models.DTO.COMPETITIONVIEWMODEL
+
+@{
+    ViewBag.Title = "CompetitionsTyping";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/competitionstyping.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="competitions-typing">
+                    <ul class="list-group flex-row nav__tab-competitions">
+                        <li class="nav-item">
+                            <button class="button__competitions-background show" data-tab="join-competitions">
+                                <i class="fa fa-gamepad nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Tham gia cuộc thi</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="button__competitions-background" data-tab="create-competitions">
+                                <i class="fa fa-plus-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Tạo cuộc thi</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div id="join-competitions" class="container-competitions">
+                        <div class="container-competitions__tab">
+                            <div class="container">
+                                <table class="table table-responsive table-custom">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="text-align:center">QUỐC GIA</th>
+                                            <th style="text-align:center">SỐ NGƯỜI ĐÃ THAM GIA</th>
+                                            <th style="text-align:center">SỐ BÀI KIỂM TRA ĐÃ THỰC HIỆN</th>
+                                            <th>THỜI GIAN CÒN LẠI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.ListJoinCompetitionTable)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    <img style="width: 40px; height: 23px; margin-right: 5px; margin-left: 30px;" src="@item.CountryAvartar" />
+                                                    <a class="linkjoin" href="@Url.Action("Competitions", "Competition", new { codejoin = item.Joincode })">
+                                                        <span>Tham gia</span><i class="fa fa-sign-in" aria-hidden="true"></i>
+                                                    </a>
+                                                </td>
+                                                <td style="text-align:center">@item.SumPeople</td>
+                                                <td style="text-align:center">@item.NumberOfTestPerpormed</td>
+                                                <td style="text-align:center">@item.TimeCountDown</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="create-competitions" class="container-competitions" style="display:none">
+                        <div class="container-competitions__tab">
+                            <div class="container">
+                                <p class="title-bold">Tự tạo cuộc thi bí mật của bạn</p>
+                                <p class="title-note">(Không ai có thể thấy cuộc thi này, trừ khi bạn chia sẻ URL)</p>
+                                <div class="check-typing__create-private">
+                                    <input id="checkprivate" type="checkbox">
+                                    <label for="checkprivate" style="color:black">Tạo cuộc thi bí mật</label>
+                                </div>
+                                <p class="title-language">Chọn ngôn ngữ:</p>
+                                <div class="row">
+                                    @foreach (var item in Model.ListLanguageTable)
+                                    {
+                                        <div class="col-sm-6 col-xl-3" style="margin-bottom:20px">
+                                            <div class="check-language__game">
+                                                <input id="@item.LanguageName" class="check-language__game-input" value="@item.LanguageName" type="radio" name="language" />
+                                                <label for="@item.LanguageName"><img src="@item.LanguageAvatar" style="width:40px;height:22px;margin-right:5px;" /><span>@item.LanguageName</span></label>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="btn-create__game">
+                                    <button id="btncreatecompetition" type="button">Tạo cuộc thi</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="~/Theme/js/competitionstyping.js"></script>

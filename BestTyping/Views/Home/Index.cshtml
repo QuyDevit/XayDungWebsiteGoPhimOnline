@@ -1,0 +1,554 @@
+﻿@{
+    ViewBag.Title = "BestTyping";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+@Html.Partial("_PartialNavTop")
+
+<section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-8 col-12 mx-auto">
+                <h1 class="text-white text-center">Luyện Gõ Phím</h1>
+
+                <h6 class="text-center">Và Kiểm Tra Tốc Độ Đánh Máy</h6>
+
+                <div class="d-flex align-items-center justify-content-center">
+                    <div class="custom-block bg-white shadow-lg" style="width:800px">
+                        <div class="d-flex">
+                            <div>
+                                <h5 class="mb-2">Trò Chơi Luyện Gõ Phím</h5>
+                            </div>
+
+
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="~/Theme/images/image_Typing-game2.png" class="custom-block-image-left img-fluid" alt="">
+                            <a href="@Url.Action("GameTyping","Home")" style="margin:0 10px" class="btn custom-btn mt-2 mt-lg-3">Chơi</a>
+                            <img src="~/Theme/images/image_Typing-game.jpg" class="custom-block-image-left img-fluid" alt="">
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</section>
+<section class="featured-section">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                <div class="custom-block bg-white shadow-lg">
+                    <a href="#">
+                        <div class="d-flex">
+                            <div>
+                                <h5 class="mb-2">Luyện gõ phím</h5>
+
+                                <p class="mb-0">Tất cả những người dùng web đều có thể tận dụng những bài luyện gõ phím để cải thiện tốc độ và chính xác khi nhập liệu.</p>
+                            </div>
+
+
+                        </div>
+
+                        <img src="~/Theme/images/image_Learn-how-to-type.png" class="custom-block-image img-fluid" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12">
+                <div class="custom-block custom-block-overlay">
+                    <div class="d-flex flex-column h-100">
+
+
+                        <div class="custom-block-overlay-text c-flex">
+                            <div>
+                                <h5 class="text-white mb-2">Kiểm tra tốc độ đánh máy</h5>
+
+                                <p class="text-white">Hãy thử đánh giá tốc độ và độ chính xác của bạn trong việc nhập liệu bằng các bài kiểm tra tốc độ đánh máy trực tuyến.</p>
+
+
+                            </div>
+
+                            <img src="~/Theme/images/image_Typing-test.png" class="img-right" alt="">
+                            <a id="linkactive" href="@Url.Action("CheckTyping","Home")" class="btn custom-btn mt-2 mt-lg-3">Thử ngay</a>
+                        </div>
+
+
+                        <!-- <div class="social-share d-flex">
+                            <p class="text-white me-4">Share:</p>
+
+                            <ul class="social-icon">
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-facebook"></a>
+                                </li>Designms-auto"></a>
+                        </div> -->
+
+                        <div class="section-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="explore-section section-padding" id="section_2">
+    <div class="container">
+
+        <div class="col-12 text-center">
+            <h2 class="mb-4">Cấp độ luyện tập</h2>
+        </div>
+
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="design-tab" data-bs-toggle="tab" data-bs-target="#design-tab-pane" type="button" role="tab" aria-controls="design-tab-pane" aria-selected="true">Cơ bản</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="marketing-tab" data-bs-toggle="tab" data-bs-target="#marketing-tab-pane" type="button" role="tab" aria-controls="marketing-tab-pane" aria-selected="false">Trung bình</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="finance-tab" data-bs-toggle="tab" data-bs-target="#finance-tab-pane" type="button" role="tab" aria-controls="finance-tab-pane" aria-selected="false">Khó</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="music-tab" data-bs-toggle="tab" data-bs-target="#music-tab-pane" type="button" role="tab" aria-controls="music-tab-pane" aria-selected="false">Siêu khó</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="education-tab" data-bs-toggle="tab" data-bs-target="#education-tab-pane" type="button" role="tab" aria-controls="education-tab-pane" aria-selected="false">Cao thủ</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="design-tab-pane" role="tabpanel" aria-labelledby="design-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 1</h5>
+
+                                                <p class="mb-0">Luyện tập J, F, and Space </p>
+                                            </div>
+
+                                            <span class="badge bg-design rounded-pill ms-auto">1-2p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step1.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 2</h5>
+
+                                                <p class="mb-0">Luyện tập U, R, and K Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-design rounded-pill ms-auto">1-3p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step2.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 3</h5>
+
+                                                <p class="mb-0">Luyện tập D, E, and I Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-design rounded-pill ms-auto">1-5p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step3.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="marketing-tab-pane" role="tabpanel" aria-labelledby="marketing-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 1</h5>
+
+                                                <p class="mb-0">Luyện tập C, G, and N Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-advertising rounded-pill ms-auto">1-2p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step4.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 2</h5>
+
+                                                <p class="mb-0">Đánh giá cho người mới bắt đầu 1</p>
+                                            </div>
+
+                                            <span class="badge bg-advertising rounded-pill ms-auto">2-4p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step5.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 3</h5>
+
+                                                <p class="mb-0">Luyện tập T, S, and L Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-advertising rounded-pill ms-auto">3-5p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step6.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="finance-tab-pane" role="tabpanel" aria-labelledby="finance-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 1</h5>
+
+                                                <p class="mb-0">Luyện tập O, B, and A Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-finance rounded-pill ms-auto">1-5p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step7.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 2</h5>
+
+                                                <p class="mb-0">Luyện tập V, H, and M Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-finance rounded-pill ms-auto">1-5p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step8.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="music-tab-pane" role="tabpanel" aria-labelledby="music-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 1</h5>
+
+                                                <p class="mb-0">Dấu chấm và dấu phẩy</p>
+                                            </div>
+
+                                            <span class="badge bg-music rounded-pill ms-auto">2-7p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step9.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 2</h5>
+
+                                                <p class="mb-0">Đánh giá cho người mới bắt đầu 2</p>
+                                            </div>
+
+                                            <span class="badge bg-music rounded-pill ms-auto">1-8p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step10.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 3</h5>
+
+                                                <p class="mb-0">Luyện tập W, X, and ; Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-music rounded-pill ms-auto">2-9p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step11.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="education-tab-pane" role="tabpanel" aria-labelledby="education-tab" tabindex="0">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-12 mb-4 mb-lg-3">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 1</h5>
+
+                                                <p class="mb-0">Luyện tập Q, Y, and P Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-education rounded-pill ms-auto">1-7p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/undraw_Graduation_re_gthn.png" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-12">
+                                <div class="custom-block bg-white shadow-lg">
+                                    <a href="">
+                                        <div class="d-flex">
+                                            <div>
+                                                <h5 class="mb-2">Cấp độ 2</h5>
+
+                                                <p class="mb-0">Luyện tập Z and Enter Keys</p>
+                                            </div>
+
+                                            <span class="badge bg-education rounded-pill ms-auto">2-9p</span>
+                                        </div>
+
+                                        <img src="~/Theme/images/topics/step13.jpg" class="custom-block-image img-fluid" alt="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="timeline-section section-padding" id="section_3">
+    <div class="section-overlay"></div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 text-center">
+                <h2 class="text-white mb-4">Tập gõ bàn phím và kiểm tra tốc độ đánh máy?</h2>
+            </div>
+
+            <div class="col-lg-10 col-12 mx-auto">
+                <div class="timeline-container">
+                    <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                        <div class="list-progress">
+                            <div class="inner"></div>
+                        </div>
+
+                        <li>
+                            <h4 class="text-white mb-3">Kiểm tra tốc độ đánh máy</h4>
+
+                            <p class="text-white">Tốc độ đánh máy của bạn có nhanh không? Làm bài kiểm tra đánh máy của chúng tôi và kiểm tra tốc độ đánh máy hiện tại của bạn.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">1</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Nhiều chế độ luyện tập</h4>
+
+                            <p class="text-white">Với nhiều chế độ luyện tập, bài tập luyện gõ bàn phím, cách đặt các ngón tay đúng phím bấm giúp hình thành thói quen sử dụng cả 10 ngón tay và tăng tốc độ đánh máy.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">2</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Thực tiễn</h4>
+
+                            <p class="text-white">Chọn từ nhiều bài học đánh máy miễn phí và luyện tập dần dần kỹ năng đánh máy của bạn.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">3</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Theo dõi lộ trình luyện gõ</h4>
+
+                            <p class="text-white">Theo dõi lộ trình luyện gõ của bạn để biết để xây dựng mục tiêu rõ ràng, giúp quá trình luyện đánh máy được hoàn thiện đúng lộ trình.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">4</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Trải nghiệm tương tác</h4>
+
+                            <p class="text-white">BestTyping xây dựng nhiều nội dung giúp người dùng có nhiều trải nghiệm, việc luyện đánh máy trở nên thú vị hơn như: Trò chơi, video và các thử thách đánh máy khác nhau.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">5</span>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Hướng dẫn tư thế tay đúng</h4>
+
+                            <p class="text-white">Để đánh máy nhanh hơn, các ngón tay đặt các phím cần chính xác. Các ngón tay sẽ có nhiệm vụ riêng của nó cho từng cụm phím, bạn nên gõ đúng theo hướng dẫn. Việc tập luyện thường xuyên, không nản chí bạn sẽ giúp bạn thành thạo và gõ bàn phím rất nhanh.</p>
+
+                            <div class="icon-holder">
+                                <span class="text-light custom-text">6</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-12 text-center mt-5">
+                <p class="text-white">
+                    Tìm hiểu Thêm?
+                    <a href="#" class="btn custom-btn custom-border-btn ms-3">Bắt Đầu</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section section-padding" id="section_4">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-6 col-12">
+                <h2 class="mb-4">Các câu hỏi thường gặp</h2>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <div class="col-lg-5 col-12">
+                <img src="~/Theme/images/faq_graphic.jpg" class="img-fluid" alt="FAQs">
+            </div>
+
+            <div class="col-lg-6 col-12 m-auto">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Vì sao nên luyện gõ 10 ngón?
+                            </button>
+                        </h2>
+
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Luyện gõ 10 ngón sẽ giúp <strong>tăng sự tập trung, khả năng phản xạ với ngôn ngữ và giảm thiểu sự mệt mỏi</strong> khi phải đánh máy một thời gian dài.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                BestTyping giúp người dùng đánh máy nhanh hơn như thế nào?
+                            </button>
+                        </h2>
+
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                BestTyping có nhiều bài học luyện gõ 10 ngón từ dễ đến khó và các hình ảnh mô tả trực quan để người dùng làm quen dễ dàng và đánh máy nhanh hơn. Bên cạnh đó BestTyping còn có các chế độ typing test khác nhau để người dùng kiểm tra tốc độ của bản thân.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Chỉ số từ trên phút (WPM) là gì?
+                            </button>
+                        </h2>
+
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                Chỉ số từ trên phút <code>(WPM)</code> là chỉ số sử dụng để kiểm tra tốc độ đánh máy và được tính bằng dựa trên số từ gõ được trên một phút.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<script src="~/Theme/js/click-scroll.js"></script>

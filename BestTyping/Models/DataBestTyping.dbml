@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="DbBestTyping" Class="DataBestTypingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=LAPTOP-8PK1OHBQ\SQLEXPRESS;Initial Catalog=DbBestTyping;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="DbBestTypingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.USERPROGESS" Member="USERPROGESSes">
+    <Type Name="USERPROGESS">
+      <Column Name="ProgressID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoTuDaGo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="SoBaiKiemTra" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CuocThiThamGia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="WPMTotNhat" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EXERCISE" Member="EXERCISEs">
+    <Type Name="EXERCISE">
+      <Column Name="ExerciseId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EXERCISETEXT" Member="EXERCISETEXTs">
+    <Type Name="EXERCISETEXT">
+      <Column Name="ExerciseTextID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExerciseID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="LanguageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.[USER]" Member="USERs">
+    <Type Name="USER">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoTen" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TaiKhoan" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="MatKhau" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Avatar" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="DiaChi" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DienThoai" Type="System.String" DbType="VarChar(10)" CanBeNull="true" />
+      <Column Name="XacMinh" Type="System.String" DbType="VarChar(6)" CanBeNull="true" />
+      <Column Name="LinkVerification" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="IsEnable" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="GioiThieu" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EXERCISELANGUAGE" Member="EXERCISELANGUAGEs">
+    <Type Name="EXERCISELANGUAGE">
+      <Column Name="LanguageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LanguageName" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="LanguageAvatar" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TYPINGRESULTS" Member="TYPINGRESULTs">
+    <Type Name="TYPINGRESULT">
+      <Column Name="ResultId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Accuracy" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WPM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Mistakes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CorrectWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TotalWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ExerciseTextID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="KeyStrokes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JoinCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.COMPETITION" Member="COMPETITIONs">
+    <Type Name="COMPETITION">
+      <Column Name="CompetitionId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PeopleJoin" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NumberOfTestsPerformed" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="JoinCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="LanguageId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ExerciseTextID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsPrivate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="isOpen" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TEXTPRACTICE" Member="TEXTPRACTICEs">
+    <Type Name="TEXTPRACTICE">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Text" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="TextLength" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="PeopleIsCompleted" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CreatedAt" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="LanguageID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JoinCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="IsPrivate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Rating" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="ListUserLike" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="ListUserRating" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TYPINGRESULTGAME" Member="TYPINGRESULTGAMEs">
+    <Type Name="TYPINGRESULTGAME">
+      <Column Name="ResultId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ExerciseId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Score" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Score2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Score3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.CLASSROOM" Member="CLASSROOMs">
+    <Type Name="CLASSROOM">
+      <Column Name="ClassRoomId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="AvatarClassRoom" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="ClassName" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Description" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IsPrivate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="JoinCode" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PassClassRoom" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="ListUserJoin" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

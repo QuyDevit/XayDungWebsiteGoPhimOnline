@@ -1,0 +1,139 @@
+﻿@model IEnumerable<BestTyping.Models.DTO.TEXTPRACTICEMODELVIEW>
+@{
+    ViewBag.Title = "TextPracticeNew";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+@functions {
+    // Hàm chuyển đổi các ký tự có dấu thành không dấu
+    string RemoveVietnameseSigns(string text)
+    {
+        string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
+    "đ",
+    "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",
+    "í","ì","ỉ","ĩ","ị",
+    "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",
+    "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",
+    "ý","ỳ","ỷ","ỹ","ỵ",};
+        string[] arr2 = new string[] { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
+    "d",
+    "e","e","e","e","e","e","e","e","e","e","e",
+    "i","i","i","i","i",
+    "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",
+    "u","u","u","u","u","u","u","u","u","u","u",
+    "y","y","y","y","y",};
+        for (int i = 0; i < arr1.Length; i++)
+        {
+            text = text.Replace(arr1[i], arr2[i]);
+            text = text.Replace(arr1[i].ToUpper(), arr2[i].ToUpper());
+        }
+        return text;
+    }
+}
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/textpractice.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="competitions-typing">
+                    <ul class="list-group flex-row nav__tab-textpractice">
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPractice","Home")">
+                                <i class="fa fa-list-alt nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài top</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background show" href="@Url.Action("TextPracticeNew","Home")">
+                                <i class="fa fa-book nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài mới</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPracticeLike","Home")">
+                                <i class="fa fa-heart nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản yêu thích</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("MyTextPractice","Home")">
+                                <i class="fa fa-pencil-square nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản của tôi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("CreateTextPractice","Home")">
+                                <i class="fa fa-plus-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Tạo văn bản</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="container-textpractice">
+                        <div class="container-textpractice__tab">
+                            <div class="container">
+                                <table class="table table-responsive table-custom">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th style="text-align:center">Thời gian</th>
+                                            <th>Văn bản</th>
+                                            <th style="text-align:center">Độ dài văn bản</th>
+                                            <th style="text-align:center">Xếp hạng</th>
+                                            <th style="text-align:center">Đánh giá</th>
+                                            <th style="text-align:center">Đã hoàn thành</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int index = 1;
+                                        }
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr class="text-rank">
+                                                <td style="text-align: center; color: #067569 ">@item.CreatedAt</td>
+                                                <td>
+                                                    @{
+                                                        // Tiêu đề ban đầu
+                                                        string originalTitle = item.Title;
+
+                                                        string normalizedTitle = RemoveVietnameseSigns(originalTitle);
+
+                                                        // Loại bỏ các ký tự đặc biệt
+                                                        char[] specialChars = { '-', '/', '"', '\'' };
+                                                        string sanitizedTitle = new string(normalizedTitle.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) && !specialChars.Contains(c)).ToArray());
+
+                                                        // Chuyển đổi sang chữ thường và thay thế dấu cách bằng dấu gạch ngang
+                                                        sanitizedTitle = sanitizedTitle.ToLower().Replace(" ", "-");
+                                                    }
+                                                    <a href="@Url.Action("TextPracticeTest","Home",new { codejoin = item.JoinCode,rank = index,name = sanitizedTitle })">
+                                                        <p class="text-title">@item.Title</p>
+                                                        <p class="text-content table-text_content">@item.Text</p>
+                                                    </a>
+
+                                                </td>
+                                                <td style="text-align:center">@item.TextLength</td>
+                                                <td style="text-align:center">@index</td>
+                                                <td style="text-align:center"><span id="rating">@item.Rating</span><i class="fa fa-star icon-custom" aria-hidden="true"></i></td>
+                                                <td style="text-align:center">@item.PeopleIsCompleted</td>
+                                            </tr>
+                                            index++;
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,186 @@
+﻿
+@using BestTyping.Models
+@{ 
+    USER user = (USER)Session["User"];
+}
+<style>
+    .nav-item:hover{
+        cursor:pointer;
+    }
+</style>
+<nav class="navbar navbar-expand-lg">
+    <div class="container">
+        <a class="navbar-brand" href="@Url.Action("Index","Home")">
+            <img class="nav__icon-logo" src="~/Theme/images/icon_logo.png">
+            <span>BestTyping</span>
+        </a>
+
+        <div class="d-lg-none ms-auto me-4">
+            <a href="#top" class="navbar-icon bi-person smoothscroll"></a>
+        </div>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-lg-5 me-lg-auto">
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" data-nav="home" href="@Url.Action("Index","Home")">Trang chủ</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" data-nav="intro" href="@Url.Action("Index","Home")">Giới thiệu</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" data-nav="instruct" href="@Url.Action("Index","Home")">Hướng dẫn</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link click-scroll" data-nav="question" href="@Url.Action("Index","Home")">Câu hỏi</a>
+                </li>
+
+            </ul>
+            <p class="header_text-lang">Ngôn ngữ</p>
+            <div class="nav-item dropdown">
+                <div class="nav-lang_dropdown">
+                    <span class="nav-lang__select-text">Vietnamese</span>
+                    <i class="fa fa-angle-down icon_down-menu" aria-hidden="true"></i>
+                </div>
+                <ul class="dropdown-menu dropdown-menu-light" aria-labelledby="navbarLightDropdownMenuLink">
+                    <li><a class="dropdown-item no-scroll" href="#">Arabic</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Chinese</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Danish</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">English</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">French</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">German</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Hebrew</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Italian</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Japanese</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Korean</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Mongolian</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Norwegian</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Portuguese</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Russian</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Spanish</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Thai</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Turkish</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Ukrainian</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Vietnamese</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Xhosa</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Yoruba</a></li>
+                    <li><a class="dropdown-item no-scroll" href="#">Zulu</a></li>
+                </ul>
+            </div>
+
+            @if (user != null)
+            {
+                <div class="nav-account">
+
+                    <img src="@user.Avatar" />
+
+                    <span>@user.HoTen</span>
+                    <i style="margin-left:5px;font-size:20px" class="fa fa-angle-down" aria-hidden="true"></i>
+                    <ul class="dropdown-menu-account">
+                        <li><a id="urlinfo" class="dropdown-item" href="@Url.Action("Settings","Home")">Thông tin tài khoản</a></li>
+                        <li><a  class="dropdown-item" href="@Url.Action("DashboardEdu","Home")">Dành cho giáo viên</a></li>
+                        <li id="logout"><a class="dropdown-item no-scroll" href="#">Đăng Xuất</a></li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <div class="d-none d-lg-block">
+                    <button id="login" class="navbar-icon bi-person smoothscroll" style="border:none"></button>
+                </div>
+            }
+            <div class="modal-container">
+                <div class="modal_overlay"></div>
+                <div class="main-box" id="login-modal">
+                    <div class="heading">
+                        <span>Vui lòng đăng nhập để tiếp tục</span>
+                        <span class="close_modal">X</span>
+                    </div>
+                    <div class="box">
+                        <div class="login-box">
+                            <div id="tabmain" class="top-tab">
+                                <div class="left active">Đăng Nhập</div>
+                                <div class="right ">Đăng Ký</div>
+
+                            </div>
+                            <div id="forgetpass" class="top-tab" style="display:none">
+                                <div style="text-align: center; width: 100%; font-weight: 600; background-color: rgb(227, 227, 227);padding:10px;">Quên mật khẩu</div>
+
+                            </div>
+                            <div class="container-left" >
+                                <div class="form-login">
+                                    <div class="in"><i class="fa fa-user" aria-hidden="true"></i><input id="usernamesignin" type="text" placeholder="Tài khoản hoặc email"></div>
+                                    <div class="in"><i class="fa fa-lock" aria-hidden="true"></i><input id="passsignin" type="password" placeholder="Mật khẩu"></div>
+
+                                    <div class="form-middle">
+                                        <input type="checkbox" name="" id=""><span>Ghi nhớ thông tin của tôi</span>
+                                        <span style="margin:0 5px">|</span>
+                                        <span id="btnforget" style="color: #535383;cursor:pointer ">Quên mật khẩu</span>
+                                    </div>
+                                    <button id="signin" class="btn">Đăng Nhập</button>
+                                </div>
+
+
+                                <div class="logos">
+                                    <a href="#" class="icon-login login-gg-btn"><img src="~/Theme/images/google.png" /><span>Login with Google</span> </a>
+                                    <a href="#" class="icon-login login-fb-btn"><img src="~/Theme/images/facebook.png" /><span>Login with Facebook</span> </a>
+                                </div>
+
+                                <div class="bottom-footer">
+                                    <div class="account">Tại sao cần tạo một tài khoản?</div>
+                                    <div class="privacy">Bằng cách tạo tài khoản này, bạn đồng ý với <span>Chính sách quyền riêng tư & Chính sách cookie</span></div>
+                                </div>
+                            </div>
+                            <div class="container-forgetpass" style="display:none;">
+                                <div class="form-signup">                                   
+                                    <div class="up"><span>Tài khoản:</span><input id="usernameforget" type="text" placeholder="Tên tài khoản"></div>
+                                    <div class="up"><span>Mật khẩu mới:</span><input id="passwordforget" type="password" placeholder="Mật khẩu mới"></div>
+                                    <div class="up"><span>Nhập lại mật khẩu:</span><input id="repasswordforget" type="password" placeholder="Nhập lại mật khẩu"></div>
+                                    <div class="up"><span>Email:</span><input id="emailforget" type="email" placeholder="Email"></div>
+                                    <div class="up"><span>Mã xác minh:</span><input id="codeforget" type="text" placeholder="Mã xác minh"> <button id="sendcode" type="button">Gửi mã</button></div>
+                                    <button style="margin-top:10px" id="resetpass" class="btn">Đổi mật khẩu</button>
+                                </div>                    
+                                <div class="bottom-footer">
+                                    <div id="backtabmain" style="cursor: pointer; color: #162d83 " class="account"><i class="fa fa-arrow-left" aria-hidden="true"></i><span style="margin-left:5px;">Quay lại</span></div>                                   
+                                </div>
+                            </div>
+                            <div class="container-right" style="display:none">
+                                <div class="form-signup">
+                                    <div class="up"><span>Họ tên:</span><input id="fullname" type="text" placeholder="Họ tên"></div>
+                                    <div class="up"><span>Tài khoản:</span><input id="username" type="text" placeholder="Tên tài khoản"></div>
+                                    <div class="up"><span>Mật khẩu:</span><input id="password" type="password" placeholder="Mật khẩu"></div>
+                                    <div class="up"><span>Nhập lại mật khẩu:</span><input id="repassword" type="password" placeholder="Nhập lại mật khẩu"></div>
+                                    <div class="up"><span>Email:</span><input id="email" type="email" placeholder="Email"></div>
+                                    <div class="form-middle">
+                                        <span>Vui lòng xác minh</span>
+                                        <div class="g-recaptcha" data-sitekey="6Le-72IpAAAAAJ6JPcsiLk-iMEOmU87cH3ZFSD8z">
+                                        </div>
+                                    </div>
+                                    <button id="register" class="btn">Đăng ký</button>
+
+                                </div>
+
+
+                                <div class="logos">
+                                    <a href="#" class="icon-login login-gg-btn"><img src="~/Theme/images/google.png" /><span>Login with Google</span> </a>
+                                    <a href="#" class="icon-login login-fb-btn"><img src="~/Theme/images/facebook.png" /><span>Login with Facebook</span> </a>
+                                </div>
+
+                                <div class="bottom-footer">
+                                    <div class="account">Tại sao cần tạo một tài khoản?</div>
+                                    <div class="privacy">Bằng cách tạo tài khoản này, bạn đồng ý với <span>Chính sách quyền riêng tư & Chính sách cookie</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

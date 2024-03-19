@@ -1,0 +1,211 @@
+﻿
+@using BestTyping.Models
+@model IEnumerable<BestTyping.Models.DTO.SIDEBARNEW>
+@{
+    USER user = (USER)Session["User"];
+}
+
+@functions {
+    public string IsActive(params string[] actionsAndControllers)
+    {
+        var routeData = HttpContext.Current.Request.RequestContext.RouteData;
+        var routeAction = (string)routeData.Values["action"];
+        var routeController = (string)routeData.Values["controller"];
+
+        for (int i = 0; i < actionsAndControllers.Length; i += 2)
+        {
+            if (i + 1 < actionsAndControllers.Length)
+            {
+                var action = actionsAndControllers[i];
+                var controller = actionsAndControllers[i + 1];
+                if (action == routeAction && controller == routeController)
+                {
+                    return "show";
+                }
+            }
+        }
+
+        return "";
+    }
+}
+
+
+<!-- Sidebar -->
+<aside id="sidebar">
+    <div class="h-100 sidebar__content">
+        @if (user != null)
+        {
+                <div class="sidebar-user">
+                    <div class="sidebar-user__wrapper">
+                        <div class="sidebar-user__wrapper-avatar">
+
+                            <img src="@user.Avatar" />
+
+                        </div>
+                        <div class="sidebar-user__wrapper-content">
+                            <p id="usernamesidebar">@user.HoTen</p>
+                            <p>Gõ tốt nhất: đạt <span id="wpmbest"></span></p>
+                            <p>Số từ đã gõ: <span id="sumword"></span> </p>
+                            <p>Bài kiểm tra đã làm: <span id="sumtest"></span></p>
+                            <p>Cuộc thi tham gia: <span id="sumcompetition"></span></p>
+                        </div>
+                    </div>
+                </div>              
+        }
+        <div class="list">
+            <ul class="navigation" style="margin-top:@(user != null ?"10px" :"50px" )">
+                <li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active @IsActive("CheckTyping","Home")" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("CheckTyping","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-clock-o navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Kiểm tra tốc độ đánh máy</p>
+                            <p class="navigation-text-note">Top 200 từ</p>
+                        </div>
+                    </a>
+
+                </li>
+                <li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active @IsActive("CheckTypingAdvanced","Home")" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("CheckTypingAdvanced","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-arrow-up navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Kiểm tra tốc độ đánh máy (nâng cao)</p>
+                            <p class="navigation-text-note">Top 1000 từ</p>
+                        </div>
+                    </a>
+
+                </li>
+                <li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active @IsActive("CheckTypingCustom","Home")" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("CheckTypingCustom","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-cogs navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Chế độ đánh máy tùy chỉnh</p>
+                            <p class="navigation-text-note">Tạo đề riêng của bạn</p>
+                        </div>
+                    </a>
+
+                </li>
+                <li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active @IsActive("CompetitionsTyping","Home")" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("CompetitionsTyping","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-trophy navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Cuộc thi đánh máy</p>
+                            <p class="navigation-text-note">Chơi cùng người chơi khác</p>
+                        </div>
+                    </a>
+
+                </li>
+                <li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active @IsActive("TextPractice", "Home", "TextPracticeNew", "Home", "MyTextPractice", "Home", "CreateTextPractice", "Home", "EditTextPractice", "Home","TextPracticeTest","Home","TextPracticeLike","Home")" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("TextPractice","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-keyboard-o navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Chế độ tập luyện</p>
+                            <p class="navigation-text-note">Tập luyện theo văn bản của bạn</p>
+                        </div>
+                    </a>
+
+                </li>
+                @*<li class="navigation__item">
+                    <div class="navigation__item-arrow">
+                        <img class="icon-active" src="~/Theme/images/next.png" />
+                    </div>
+                    <a class="navigation__item-inner" href="@Url.Action("DashboardEdu","Home")">
+                        <div class="navigation__item-circle"><i class="fa fa-line-chart navigation__item-icon" aria-hidden="true"></i></div>
+                        <div class="navigation__item-content">
+                            <p class="navigation-text">Top 1000</p>
+                            <p class="navigation-text-note">Mở khóa top 1000 từ trong ngôn ngữ của bạn</p>
+                        </div>
+                    </a>
+                </li>*@
+            </ul>
+        </div>
+        <div class="sidebar-news">
+            <p class="sidebar-heading"><span class="flex-shrink-0">Mới nhất</span></p>
+            <ul class="box-news__content">
+                @{
+                    int index = 1;
+                }
+                @foreach (var item in Model)
+                {
+                    <li class="box-news__item" style="display: @(index <= 5 ? "none":"")">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="@item.Avartar" width="70" height="50" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>@item.Name</a></p>
+                                <p class="box-news__item-text">Đạt <b>@item.WPM WPM</b> trong @item.ExerciseName</p>
+                            </div>
+                        </div>
+                    </li>
+                    index++;
+                }
+            </ul>
+        </div>
+    </div>
+
+</aside>
+<script>
+
+    //Xử lý hiển thị UserProgess
+    $(document).ready(function () {
+        $.ajax({
+            type: 'post',
+            url: '/TypingTest/HandleShowUserProgess',
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (response) {
+                if (response.code == 200) {
+                    $("#wpmbest").text(response.data.WPMTotNhat + " từ/phút");
+                    $("#sumword").text(response.data.SoTuDaGo);
+                    $("#sumtest").text(response.data.SoBaiKiemTra);
+                    $("#sumcompetition").text(response.data.CuocThiThamGia);
+                } else if (response.code == 400) {
+                    $("#wpmbest").text("0 từ/phút");
+                    $("#sumword").text("0");
+                    $("#sumtest").text("0");
+                    $("#sumcompetition").text("0");
+                } else {
+                    //console.log(response.msg);
+                }
+            },
+            error: function (err) {
+                console.log("Error:", err);
+            }
+        });
+    });
+    $(document).ready(function () {
+        var currentIndex = 5; // Chỉ số của phần tử thứ 5
+        var currentIndexold = 10;
+
+        function rotateItems() {
+            // Ẩn phần tử hiện tại và hiển thị phần tử tiếp theo
+            $('.box-news__item').eq(currentIndexold - 1).hide();
+            $('.box-news__item').eq(currentIndex - 1).fadeIn();
+            currentIndex--;
+            currentIndexold--;
+            // Kiểm tra nếu currentIndex <= 0 dừng lại
+            if (currentIndex <= 0) {
+                clearInterval(interval);
+            }
+
+        }
+        // Tự động thực hiện hàm rotateItems sau mỗi 5 giây
+        var interval = setInterval(rotateItems, 5000);
+    });
+
+</script>

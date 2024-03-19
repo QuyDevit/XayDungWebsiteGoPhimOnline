@@ -1,0 +1,102 @@
+﻿@model BestTyping.Models.DTO.EDITTEXTPRACTICEVIEW
+
+@{
+    ViewBag.Title = "EditTextPractice";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/textpractice.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="competitions-typing">
+                    <ul class="list-group flex-row nav__tab-textpractice">
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPractice","Home")">
+                                <i class="fa fa-list-alt nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài top</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background " href="@Url.Action("TextPracticeNew","Home")">
+                                <i class="fa fa-book nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài mới</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPracticeLike","Home")">
+                                <i class="fa fa-heart nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản yêu thích</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("MyTextPractice","Home")">
+                                <i class="fa fa-pencil-square nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản của tôi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background show" href="@Url.Action("CreateTextPractice","Home")">
+                                <i class="fa fa-plus-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Tạo văn bản</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="container-textpractice">
+                        <div class="container-textpractice__tab">
+                            <div class="container">
+                                <div class="title-textpractice">
+                                    <p>Tạo vản bản</p>
+                                </div>
+                                <div class="textpractice_form">
+                                    <div class="textpractice_form-item">
+                                        <label for="languageSelect">Ngôn ngữ</label>
+
+                                        <select class="form-select select-custom dropdown" id="languageSelect">
+
+                                            @foreach (var item in Model.ListLanguage)
+                                            {
+                                                <option value="@item.LanguageName" @(item.LanguageName == Model.Language ? "selected" : "")>@item.LanguageName</option>
+                                            }
+                                        </select>
+
+
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <label for="titletext">Tiêu đề</label>
+                                        <input id="titletext" class="form-control input-title" placeholder="Nhập tiêu đề văn bản" type="text" value="@Model.Title"/>
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <label for="contenttext">Nội dung</label>
+                                        <textarea class="form-control textarea-custom" placeholder="Nhập nội dung văn bản" id="contenttext">@Model.Text</textarea>
+                                    </div>
+                                    <div class="check-private">
+                                        <input id="checkprivate" type="checkbox" @(Model.IsPrivate == true ? "checked" : "")/>
+                                        <label for="checkprivate" style="color:black">Văn bản riêng tư</label>
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <button id="btn-createtext" type="button">Lưu văn bản</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script>
+    let codejoin = `@Model.JoinCode`;
+</script>
+<script src="~/Theme/js/edittextpractice.js"></script>

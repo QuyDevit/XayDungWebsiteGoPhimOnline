@@ -1,0 +1,457 @@
+﻿@model BestTyping.Models.DTO.SETTINGVIEW
+
+@{
+    ViewBag.Title = "Settings";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/settinginfo.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+@functions {
+    // Hàm chuyển đổi các ký tự có dấu thành không dấu
+    string RemoveVietnameseSigns(string text)
+    {
+        string[] arr1 = new string[] { "á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ",
+    "đ",
+    "é","è","ẻ","ẽ","ẹ","ê","ế","ề","ể","ễ","ệ",
+    "í","ì","ỉ","ĩ","ị",
+    "ó","ò","ỏ","õ","ọ","ô","ố","ồ","ổ","ỗ","ộ","ơ","ớ","ờ","ở","ỡ","ợ",
+    "ú","ù","ủ","ũ","ụ","ư","ứ","ừ","ử","ữ","ự",
+    "ý","ỳ","ỷ","ỹ","ỵ",};
+        string[] arr2 = new string[] { "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a",
+    "d",
+    "e","e","e","e","e","e","e","e","e","e","e",
+    "i","i","i","i","i",
+    "o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o","o",
+    "u","u","u","u","u","u","u","u","u","u","u",
+    "y","y","y","y","y",};
+        for (int i = 0; i < arr1.Length; i++)
+        {
+            text = text.Replace(arr1[i], arr2[i]);
+            text = text.Replace(arr1[i].ToUpper(), arr2[i].ToUpper());
+        }
+        return text;
+    }
+}
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="setting-info">
+                    <ul class="list-group flex-row nav__tab-setting">
+                        <li class="nav-item">
+                            <button id="tab-info" class="button__setting-background show" data-tab="myinfo">
+                                <i class="fa fa-user-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Hồ sơ</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="tab-settings" class="button__setting-background" data-tab="mysettings">
+                                <i class="fa fa-cog nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Thiết lập</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div id="myinfo" class="container-settings">
+                        <div class="container-settings__tab">
+                            <div class="container">
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <div class="account-settings">
+                                                    <div class="user-profile">
+                                                        <div class="user-avatar">
+                                                            <img src="@Model.User.Avatar">
+                                                        </div>
+                                                        <h5 class="user-name">@Model.User.HoTen</h5>
+                                                        @{
+                                                            // Tiêu đề ban đầu
+                                                            string originalID = Model.User.HoTen;
+
+                                                            string normalizedID = RemoveVietnameseSigns(originalID);
+
+                                                            // Loại bỏ các ký tự đặc biệt
+                                                            char[] specialChars = { '-', '/', '"', '\'' };
+                                                            string sanitizedID = new string(normalizedID.Where(c => char.IsLetterOrDigit(c) || char.IsWhiteSpace(c) && !specialChars.Contains(c)).ToArray());
+
+                                                            // Chuyển đổi sang chữ thường và thay thế dấu cách bằng dấu gạch ngang
+                                                            sanitizedID = sanitizedID.ToLower().Replace(" ", "");
+                                                        }
+                                                        <h6 class="user-email">id:@sanitizedID</h6>
+                                                    </div>
+                                                    <div class="about">
+                                                        <h5>Giới thiệu</h5>
+                                                        <p>@Model.User.GioiThieu</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="title-info">Thông tin chi tiết</p>
+                                                <div class="row gutters custominfo">
+                                                    <dl>
+                                                        <dt>Thành tích tốt nhất</dt>
+                                                        <dd>@Model.Userprogess.WPMTotNhat từ/phút</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>Bài kiểm tra đã làm</dt>
+                                                        <dd>@Model.Userprogess.SoBaiKiemTra</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>Số cuộc thi đã tham gia</dt>
+                                                        <dd>@Model.Userprogess.CuocThiThamGia</dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>Số từ đã gõ</dt>
+                                                        <dd>@Model.Userprogess.SoTuDaGo</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="container">
+                                <div class="achievements">
+                                    <i class="fa fa-trophy" aria-hidden="true"></i><span>Thành tích</span>
+                                </div>
+                                <div class="achievements-content">
+                                    <div class="row">
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>30+ WPM</p>
+                                                    <p>Đạt được trên 30 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="30"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>40+ WPM</p>
+                                                    <p>Đạt được trên 40 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="40"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>50+ WPM</p>
+                                                    <p>Đạt được trên 50 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="50"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>60+ WPM</p>
+                                                    <p>Đạt được trên 60 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="60"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>70+ WPM</p>
+                                                    <p>Đạt được trên 70 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="70"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>80+ WPM</p>
+                                                    <p>Đạt được trên 80 WPM</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-wpm="80"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>Đã tham gia 10 cuộc thi</p>
+                                                    <p>Tham gia 10 Cuộc thi đánh máy khác nhau để nhận được huy hiệu này.</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-competition="10"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>Đã tham gia 25 cuộc thi</p>
+                                                    <p>Tham gia 25 Cuộc thi đánh máy khác nhau để nhận được huy hiệu này.</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-competition="25"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>Đã tham gia 50 cuộc thi</p>
+                                                    <p>Tham gia 50 Cuộc thi đánh máy khác nhau để nhận được huy hiệu này.</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-competition="50"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-6">
+                                            <div class="achievements-content__item">
+                                                <div class="achievements-content__item-img">
+                                                    <i class="fa fa-shield" aria-hidden="true"></i>
+                                                </div>
+                                                <div class="achievements-content__item-text">
+                                                    <p>Đã tham gia 100 cuộc thi</p>
+                                                    <p>Tham gia 100 Cuộc thi đánh máy khác nhau để nhận được huy hiệu này.</p>
+                                                    <div class="achievements-content__item-progress">
+                                                        <span data-competition="100"></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="mysettings" class="container-settings" style="display:none;">
+                        <div class="container-settings__tab">
+                            <div class="container">
+                                <div class="row gutters">
+                                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+                                        <div class="card h-100">
+                                            <div class="card-body" style="justify-content: center;">
+                                                <div class="account-settings">
+                                                    <div class="user-profile">
+                                                        <div class="user-avatar">
+                                                            <img id="avataractive" src="@Model.User.Avatar">
+                                                            <input id="userAvatarInput" type="file" style="display:none" accept="image/*" />
+                                                            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                                            <button id="btnsavefile" type="button" class="">Lưu thông tin</button>
+                                                        </div>
+                                                        <div class="btn-changepass">
+                                                            <button id="onpenchangepass" type="button">Đổi mật khẩu</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+                                        <div class="card h-100">
+                                            <div class="card-body">
+                                                <p class="title-info">Thông tin tài khoản</p>
+                                                <div class="row gutters custominfo">
+                                                    <div class="custominfo__content">
+                                                        <span>Tên hiển thị:</span>
+                                                        <input id="newname" type="text" value="@Model.User.HoTen" />
+                                                    </div>
+                                                    <div class="custominfo__content">
+                                                        <span>Giới thiệu:</span>
+                                                        <input type="text" id="introduce" value="@Model.User.GioiThieu" />
+                                                    </div>
+                                                    <button id="btnsaveinfo" type="button">Lưu thay đổi</button>
+                                                </div>
+                                                <div id="changepass" class="row gutters custominfo" style="display:none;">
+                                                    <p class="title-info">Đổi mật khẩu</p>
+                                                    <div class="custominfo__content">
+                                                        <span>Mật khẩu cũ:</span>
+                                                        <input id="oldpass" type="password" />
+                                                    </div>
+                                                    <div class="custominfo__content">
+                                                        <span>Mật khẩu mới:</span>
+                                                        <input id="newpass" type="password" />
+                                                    </div>
+                                                    <div class="custominfo__content">
+                                                        <span>Nhập lại mật khẩu mới:</span>
+                                                        <input id="renewpass" type="password" />
+                                                    </div>
+                                                    <button id="btnsavechangepass" type="button">Lưu thay đổi</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="setting-info_content">
+                            <ul class="list-group flex-row">
+                                <li class="nav-item" style="list-style:none">
+                                    <button class="button__setting-info">
+                                        <i class="fa fa-user-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                        <span>Thông tin của bạn</span>
+                                    </button>
+                                </li>
+                            </ul>
+                            <div class="setting-info_content-box">
+                                <div style="padding:50px 30px">
+                                    <table class="table table-bordered table-responsive table__info">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th></th>
+                                                <th style="font-weight:600">Thông tin của bạn</th>
+                                                <th style="font-weight:600">Mô tả</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th>Tên tài khoản</th>
+                                                <th>@Model.User.TaiKhoan</th>
+                                                <th>Đây là tên người dùng của bạn khi đăng ký tài khoản.</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Tên hiển thị</th>
+                                                <th>@Model.User.HoTen</th>
+                                                <th>Bạn có thể muốn thay đổi tên hiển thị trên trang web hoặc sử dụng biệt danh thay vì tên người dùng.</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Email</th>
+                                                <th>@Model.User.Email</th>
+                                                <th>Email của bạn được sử dụng cho mục đích đăng nhập, mật khẩu và khôi phục tài khoản.</th>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="setting-typing_result">
+                            <i class="fa fa-diamond" aria-hidden="true"></i>
+                            <p class="setting-typing_result-title">Số lần kiểm tra</p>
+                        </div>
+                        <button type="button" id="btn-deleteresult">Xóa bài kiểm tra đã chọn</button>
+                        <div class="setting-result__wrapper">
+                            <table id="table-rank" class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align:unset"><input class="checkbox form-check-input" id="check-all" type="checkbox" /></th>
+                                        <th>#</th>
+                                        <th style="text-align:center;color:green">Tổ hợp phím</th>
+                                        <th style="text-align: center; color: green">Số từ đúng</th>
+                                        <th style="text-align:center;color:red">Số từ sai</th>
+                                        <th style="text-align:center;color:green">WPM</th>
+                                        <th style="text-align:center;">Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        int index = 1;
+                                    }
+                                    @foreach (var item in Model.ListResult)
+                                    {
+                                        <tr>
+                                            <th style="text-align:unset"><input class="checkbox form-check-input" type="checkbox" value="@item.ResultID" /></th>
+                                            <td>@index</td>
+                                            <td style="text-align: center; color: green">@item.KeyStrokes</td>
+                                            <td style="text-align: center; color: green">@item.CorrectWords</td>
+                                            <td style="text-align: center; color: red">@item.Mistakes</td>
+                                            <td style="text-align: center; color: green">@item.WPM</td>
+                                            <td style="text-align:center">@item.Timestamp</td>
+                                        </tr>
+                                        index++;
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script>
+    var wpm = `@Model.Userprogess.WPMTotNhat`;
+    var sumcompetition = `@Model.Userprogess.CuocThiThamGia`;
+    $('span[data-wpm]').each(function () {
+        var targetWpm = $(this).data('wpm'); // Lấy giá trị WPM mục tiêu
+        var percentage = Math.min(100, (wpm / targetWpm) * 100); // Tính tỷ lệ phần trăm, không cho quá 100%
+
+        $(this).width(percentage + '%'); // Cập nhật width của thẻ span
+
+        // Tùy chọn: Thêm một số hiệu ứng hoặc style nếu cần
+        $(this).css('background-color', 'rgb(8, 188, 170)'); // Ví dụ, đổi màu nền
+        if (percentage == 100) {
+            // Có thể thêm một số logic ở đây nếu đạt 100%
+            $(this).css('background-color', 'gold');
+        }
+    });
+
+    $('span[data-competition]').each(function () {
+        var targetCompetition = $(this).data('competition'); // Lấy giá trị WPM mục tiêu
+        var percentage = Math.min(100, (sumcompetition / targetCompetition) * 100); // Tính tỷ lệ phần trăm, không cho quá 100%
+
+        $(this).width(percentage + '%'); // Cập nhật width của thẻ span
+
+        // Tùy chọn: Thêm một số hiệu ứng hoặc style nếu cần
+        $(this).css('background-color', 'rgb(8, 188, 170)'); // Ví dụ, đổi màu nền
+        if (percentage == 100) {
+            // Có thể thêm một số logic ở đây nếu đạt 100%
+            $(this).css('background-color', 'gold');
+        }
+    });
+</script>
+<script src="~/Theme/js/settinguser.js" defer type="module"></script>
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>

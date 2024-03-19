@@ -1,0 +1,241 @@
+﻿@model BestTyping.Models.DTO.TABLEVIEWMODEL
+
+@{
+    ViewBag.Title = "CheckTyping";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="test-typing">
+                    <div class="psoload" style="display:none">
+                        <div class="straight"></div>
+                        <div class="curve"></div>
+                        <div class="center"></div>
+                        <div class="inner"></div>
+                    </div>
+                    <div class="dynamic-text-box" id="fillter" style="display:none">
+                        <div id="container__fillter">
+                            <div id="container__content">
+                                <ul class="list-group flex-row">
+                                    <li class="list-group-item nav__select-text">
+                                        <select class="form-select nav__select-language" aria-label="Default select example">
+                                            <option selected value="Vietnamese">Vietnamese</option>
+                                            <option value="English">English</option>
+                                            <option value="Japanese">Japanese</option>
+                                            <option value="Chinese">Chinese</option>
+                                        </select>
+                                        <span>(Chuyển ngôn ngữ)</span>
+                                    </li>
+                                    <li class="list-group-item nav__tab-check-focus">
+                                        <span>Toàn màn hình</span>
+                                        <div class="switch-content">
+                                            <input type="checkbox" id="checkbox" />
+                                            <label class="switch" for="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p id="quote">
+                                </p>
+                            </div>
+                            <div class="typing-speed">
+                                <div class="typing-speed__inner">
+                                    <input id="inputfield" class="form-control typing-speed__input" type="text" />
+                                    <div id="timer" class="typing-speed__timer">1:00</div>
+                                    <button class="btn btn-primary btn-reset"><i class="fa fa-refresh btn-reset__text" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-4 mb-md-0 container-result">
+                        <div class="box-result" id="result-test" style="display:none">
+                            <div class="box-result__header">
+                                <span>KẾT QUẢ</span>
+                                <strong id="wpm"></strong>
+                            </div>
+                            <div class="box-result__content">
+                                <div class="box-result__wrapper">
+                                    <div class="box-result__wrapper-content">
+                                        <span>Tổ hợp phím</span>
+                                        <span id="keystroke"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Độ chính xác</span>
+                                        <span id="accuracy"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ đúng</span>
+                                        <span id="correctword"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ sai</span>
+                                        <span id="wrongword"></span>
+                                    </div>
+                                </div>
+                                <div class="box-result__footer">
+                                    <a class="btn-share" href="">
+                                        <i class="fa fa-facebook box-result__footer-icon" aria-hidden="true"></i>
+                                        <span>Chia sẻ qua Facebook</span>
+                                    </a>
+                                    <a class="btn-screen" href="">
+                                        <i class="fa fa-camera box-result__footer-icon" aria-hidden="true"></i>
+                                        <span>Chụp kết quả</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="typing__banner">
+                        <p>Xem chi tiết</p>
+                        <p>Kỷ lục</p>
+                    </div>
+                </section>
+                <section class="ranking-table">
+                    <ul class="list-group flex-row nav__tab-rank">
+                        <li class="nav-item">
+                            <button id="top-ranking-tab" class="button__rank-background show" data-tab="top-ranking">
+                                <i class="fa fa-bar-chart nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bảng xếp hạng</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="tests-taken-tab" class="button__rank-background" data-tab="tests-taken">
+                                <i class="fa fa-list-ul nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Số bài kiểm tra</span>
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button id="global-challenge-tab" class="button__rank-background" data-tab="global-challenge">
+                                <i class="fa fa-globe nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Thử thách toàn cầu</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="tab-content tab-background">
+                        <div class="tab__pane-wrapper" id="top-ranking">
+                            <p>Bảng xếp hạng của các thành viên tham gia </p>
+                            <div class="tab-table__box">
+                                <table id="table-rank" class="table table-bordered" style="width:100%">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>HẠNG</th>
+                                            <th style="text-align:center">TÀI KHOẢN</th>
+                                            <th style="text-align:center">WPM</th>
+                                            <th>TỔ HỢP PHÍM</th>
+                                            <th>THỜI GIAN</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int index = 1;
+                                        }
+                                        @foreach (var i in Model.ListRankTable)
+                                        {
+                                            <tr>
+                                                <td>@index</td>
+                                                <td><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;" src="@i.Avatar" />   @i.Name</td>
+                                                <td>@i.Wpm</td>
+                                                <td>@i.Keystrokes</td>
+                                                <td>@i.TimeLastResult</td>
+                                            </tr>
+                                            index++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab__pane-wrapper" id="tests-taken">
+                            <p>Số lần kiểm tra của các thành viên tham gia</p>
+                            <div class="tab-table__box">
+                                <table id="table-tests" class="table table-bordered" style="width:100%;border-top-left-radius:10px;border-top-right-radius:10px">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>HẠNG</th>
+                                            <th style="text-align:center">TÀI KHOẢN</th>
+                                            <th style="text-align:center">24 giờ qua</th>
+                                            <th>Mọi lúc</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int indextl2 = 1;
+                                        }
+                                        @foreach (var i in Model.ListTestTable)
+                                        {
+                                            <tr>
+                                                <td>@indextl2</td>
+                                                <td><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;" src="@i.Avatar" />@i.Name</td>
+                                                <td>@i.TestIn24H</td>
+                                                <td>@i.TestInAllTime</td>
+                                            </tr>
+                                            indextl2++;
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="tab__pane-wrapper" id="global-challenge">
+                            <p>Thử thách toàn cầu: ngôn ngữ nào được sử dụng nhiều nhất? Dựa trên các bài kiểm tra </p>
+                            <div class="tab-table__box">
+                                <table id="table-global" class="table table-bordered" style="width:100%;border-top-left-radius:10px;border-top-right-radius:10px">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>HẠNG</th>
+                                            <th style="text-align:center">QUỐC GIA</th>
+                                            <th style="text-align:center">NGÔN NGỮ</th>
+                                            <th>SỐ BÀI KIỂM TRA</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            int indextl3 = 1;
+                                        }
+                                        @foreach (var i in Model.ListTestGlobalTable)
+                                        {
+                                            <tr>
+                                                <td>@indextl3</td>
+                                                <td style="text-align:center"><img style="width:40px;height:23px;margin-right:5px" src="@i.CountryAvartar" /></td>
+                                                <td>@i.Language</td>
+                                                <td>@i.SumTest</td>
+                                            </tr>
+                                            indextl3++;
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<div id="overlay">
+    <div id="modal-question" class="confirm-box">
+        <div class="custom-modal__title">
+            <p>Bạn có muốn reset lại văn bản?</p>
+            <img src="~/Theme/images/img_question.png" />
+        </div>
+        <a id="no" href="#" title="No">Không</a>
+        <a id="yes" class="active" href="#" title="Yes">Có</a>
+    </div>
+</div>
+
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>
+<script src="~/Theme/js/checktyping.js"></script>

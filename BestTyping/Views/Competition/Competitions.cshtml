@@ -1,0 +1,204 @@
+﻿@model BestTyping.Models.DTO.RESULTCOMPETITIONVIEWMODEL
+
+@{
+    ViewBag.Title = "Competitions";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/competition.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="test-typing">
+                    <div class="psoload" style="display:none">
+                        <div class="straight"></div>
+                        <div class="curve"></div>
+                        <div class="center"></div>
+                        <div class="inner"></div>
+                    </div>
+                    <div class="dynamic-text-box" id="fillter" style="display:none">
+                        <div id="container__fillter">
+                            <div id="container__content">
+                                <ul class="list-group flex-row">
+                                    <li class="list-group-item nav__tab-check-focus">
+                                        <span>Toàn màn hình</span>
+                                        <div class="switch-content">
+                                            <input type="checkbox" id="checkbox" />
+                                            <label class="switch" for="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p id="quote">
+                                </p>
+                            </div>
+                            <div class="typing-speed">
+                                <div class="typing-speed__inner">
+                                    <input id="inputfield" class="form-control typing-speed__input" type="text" />
+                                    <div id="timer" class="typing-speed__timer">1:00</div>
+                                    <button class="btn btn-primary btn-reset"><i class="fa fa-refresh btn-reset__text" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-0" style="display:flex">
+                        <div class="col-md-5 mb-4 mb-md-0 container-result" style="flex:1">
+                            <div class="box-result" id="result-test" style="display:none;width:85%">
+                                <div class="box-result__header">
+                                    <span>KẾT QUẢ</span>
+                                    <strong id="wpm"></strong>
+                                </div>
+                                <div class="box-result__content">
+                                    <div class="box-result__wrapper">
+                                        <div class="box-result__wrapper-content">
+                                            <span>Tổ hợp phím</span>
+                                            <span id="keystroke"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Độ chính xác</span>
+                                            <span id="accuracy"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Số từ đúng</span>
+                                            <span id="correctword"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Số từ sai</span>
+                                            <span id="wrongword"></span>
+                                        </div>
+                                    </div>
+                                    <div class="box-result__footer">
+                                        <a class="btn-share" href="">
+                                            <i class="fa fa-facebook box-result__footer-icon" aria-hidden="true"></i>
+                                            <span>Chia sẻ qua Facebook</span>
+                                        </a>
+                                        <a class="btn-screen" href="">
+                                            <i class="fa fa-camera box-result__footer-icon" aria-hidden="true"></i>
+                                            <span>Chụp kết quả</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-5 mb-4 mb-md-0" style="flex: 1; margin-right: 10px; box-shadow: 0 1rem 3rem rgba(0,0,0,.1); height: fit-content; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; overflow:hidden">
+                            <div class="competitions-ranking__head">
+                                <p>Xếp hạng cuộc thi</p>
+                                <div class="competitions-ranking__head-countdown">
+                                    <p>Thời gian còn lại</p>
+                                    <strong id="countdown">
+
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="competitions-ranking__content">
+                                @if (Model.Competition.PeopleJoin == 0)
+                                {
+                                    <p id="title-countpeople">Hiện tại chưa có đối thủ nào.</p>
+                                }
+                                else
+                                {
+                                    <p id="title-countpeople">@Model.Competition.NumberOfTestsPerformed bài kiểm tra do @Model.Competition.PeopleJoin đối thủ cạnh tranh thực hiện</p>
+                                    <table class="table table-responsive">
+                                        <thead>
+                                            <tr style="color: #047f70 ">
+                                                <th style="text-align:center">Top</th>
+                                                <th>Tên người chơi</th>
+                                                <th style="text-align:center">WPM</th>
+                                                <th style="text-align:center">Thời gian</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @{
+                                                int index = 1;
+                                            }
+                                            @foreach (var item in Model.ListResultCompetition)
+                                            {
+                                                <tr>
+                                                    <td style="text-align:center"><div class="top-table @(index == 1 ? "top1" : "")">@index</div></td>
+                                                    <td><img src="@item.Avatar" style="width:34px;height:34px;border-radius:50%;margin-right:10px" /><span style="font-weight:600">@item.Name</span></td>
+                                                    <td style="text-align: center; padding-top: 15px; ">@item.WPM</td>
+                                                    <td style="text-align: center; padding-top: 15px;">@item.TimeLastResult</td>
+                                                </tr>
+                                                index++;
+                                            }
+                                        </tbody>
+                                    </table>
+                                    <p class="competitions-note">Bạn có thể gõ nhanh hơn những người bạn của bạn? Mọi người đều nhận được cùng một văn bản và chỉ kết quả cao nhất của bạn được ghi nhận, hãy cố gắng giành vị trí thứ nhất trước khi cuộc thi kết thúc.</p>
+                                }
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<div id="overlay"></div>
+<div id="modal-question" class="confirm-box">
+    <div class="custom-modal__title">
+        <p>Bạn có muốn reset lại văn bản?</p>
+        <img src="~/Theme/images/img_question.png" />
+    </div>
+    <a id="no" href="#" title="No">Không</a>
+    <a id="yes" class="active" href="#" title="Yes">Có</a>
+</div>
+<script>
+    let codejoin = `@Model.Competition.JoinCode`;
+    function countdown() {
+        var now = new Date().getTime();
+
+        var twentyFourHoursAgo = now - (24 * 60 * 60 * 1000);
+        var timeRemaining = @Model.Competition.CreateDate - twentyFourHoursAgo;
+        if (timeRemaining <= 0) {
+            // Khi hết thời gian, chuyển hướng người dùng
+            $.ajax({
+                type: 'post',
+                url: '/Competition/CloseCompetition',
+                data: {
+                    codejoin: codejoin
+                },
+                success: function (response) {
+                    if (response.code == 200) {
+                        location.href = '/Home/CompetitionsTyping';
+                    } else {
+                        // Xử lý nếu có lỗi
+                    }
+                },
+                error: function (err) {
+                    // Xử lý lỗi nếu có
+                }
+            });
+        } else {
+            var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+            hours = hours < 10 ? "0" + hours : hours;
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            // Hiển thị thời gian còn lại
+            var countdownElement = document.getElementById('countdown');
+            if (hours === "00" && minutes === "00" && seconds === "00") {
+                countdownElement.textContent = "00 : 00 : 00";
+                clearInterval(interval); // Dừng setInterval
+            } else {
+                countdownElement.textContent = hours + " : " + minutes + " : " + seconds;
+            }
+        }
+    }
+    // Gọi hàm countdown mỗi giây
+    var interval = setInterval(countdown, 1000);
+</script>
+
+<script src="~/Theme/js/competition.js"></script>

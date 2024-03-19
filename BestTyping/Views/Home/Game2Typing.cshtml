@@ -1,0 +1,273 @@
+﻿@model BestTyping.Models.DTO.GAMETYPING
+@{
+    ViewBag.Title = "Game2Typing";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="~/Theme/css/typegame2.css" rel="stylesheet" />
+<link href="~/Theme/css/typegame.css" rel="stylesheet" />
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/tablegame.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<div class="wrapper">
+    <aside id="sidebar">
+        <div class="h-100 sidebar__content">
+            <div class="back__siiebar">
+                <i id="toggle-sidebar" class="fa fa-angle-double-left" aria-hidden="true"></i>
+            </div>
+            <div class="list">
+                <ul class="navigation">
+                    <li class="navigation__item">
+                        <div class="navigation__item-arrow">
+                            <img class="icon-active" src="~/Theme/images/next.png" />
+                        </div>
+                        <a class="navigation__item-inner" href="@Url.Action("GameTyping","Home")">
+                            <div class="navigation__item-circle"><i class="fa fa-clock-o navigation__item-icon" aria-hidden="true"></i></div>
+                            <div class="navigation__item-content">
+                                <p class="navigation-text">Game Typing Test 1</p>
+                                <p class="navigation-text-note">New</p>
+                            </div>
+                        </a>
+
+                    </li>
+                    <li class="navigation__item">
+                        <div class="navigation__item-arrow">
+                            <img class="icon-active show" src="~/Theme/images/next.png" />
+                        </div>
+                        <a class="navigation__item-inner" href="@Url.Action("Game2Typing","Home")">
+                            <div class="navigation__item-circle"><i class="fa fa-arrow-up navigation__item-icon" aria-hidden="true"></i></div>
+                            <div class="navigation__item-content">
+                                <p class="navigation-text">Game Typing Test 2</p>
+                                <p class="navigation-text-note">New</p>
+                            </div>
+                        </a>
+
+                    </li>
+                    <li class="navigation__item">
+                        <div class="navigation__item-arrow">
+                            <img class="icon-active" src="~/Theme/images/next.png" />
+                        </div>
+                        <a class="navigation__item-inner" href="@Url.Action("Game3Typing","Home")">
+                            <div class="navigation__item-circle"><i class="fa fa-cogs navigation__item-icon" aria-hidden="true"></i></div>
+                            <div class="navigation__item-content">
+                                <p class="navigation-text">Game Typing Test 3</p>
+                                <p class="navigation-text-note">New</p>
+                            </div>
+                        </a>
+
+                    </li>
+                    <li class="navigation__item">
+                        <div class="navigation__item-arrow">
+                            <img class="icon-active" src="~/Theme/images/next.png" />
+                        </div>
+                        <a class="navigation__item-inner" href="@Url.Action("Game4Typing","Home")">
+                            <div class="navigation__item-circle"><i class="fa fa-trophy navigation__item-icon" aria-hidden="true"></i></div>
+                            <div class="navigation__item-content">
+                                <p class="navigation-text">Game Typing Test 4</p>
+                                <p class="navigation-text-note">New</p>
+                            </div>
+                        </a>
+
+                    </li>
+
+                </ul>
+            </div>
+            <div class="sidebar-news">
+                <p class="sidebar-heading"><span class="flex-shrink-0">Mới nhất</span></p>
+                <ul class="box-news__content">
+                    <li class="box-news__item">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="~/Theme/images/image_Typing-test.png" width="70" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>Quý Nguyễn</a></p>
+                                <p class="box-news__item-text">Đạt <b>40 WPM</b> trong Kiểm tra đánh máy bình thường</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="box-news__item">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="~/Theme/images/rear-view-young-college-student.jpg" width="70" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>Bình Đặng</a></p>
+                                <p class="box-news__item-text">Đạt <b>44 WPM</b> trong Kiểm tra đánh máy bình thường</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="box-news__item">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="~/Theme/images/image_Learn-how-to-type.png" width="70" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>Kiệt Lương</a></p>
+                                <p class="box-news__item-text">Đạt <b>42 WPM</b> trong Kiểm tra đánh máy bình thường</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="box-news__item">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="~/Theme/images/image_Typing-game2.png" width="70" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>Hoàng Đỗ</a></p>
+                                <p class="box-news__item-text">Đạt <b>50 WPM</b> trong Kiểm tra đánh máy bình thường</p>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="box-news__item">
+                        <div class="box-news__item-inner">
+                            <div class="box-news__item-image">
+                                <img src="~/Theme/images/image_Typing-game.jpg" width="70" />
+                            </div>
+                            <div class="box-news__item-content">
+                                <p class="box-news__item-title"><a>Ông Trùm</a></p>
+                                <p class="box-news__item-text">Đạt <b>40 WPM</b> trong Kiểm tra đánh máy bình thường</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </aside>
+    <aside id="sidebar2" style="display:none">
+        <div class="h-100 sidebar__content">
+            <div class="back__siiebar">
+                <i id="toggle-sidebar2" class="fa fa-angle-double-right" aria-hidden="true"></i>
+            </div>
+        </div>
+    </aside>
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <div class="typing-game">
+                    <div id="main-container">
+                        <div id="game-title"><span class="title-keys">Keys</span><span class="title-hit"> Hit</span></div>
+                        <div id="game-score"><div>SCORE: <span id="score-text"></span></div></div>
+                        <div id="game-best-score" style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>BEST SCORE: <span id="best-score-text"></span></div>
+                            <div id="choose_time">
+                                <div class="selection">
+                                    <input id="level1" name="level" checked type="radio">
+                                    <label for="level1">Easy</label>
+                                </div>
+                                <div class="selection">
+                                    <input id="level2" name="level" type="radio">
+                                    <label for="level2">Normal</label>
+                                </div>
+                                <div class="selection">
+                                    <input id="level3" name="level" type="radio">
+                                    <label for="level3">Hard</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="game-content" class="state-0" style="margin-top:10px;">
+                            <div id="key-containers">
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                                <div class="key-container"><div class="container-text"></div></div>
+                            </div>
+                            <div class="popups">
+                                <div class="popup" id="start-game-popup">
+                                    <div class="popup-inner">
+                                        <div><button class="btn wide-btn" id="start-button">START</button></div>
+                                        <div><button class="btn wide-btn how-to-play-button">HOW TO PLAY?</button></div>
+                                    </div>
+                                </div>
+                                <div class="popup" id="restart-game-popup">
+                                    <div class="popup-inner">
+                                        <p id="popup-over-msg"></p>
+                                        <div style="font-size: 18px; color: #717275;">SCORE: <span id="popup-score-text">0</span></div>
+                                        <div><button class="btn wide-btn" id="restart-button">RESTART</button></div>
+                                        <div><button class="btn wide-btn how-to-play-button">HOW TO PLAY?</button></div>
+                                    </div>
+                                </div>
+                                <div class="popup" id="how-to-play-game-popup">
+                                    <div class="popup-inner">
+                                        <p>1. Type the keys in the order they appear.</p>
+                                        <p>2. There should be atleast 2 keys on the screen all the time.</p>
+                                        <p>3. There should be atleast 1 empty circle all the time.</p>
+                                        <div><button class="btn wide-btn pop-state-btn">OK</button></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <section class="ranking-table">
+                    <ul class="list-group flex-row nav__tab-rank">
+                        <li class="nav-item">
+                            <button id="top-ranking-tab" class="button__rank-background show" data-tab="top-ranking">
+                                <i class="fa fa-bar-chart nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bảng xếp hạng</span>
+                            </button>
+                        </li>
+                    </ul>
+                    <div class="table__wrapper">
+                        <table id="table-rank" class="table table-bordered" style="width:100%">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>HẠNG</th>
+                                    <th style="text-align:center">TÀI KHOẢN</th>
+                                    <th style="text-align:center">Level 1</th>
+                                    <th style="text-align:center">Level 2</th>
+                                    <th style="text-align:center">Level 3</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int index = 1;
+                                }
+                                @foreach (var item in Model.ListResultGame)
+                                {
+                                    <tr>
+                                        <td>@index</td>
+                                        <td><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;" src="@item.Avar" />  @item.Name</td>
+                                        <td>@item.Score1</td>
+                                        <td>@item.Score2</td>
+                                        <td>@item.Score3</td>
+                                    </tr>
+                                    index++;
+                                }
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/Theme/js/howler.min.js"></script>
+<script src="~/Theme/js/game2typing.js"></script>
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>
+
+

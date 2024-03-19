@@ -1,0 +1,113 @@
+﻿
+
+canvas {
+    border: 1px solid #ccc;
+    background: #212829;
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.title-game h2 {
+    color:white;
+    font-family: 'Press Start 2P', system-ui !important;
+    text-align:center;
+    margin-bottom:20px;
+}
+.title-game h3 {
+    font-size:26px;
+    color: green;
+}
+
+    .title-game h3.blink {
+        font-family: 'Press Start 2P', system-ui !important;
+        animation: blink 2s infinite;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+.container-game {
+    position: relative;
+    height: 550px;
+    width: 100%;
+}
+
+.btn-reset-level {
+    border: none;
+    margin-left: 15px;
+    padding: 0 20px;
+    border-radius: 5px;
+    background: #d9654c;
+}
+    .btn-reset-level:hover {
+        background: #dd7328;
+    }
+.btn-reset-level i{  
+    color: white;
+    font-size:20px;
+}
+@media screen and (min-width: 1200px) {
+    .typing-game {
+        font-family: 'Press Start 2P', system-ui;
+        background: #1C1C1C !important;
+        margin: 0 10px;
+        background: white;
+        margin-top: 45px;
+        height: 850px !important;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(212,212,212,.8);
+        border-radius: 10px;
+    }
+
+}
+
+
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+    .title-game h3 {
+        font-size: 16px;
+    }
+    .typing-game {
+        font-family: 'Press Start 2P', system-ui;
+        background: #1C1C1C !important;
+        margin: 0 10px;
+        background: white;
+        margin-top: 45px;
+        height: 850px !important;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(212,212,212,.8);
+        border-radius: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .title-game h3{
+        font-size:16px;
+    }
+    .choose_time label{
+        font-size:16px;
+    }
+    .typing-game {
+        font-family: 'Press Start 2P', system-ui;
+        background: #1C1C1C !important;
+        margin: 0 10px;
+        background: white;
+        margin-top: 45px;
+        height: 850px !important;
+        padding: 20px;
+        box-shadow: 0 4px 20px rgba(212,212,212,.8);
+        border-radius: 10px;
+    }
+}

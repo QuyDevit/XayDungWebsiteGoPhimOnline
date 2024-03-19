@@ -1,0 +1,151 @@
+﻿
+@{
+    ViewBag.Title = "CheckTypingCustom";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="test-typing">
+                    <div class="psoload" style="display:none">
+                        <div class="straight"></div>
+                        <div class="curve"></div>
+                        <div class="center"></div>
+                        <div class="inner"></div>
+                    </div>
+                    <div class="dynamic-text-box slide-down" id="fillter" style="display:none">
+                        <div class="typing-test__action">
+                            <button id="opensetting" type="button"><span>Mở cài đặt</span><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+                            @*<button id="iframe" type="button"><span>Nhúng</span><i class="fa fa-angle-right" aria-hidden="true"></i></button>*@
+                        </div>
+                        <div id="settings" style="display:none">
+                            <form class="form-settings">
+                                <div class="check-typing__group">
+                                    <span>Khoảng thời gian: </span>
+                                    <select class="check-typing__selected-time">
+                                        <option value="30">30 giây</option>
+                                        <option value="60" selected>1 phút</option>
+                                        <option value="120">2 phút</option>
+                                        <option value="300">5 phút</option>
+                                        <option value="600">10 phút</option>
+                                    </select>
+                                </div>
+                                <p class="check-typing__note">Danh sách từ nếu bạn muốn sắp xếp ngẫu nhiên, hãy tách từng từ hoặc cụm từ bằng dấu "|"</p>
+                                <div class="check-typing__custom-text">
+                                    <textarea id="wordcustom" rows="7">
+                                    </textarea>
+                                </div>
+                                <div class="check-typing__custom-random">
+                                    <input id="checkrandom" type="checkbox" />
+                                    <label for="checkrandom">Ngẫu nhiên</label>
+                                </div>
+                                <button id="apply-settings" class="check-typing__custom-btn" type="button">Áp dụng cài đặt</button>
+                            </form>
+                        </div>
+                        <div id="container__fillter">
+                            <div id="container__content">
+                                <ul class="list-group flex-row">
+                                    <li class="list-group-item nav__select-text">
+                                        <select class="form-select nav__select-language" aria-label="Default select example">
+                                            <option selected value="Vietnamese">Vietnamese</option>
+                                            <option value="English">English</option>
+                                            <option value="Japanese">Japanese</option>
+                                            <option value="Chinese">Chinese</option>
+                                        </select>
+                                        <span>(Chuyển ngôn ngữ)</span>
+                                    </li>
+                                    <li class="list-group-item nav__tab-check-focus">
+                                        <span>Toàn màn hình</span>
+                                        <div class="switch-content">
+                                            <input type="checkbox" id="checkbox" />
+                                            <label class="switch" for="checkbox">
+                                                <span class="slider"></span>
+                                            </label>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <p id="quote">
+                                </p>
+                            </div>
+                            <div class="typing-speed">
+                                <div class="typing-speed__inner">
+                                    <input id="inputfield" class="form-control typing-speed__input" type="text" />
+                                    <div id="timer" class="typing-speed__timer">1:00</div>
+                                    <button class="btn btn-primary btn-reset" style="background-color: #4a7fd7;"><i class="fa fa-refresh btn-reset__text" aria-hidden="true"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mb-4 mb-md-0 container-result">
+                        <div class="box-result" id="result-test" style="display:none">
+                            <div class="box-result__header">
+                                <span>KẾT QUẢ</span>
+                                <strong id="wpm"></strong>
+                            </div>
+                            <div class="box-result__content">
+                                <div class="box-result__wrapper">
+                                    <div class="box-result__wrapper-content">
+                                        <span>Tổ hợp phím</span>
+                                        <span id="keystroke"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Độ chính xác</span>
+                                        <span id="accuracy"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ đúng</span>
+                                        <span id="correctword"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ sai</span>
+                                        <span id="wrongword"></span>
+                                    </div>
+                                </div>
+                                <div class="box-result__footer">
+                                    <a class="btn-share" href="">
+                                        <i class="fa fa-facebook box-result__footer-icon" aria-hidden="true"></i>
+                                        <span>Chia sẻ qua Facebook</span>
+                                    </a>
+                                    <a class="btn-screen" href="">
+                                        <i class="fa fa-camera box-result__footer-icon" aria-hidden="true"></i>
+                                        <span>Chụp kết quả</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="typing__banner">
+                        <p>Xem chi tiết</p>
+                        <p>Kỷ lục</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<div id="overlay">
+    <div id="modal-question" class="confirm-box">
+        <div class="custom-modal__title">
+            <p>Bạn có muốn reset lại văn bản?</p>
+            <img src="~/Theme/images/img_question.png" />
+        </div>
+        <a id="no" href="#" title="No">Không</a>
+        <a id="yes" class="active" href="#" title="Yes">Có</a>
+    </div>
+</div>
+
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>
+<script src="~/Theme/js/checktypingcustom.js"></script>

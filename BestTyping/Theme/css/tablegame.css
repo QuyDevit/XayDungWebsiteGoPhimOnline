@@ -1,0 +1,46 @@
+﻿.ranking-table {
+    width: 100%;
+    font-family: "Lato",sans-serif;
+    margin: 50px 10px;
+}
+.nav__tab-rank {
+    list-style: none;
+    border-bottom: none;
+}
+
+.button__rank-background {
+    border-top-left-radius: 10px;
+    background-color: #d1def8;
+    position: relative;
+    border: none;
+    padding: 11px 60px 10px 36px;
+    transition: background-color 0.2s ease;
+}
+
+    .button__rank-background.show {
+        background-color: #eaeff9;
+    }
+
+        .button__rank-background.show span {
+            color: #4a7fd7;
+        }
+
+    .button__rank-background::before {
+        cursor: default;
+        content: "";
+        position: absolute;
+        width: 50px;
+        top: 0;
+        right: 0;
+        background-color: var(--white-color);
+        height: 100%;
+        clip-path: polygon(102% 0, 0 0%, 102% 100%);
+    }
+
+    .button__rank-background span {
+        font-size: 16px;
+    }
+
+#table-rank {
+    background-color: #eaeff9;
+}

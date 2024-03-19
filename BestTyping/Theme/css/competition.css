@@ -1,0 +1,68 @@
+﻿.competitions-ranking__head {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 30px;
+    background: #68bdb3;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.competitions-ranking__head-countdown {
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.competitions-ranking__head p{
+    font-size:16px;
+    margin:0;
+    color:white;
+}
+.competitions-ranking__content {
+    padding: 15px 0;
+    background: #fafbfd;
+}
+.competitions-ranking__head-countdown p {
+    font-size: 16px;
+    margin: 0;
+    color: white;
+    margin-right: 10px;
+}
+#title-countpeople {
+    text-align: center;
+    font-size: 16px;
+    padding: 5px 50px;
+    margin: 0 40px 10px;
+    background: #e4e7e9;
+    border-radius:5px;
+    color:#000;
+}
+.competitions-note {
+    font-size: 14px;
+    margin: 0 40px;
+}
+
+.top-table {
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin: 0 auto;
+    border: 1px solid #fff3f1;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    background-color: #98d3cc;
+    font-weight: 600;
+    color: white;
+}
+
+    .top-table.top1:after {
+        content: "";
+        position: absolute;
+        top: -3px;
+        right: -8px;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        background: url("https://cdn.pixabay.com/photo/2014/04/03/11/46/crown-312077_640.png") no-repeat center/15px,#fff;
+    }

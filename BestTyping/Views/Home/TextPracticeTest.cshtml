@@ -1,0 +1,139 @@
+﻿@model BestTyping.Models.DTO.TEXTPRACTICETEST
+@using BestTyping.Models
+@{
+    USER user = (USER)Session["User"];
+}
+
+
+@{
+    ViewBag.Title = "TextPracticeTest";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/textpractice.css" rel="stylesheet" />
+<div class="wrapper">
+    @Html.Action("_PartialSideBarTest", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content px-3 py-2">
+            <div class="container-fluid">
+                <section class="competitions-typing">
+                    <ul class="list-group flex-row nav__tab-textpractice">
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPractice","Home")">
+                                <i class="fa fa-list-alt nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài top</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPracticeNew","Home")">
+                                <i class="fa fa-book nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Bài mới</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("TextPracticeLike","Home")">
+                                <i class="fa fa-heart nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản yêu thích</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("MyTextPractice","Home")">
+                                <i class="fa fa-pencil-square nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Văn bản của tôi</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="button__textpractice-background" href="@Url.Action("CreateTextPractice","Home")">
+                                <i class="fa fa-plus-circle nav__tab-rank-icon" aria-hidden="true"></i>
+                                <span>Tạo văn bản</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="container-textpractice">
+                        <div class="container-textpractice__tab">
+                            <div class="container">
+                                <div class="practice_wrapper">
+                                    <p class="practice_wrapper-title">@Model.Title</p>
+                                    <p class="practice_wrapper-byuser"><span>Tạo @Model.CreateDate bởi:</span><a href="">@Model.UserCreate</a></p>
+                                    <div class="practice_wrapper-detail">
+                                        <div class="practice_wrapper-detail-item">
+                                            Độ dài văn bản: <span>@Model.TextLength</span>
+                                        </div>
+                                        <div class="practice_wrapper-detail-item">
+                                            Đã hoàn thành: <span id="completed">@Model.PeopleIsCompleted</span>
+                                        </div>
+                                        <div class="practice_wrapper-detail-item">
+                                            Xếp hạng: <span>@Model.Rank</span>
+                                        </div>
+                                        <div class="practice_wrapper-detail-item">
+                                            Đánh giá: <span id="rating">@Model.Rating <i class="fa fa-star icon-custom" aria-hidden="true"></i></span>
+                                        </div>
+                                    </div>
+                                    @if (user != null)
+                                    {
+                                        <div class="check-favorite_wrapper">
+                                            <input type="checkbox" id="checkfavorite" @(Model.UserIsLike == true ? "checked" : "")/>
+                                            <label id="btn-checkfavorite" class="labelfavorite" for="checkfavorite">
+                                                Yêu thích
+                                            </label>
+                                        </div>
+                                    }
+
+
+                                    <div class="practice__text-test" id="text-container">
+                                        
+                                    </div>
+                                    <div class="practice-typing__wapper">
+                                        <input id="inputfield" class="practice-typing__wapper-input form-control" type="text" />
+                                        <div id="timer" class="practice-typing__wapper-timer">00:00</div>
+                                    </div>
+                                    <div class="practice_wrapper-rating" style="display:none">
+                                        <div class="rating-box">
+                                                <input id="rate-5" name="rate" value="5" type="radio" @(Model.RatingByUser == 5 ? "checked" : "") />
+                                                <label for="rate-5" class="fa fa-star"></label>
+                                                <input id="rate-4" name="rate" value="4" type="radio" @(Model.RatingByUser == 4 ? "checked" : "") />
+                                                <label for="rate-4" class="fa fa-star"></label>
+                                                <input id="rate-3" name="rate" value="3" type="radio" @(Model.RatingByUser == 3 ? "checked" : "") />
+                                                <label for="rate-3" class="fa fa-star"></label>
+                                                <input id="rate-2" name="rate" value="2" type="radio" @(Model.RatingByUser == 2 ? "checked" : "") />
+                                                <label for="rate-2" class="fa fa-star"></label>
+                                                <input id="rate-1" name="rate" value="1" type="radio" @(Model.RatingByUser == 1 ? "checked" : "") />
+                                                <label for="rate-1" class="fa fa-star"></label>
+ 
+                                        </div>
+                                    </div>
+                                    <div class="practice__wrapper-result" style="display:none">
+                                        <p>Kết quả</p>
+                                        <div id="showresult">
+                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>
+<script>
+    let checkuser = false;
+    if ("@user" !== "") {
+        checkuser = true;
+    } else {
+        checkuser = false;
+    }
+    let codejoin = `@Model.JoinCode`;
+    let textlength = `@Model.TextLength`;
+    let text = `@Html.Raw(@Model.Text)`;
+    let completed = `@Model.PeopleIsCompleted`;
+</script>
+<script src="~/Theme/js/textpracticetest.js"></script>
