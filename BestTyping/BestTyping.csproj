@@ -278,6 +278,7 @@
     <Content Include="Theme\js\jquery.sticky.js" />
     <Content Include="Theme\js\login-social.js" />
     <Content Include="Theme\js\main.js" />
+    <Content Include="Theme\js\managegroup.js" />
     <Content Include="Theme\js\mytextpractice.js" />
     <Content Include="Theme\js\settingroomedu.js" />
     <Content Include="Theme\js\settinguser.js" />

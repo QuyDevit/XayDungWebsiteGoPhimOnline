@@ -209,8 +209,7 @@ $(document).ready(function () {
             cancelButtonText:"Hủy",
             confirmButtonText: 'Đồng ý'
         }).then((result) => {
-            if (result.isConfirmed) {
-              
+            if (result.isConfirmed) {      
                 $.ajax({
                     type: "post",
                     url: "/Account/DeleteTypingResult",

@@ -9,7 +9,8 @@
 @{
     USER user = (USER)Session["User"];
 }
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
 <header class="site-header-two">
     @Html.Partial("_PartialNavTop")
@@ -45,7 +46,35 @@
                     </ul>
                     <div class="tab__wrapper">
                         <div class="tab__wrapper-content" id="list-member">
-                            <p id="btn-owner"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Chủ sở hữu (1)</span></p>
+                            <div class="box-title">
+                                <p id="btn-owner"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Chủ sở hữu (1)</span></p>
+                                <button id="add-user" type="button">Thêm thành viên</button>
+                                <div id="modaladduser" class="modal">
+                                    <div class="modal-content">
+                                        <div class="modal-header_title">
+                                            <p id="title-class">Thêm thành viên vào nhóm</p>
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-control form-custom">
+                                                <label>Bạn có thể thêm người bên ngoài tổ chức của mình làm khách bằng cách nhập địa chỉ email của họ.</label>
+                                                <input id="emailfilter" class="form-control" type="text" placeholder="Bắt đầu nhập Email" />
+                                                <div class="filter-box">
+                                                    <ul id="list-user">
+                                                    </ul>
+                                                    <ul id="list-after">
+                                                    </ul>
+                                                </div>
+
+                                            </form>
+                                        </div>
+                                        <div class="modal-footer_custom">
+                                            <button id="skip" type="button">Hủy</button>
+                                            <button id="add" type="button">Thêm</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="table_wrapper" id="owner">
                                 <table class="table">
                                     <thead style="background-color: #8caec3; ">
@@ -66,7 +95,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <p id="btn-member"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Thành viên và khách</span></p>
+                            <p id="btn-member"><i class="fa fa-chevron-down" aria-hidden="true"></i><span>Thành viên</span></p>
                             <div class="table_wrapper" id="member">
                                 <table class="table">
                                     <thead style="background-color: #8caec3; ">
@@ -117,7 +146,7 @@
                                         @if (Model.ListUserRequest.Count() == 0)
                                         {
 
-                                            
+
                                             <tr>
                                                 <td colspan="4" style="padding:0;">
                                                     <p style="text-align:center">Không có yêu cầu nào</p>
@@ -155,7 +184,9 @@
                             <div class="box__wrapper-item" id="setting-img" style="display:none">
                                 <img style=" width: 55px; margin-bottom: 10px; height: 55px;" id="img-room" src="@Model.AvatarClassRoom" />
                                 <div class="btn-option">
-                                    <a class="btn-option__item"><i class="fa fa-upload" aria-hidden="true"></i><span>Thay đổi ảnh</span></a>
+                                    <input id="room-avatar" type="file" style="display:none" accept="image/*" />
+                                    <a id="btn-openfile" class="btn-option__item"><i class="fa fa-upload" aria-hidden="true"></i><span>Thay đổi ảnh</span></a>
+                                    <button id="btnsave-img" type="button">Lưu</button>
                                 </div>
                             </div>
                             <div class="title-item">
@@ -164,16 +195,18 @@
                             </div>
 
                             <div class="box__wrapper-item" id="setting-description" style="display:none">
-                                <input class="form-control" type="text" value="@Model.Description" style="width:500px;margin-bottom:15px;" />
+                                <input id="description-room" class="form-control" type="text" value="@Model.Description" style="width:500px;margin-bottom:15px;" />
                                 <button id="create-description" type="button">Lưu</button>
                             </div>
 
                             <div class="title-item">
-                                <p id="btnopen-status"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Trang thái</span></p>
+                                <p id="btnopen-status"><i class="fa fa-chevron-right" aria-hidden="true"></i><span>Trạng thái</span></p>
                                 <p class="note-role">Thay đổi trạng thái Lớp học</p>
+                                <span id="status-room" class="@(Model.IsPrivate == true ? "private" :"public")" style="display:none">@(Model.IsPrivate == true ? "Riêng Tư" :"Công khai")</span>
                             </div>
 
-                            <div class="box__wrapper-item" id="setting-status" style="display:none">                              
+                            <div class="box__wrapper-item" id="setting-status" style="display:none">
+
                                 <button id="change-status" data-status="@Model.IsPrivate" type="button">Đổi trạng thái</button>
                             </div>
 
@@ -224,4 +257,8 @@
         </main>
     </div>
 </div>
-<script src="~/Theme/js/settingroomedu.js"></script>
+<script>
+    var datalist = JSON.parse('@Html.Raw(Model.ListUserFilter)');
+    var idRoom = `@Model.RoomId`;
+</script>
+<script src="~/Theme/js/settingroomedu.js" defer type="module"></script>

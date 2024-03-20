@@ -30,9 +30,9 @@
     });
 
       // Prevent scroll for links with class 'no-scroll'
-      $('.no-scroll').click(function (e) {
-          e.preventDefault();
-      });
+      //$('.no-scroll').click(function (e) {
+      //    e.preventDefault();
+      //});
 
     $(window).on('scroll', function(){
       function isScrollIntoView(elem, index) {

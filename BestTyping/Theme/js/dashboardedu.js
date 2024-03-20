@@ -25,24 +25,6 @@
         $("#classdescription").val("");
     }
 
-    //$("#cancel").click(function () {
-    //    setTimeout(function () {
-    //        $("body").addClass("modal-open");
-    //    },100)
-    //    modaladduser.show();
-    //    modaladduserContent.css('animation', 'zoomIn 0.6s');
-    //    $("#add").css("opacity", 0.5).removeClass("open");
-    //});
-
-    // //Danh sách người dùng ban đầu
-    //userList = [
-    //    { name: "Qúy Nguyễn", email: "pingvocuc333@gmail.com" },
-    //    { name: "Tuấn Nguyễn", email: "pingvocuc222@gmail.com" },
-    //    { name: "Sang Nguyễn", email: "pingvocuc111@gmail.com" },
-    //    { name: "Kiệt Nguyễn", email: "pingvocuc000@gmail.com" },
-    //    { name: "Bình Nguyễn", email: "pingvocuc555@gmail.com" }
-    //];
-
     // Lắng nghe sự kiện "input" trên ô input
     $("#emailfilter").on("input", function () {
         var filterValue = $(this).val().toLowerCase(); // Lấy giá trị nhập vào và chuyển thành chữ thường
@@ -176,6 +158,7 @@
                         setTimeout(function () {
                             $("body").addClass("modal-open");
                         }, 100)
+                        $("#add").prop("disabled", true).css("opacity", 0.5).removeClass("open");
                         modaladduser.show();
                         modaladduserContent.css('animation', 'zoomIn 0.6s');
                         $("#add").click(function () {
@@ -222,7 +205,7 @@
         if (count != 0) {
             $("#add").prop("disabled", false).css("opacity", 1).addClass("open");
         } else {
-            $("#add").prop("disabled", false).css("opacity",0.5).removeClass("open");
+            $("#add").prop("disabled", true).css("opacity",0.5).removeClass("open");
         }
     }
 
@@ -250,11 +233,11 @@
         $("body").removeClass("modal-open");
         modaladduserContent.css('animation', 'zoomOut 0.6s');
         setTimeout(function () {
-            modaladduser.hide();
-            setTimeout(function () {
-                location.href = `../DashBoardEdu/SettingClassRoom/${idRoom}`;
-            }, 700)
-        }, 500); 
+            modaladduser.hide();         
+        }, 500);
+        setTimeout(function () {
+            location.href = `../DashBoardEdu/SettingClassRoom/${idRoom}`;
+        }, 700)
     });
 
     $(window).click(function (event) {

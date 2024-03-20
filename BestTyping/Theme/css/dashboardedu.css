@@ -289,7 +289,7 @@
 
     .dashboard-background img {
         margin-top: 30px;
-        width: 80%;
+        width: 60%;
     }
 
 
@@ -532,14 +532,30 @@
     font-size: 15px;
     color: black;
     min-width: 200px;
-    padding: 10px 10px;
+    padding: 10px;
     cursor: pointer;
 }
-.tab__wrapper-content p span{
-    margin-left:10px;
+.box-title {
+    display: flex;
+    align-items:center;
+    justify-content: space-between;
+}
+#add-user {
+    margin-right: 20px;
+    background-color: #8caec3;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    padding: 3px 10px;
+    font-weight: 600;
+    font-size: 15px;
+}
+.tab__wrapper-content p span {
+    margin-left: 10px;
 }
 .title-item{
     display:flex;
+    align-items:center;
 }
 
 .tab__wrapper-content p.note-role {
@@ -598,3 +614,15 @@
 .btn-option__item i{
     margin-right: 5px;
 }
+#status-room {
+    border-radius: 10px;
+    padding: 0 10px;
+    color: white;
+}
+
+#status-room.public {
+    background-color: #69c189;
+}
+    #status-room.private {
+        background-color: #d78c60;
+    }

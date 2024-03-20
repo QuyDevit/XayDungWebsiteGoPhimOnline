@@ -72,6 +72,23 @@ namespace BestTyping.Controllers
                     var dataUserRequest = JsonConvert.DeserializeObject<List<USERROOM>>(getRoom.ListUserRequest);
                     room.ListMember = dataUserJoin;
                     room.ListUserRequest = dataUserRequest;
+
+                    var listemail = new List<USERFILTER>();
+                    var listuser = db.USERs.ToList();
+                    foreach (var item in listuser)
+                    {
+                        var checkusernow = dataUserJoin.FirstOrDefault(u => u.UserId == item.Id);
+                        if (item.Id != user.Id && checkusernow == null)
+                        {
+                            USERFILTER u = new USERFILTER();
+                            u.name = item.HoTen;
+                            u.email = item.Email;
+                            listemail.Add(u);
+                        }
+                    }
+                    
+                    room.ListUserFilter = JsonConvert.SerializeObject(listemail);
+
                     return View(room);
                 }
             }
@@ -153,7 +170,7 @@ namespace BestTyping.Controllers
             }
             catch (Exception)
             {
-                return Json(new { code = 500, msg = "CHấp nhận bỏ" });
+                return Json(new { code = 500, msg = "Lỗi" });
             }
         }
         [HttpPost]
@@ -208,7 +225,130 @@ namespace BestTyping.Controllers
             }
             catch (Exception)
             {
-                return Json(new { code = 500, msg = "CHấp nhận bỏ" });
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult DeleteClassRoom(int data)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if(getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        db.CLASSROOMs.DeleteOnSubmit(getroom);
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Xóa dữ liệu thành công" });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveAvatarGroup(int data,string url)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        getroom.AvatarClassRoom = url;
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Lưu dữ liệu thành công" });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveDescriptionGroup(int data, string description)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        getroom.Description = description;
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Lưu dữ liệu thành công" });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+        [HttpPost]
+        public JsonResult ChangeStatusRoom(int data, bool status)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        getroom.IsPrivate = status;
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Lưu dữ liệu thành công" });
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
             }
         }
     }

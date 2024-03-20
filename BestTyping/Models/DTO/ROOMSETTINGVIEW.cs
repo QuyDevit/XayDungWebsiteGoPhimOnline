@@ -16,5 +16,6 @@ namespace BestTyping.Models.DTO
         public string PassClassRoom { get; set; }
         public List<USERROOM> ListMember { get; set; }
         public List<USERROOM> ListUserRequest { get; set; }
+        public string ListUserFilter { get; set; }
     }
 }

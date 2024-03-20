@@ -5,7 +5,8 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
 <header class="site-header-two">
@@ -48,7 +49,7 @@
                                         <td>@item.CreateDate</td>
                                         <td>
                                             <a class="operations-setting" href="@Url.Action("SettingClassRoom","DashBoardEdu",new { id = item.RoomId})"><i class="fa fa-cog operations-icon" aria-hidden="true"></i></a>
-                                            <a class="operations-delete" href=""><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                            <a class="operations-delete" data-id="@item.RoomId"><i class="fa fa-trash operations-icon"  aria-hidden="true"></i></a>
                                         </td>
                                     </tr>
                                     index++;
@@ -62,3 +63,4 @@
         </main>
     </div>
 </div>
+<script src="~/Theme/js/managegroup.js"></script>

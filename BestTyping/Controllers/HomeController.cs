@@ -669,7 +669,7 @@ namespace BestTyping.Controllers
             }
             catch (Exception)
             {
-                return Json(new { code = 500, msg = "CHấp nhận bỏ" });
+                return Json(new { code = 500, msg = "Lỗi" });
             }
         }
     }
