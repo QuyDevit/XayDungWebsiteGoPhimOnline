@@ -206,8 +206,8 @@
                             </div>
 
                             <div class="box__wrapper-item" id="setting-status" style="display:none">
-
-                                <button id="change-status" data-status="@Model.IsPrivate" type="button">Đổi trạng thái</button>
+                                <input id="status-input" type="checkbox" @(Model.IsPrivate == true ? "checked" :"") style="display:none" />
+                                <button id="change-status" type="button">Đổi trạng thái</button>
                             </div>
 
                             <div class="title-item">
@@ -216,25 +216,22 @@
                             </div>
 
                             <div class="box__wrapper-item" id="setting-code" style="display:none">
-                                @if (@Model.JoinCode == null)
-                                {
-                                    <button id="create-code" type="button">Tạo mã</button>
-                                    <div class="render-code">
+                                <button id="create-code" @(Model.JoinCode != null ? "disabled" : "") style="display:@(Model.JoinCode != null ? "none" : "")" type="button">Tạo mã</button>
 
-                                    </div>
-                                }
-                                else
-                                {
-                                    <div class="render-code">
-                                        <p id="code-room">@Model.JoinCode</p>
-                                        <div class="btn-option">
-                                            <a class="btn-option__item"><i class="fa fa-arrows-alt" aria-hidden="true"></i><span>Toàn màn hình</span></a>
-                                            <a class="btn-option__item"><i class="fa fa-repeat" aria-hidden="true"></i><span>Đặt lại</span></a>
-                                            <a class="btn-option__item"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Xóa</span></a>
-                                            <a id="copy-coderoom" class="btn-option__item"><i class="fa fa-clone" aria-hidden="true"></i><span>Sao chép</span></a>
+                                <div class="render-code" style="display:@(Model.JoinCode == null ? "none" : "")" >
+                                    <p id="code-room">@Model.JoinCode</p>
+                                    <div class="btn-option">
+                                        <a id="fullscreen-code" class="btn-option__item"><i class="fa fa-arrows-alt" aria-hidden="true"></i><span>Toàn màn hình</span></a>
+                                        <div class="full-screen_wrapper full-screen" style="display:none">
+                                            <i class="fa fa-compress" aria-hidden="true"></i>
+                                            <span></span>
                                         </div>
+                                        <a id="repeat-code" class="btn-option__item"><i class="fa fa-repeat" aria-hidden="true"></i><span>Đặt lại</span></a>
+                                        <a id="remove-code" class="btn-option__item"><i class="fa fa-trash-o" aria-hidden="true"></i><span>Xóa</span></a>
+                                        <a id="copy-coderoom" class="btn-option__item"><i class="fa fa-clone" aria-hidden="true"></i><span>Sao chép</span></a>
                                     </div>
-                                }
+                                </div>
+
                                 <p>Lưu ý: khách sẽ không thể tham gia bằng mã nhóm</p>
                             </div>
                             <div class="title-item">
@@ -247,7 +244,8 @@
                                     <input id="pass-room" class="form-control" type="password" style="width:300px;margin-right:15px;" value="@Model.PassClassRoom" />
                                     <a id="copy-pass" class="btn-option__item"><i class="fa fa-clone" aria-hidden="true"></i><span>Sao chép</span></a>
                                 </div>
-                                <button id="create-pass" type="button">Tạo mật khẩu</button>
+                                <button id="create-pass" type="button">Lưu</button>
+                                <button id="delete-pass" style="background-color: #d9a049;margin-left:5px;display:@(Model.PassClassRoom == null ? "none" : "")" type="button">Xóa</button>
                                 <p>Lưu ý: Mật khẩu tối thiểu phải 6 ký tự bao gồm chữ và số</p>
                             </div>
                         </div>

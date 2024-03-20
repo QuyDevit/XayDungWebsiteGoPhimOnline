@@ -108,14 +108,9 @@ $(document).ready(function () {
     })
     //Thay đổi status
     $("#change-status").click(function () {
-        var statusroom = $(this).data("status");
-        var isprivate = true;
-        if (statusroom == "False") {
-            isprivate = true;
-        } else {
-            isprivate = false;
-        }
-
+        $("#status-input").click();
+        var span = $("#status-room");
+        var isprivate = $("#status-input").is(":checked");
         $.ajax({
             type: "post",
             url: "/DashBoardEdu/ChangeStatusRoom",
@@ -127,12 +122,141 @@ $(document).ready(function () {
                 if (response.code == 200) {
                     toastr.success(response.msg);
                     if (isprivate == true) {
-                        $(this).removeClass("public");
-                        $(this).addClass("private");
+                        span.removeClass("public");
+                        span.text("Riêng tư");
+                        span.addClass("private");
                     } else {
-                        $(this).removeClass("private");
-                        $(this).addClass("public");
+                        span.removeClass("private");
+                        span.text("Công khai");
+                        span.addClass("public");
                     }
+                } else {
+                    toastr.warning(response.msg);
+                }
+            }, error: function (err) {
+                toastr.error("Có lỗi xảy ra khi gửi yêu cầu!");
+            }
+        })
+    })
+
+    //Tạo mã code
+    $("#create-code").click(function () {
+        $(this).empty();
+        var loadspiner = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`;
+        $(this).append(loadspiner);
+        setTimeout(function () {
+            $.ajax({
+                type: "post",
+                url: "/DashBoardEdu/CreateCodeRoom",
+                data: {
+                    data: idRoom,
+                },
+                success: function (response) {
+                    if (response.code == 200) {
+                        toastr.success(response.msg);
+                        $("#create-code").prop("disabled", true).hide();
+                        $("#code-room").text(response.data);
+                        $(".render-code").show();
+                    } else {
+                        toastr.warning(response.msg);
+                    }
+                }, error: function (err) {
+                    toastr.error("Có lỗi xảy ra khi gửi yêu cầu!");
+                }
+            })
+        },1000)
+    })
+    //repeat code room
+    $("#repeat-code").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/CreateCodeRoom",
+            data: {
+                data: idRoom,
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                    toastr.success(response.msg);
+                    $("#create-code").prop("disabled", true).hide();
+                    $("#code-room").text(response.data);
+                } else {
+                    toastr.warning(response.msg);
+                }
+            }, error: function (err) {
+                toastr.error("Có lỗi xảy ra khi gửi yêu cầu!");
+            }
+        })
+    })
+    //Remove code room
+    $("#remove-code").click(function () {
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/DeleteCodeRoom",
+            data: {
+                data: idRoom,
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                    toastr.success(response.msg);
+                    $("#create-code").text("Tạo mã").prop("disabled", false).show();
+                    $("#code-room").text("");
+                    $(".render-code").hide();
+                } else {
+                    toastr.warning(response.msg);
+                }
+            }, error: function (err) {
+                toastr.error("Có lỗi xảy ra khi gửi yêu cầu!");
+            }
+        })
+    })
+
+    //Create pass room
+    $("#create-pass").click(function () {
+        var passroom = $("#pass-room").val();
+
+        var passroomPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+        if (!passroomPattern.test(passroom)) {
+            toastr.error("Mật khẩu cần ít nhất 6 ký tự và phải bao gồm cả chữ và số");
+            return;
+        }
+
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/SavePassRoom",
+            data: {
+                data: idRoom,
+                pass: passroom,
+                check : 1
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                    toastr.success(response.msg);
+                    $("#delete-pass").show();
+                } else {
+                    toastr.warning(response.msg);
+                }
+            }, error: function (err) {
+                toastr.error("Có lỗi xảy ra khi gửi yêu cầu!");
+            }
+        })
+    })
+
+    //Delete pass room
+    $("#delete-pass").click(function () {
+        var passroom = $("#pass-room").val();
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/SavePassRoom",
+            data: {
+                data: idRoom,
+                pass: passroom,
+                check: 0
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                    toastr.success(response.msg);
+                    $("#delete-pass").hide();
+                    $("#pass-room").val("");
                 } else {
                     toastr.warning(response.msg);
                 }
@@ -198,6 +322,14 @@ $(document).ready(function () {
         });
     });
 
+    // full screen code
+    $("#fullscreen-code").click(function () {
+        $(".full-screen").show();
+        $(".full-screen_wrapper span").text($("#code-room").text());
+        $(".full-screen_wrapper i").click(function () {
+            $(".full-screen").hide();
+        })
+    })
 
 
     $(document).ready(function () {

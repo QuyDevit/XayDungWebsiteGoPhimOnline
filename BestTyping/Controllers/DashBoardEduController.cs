@@ -351,5 +351,119 @@ namespace BestTyping.Controllers
                 return Json(new { code = 500, msg = "Lỗi" });
             }
         }
+        [HttpPost]
+        public JsonResult CreateCodeRoom(int data)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        var code = GenerateCode();
+                        getroom.JoinCode = code;
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Tạo mã nhóm thành công" ,data = code});
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteCodeRoom(int data)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        getroom.JoinCode = null;
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Xóa mã nhóm thành công"});
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SavePassRoom(int data,string pass,int check)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getroom = db.CLASSROOMs.FirstOrDefault(r => r.ClassRoomId == data && r.UserCreate == user.Id);
+                    if (getroom == null)
+                    {
+                        return Json(new { code = 500, msg = "không hợp lệ" });
+                    }
+                    else
+                    {
+                        if(check == 1)
+                        {
+                            getroom.PassClassRoom = pass;
+                        }
+                        else
+                        {
+                            getroom.PassClassRoom = null;
+                        }
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Lưu thành công"});
+                    }
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+        private string GenerateCode()
+        {
+            var random = new Random();
+            var code = "";
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var length = 7;
+
+            do
+            {
+                code = new string(Enumerable.Repeat(characters, length)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+            } while (db.CLASSROOMs.Any(c => c.JoinCode == code)); // Đảm bảo mã là duy nhất trong DB
+
+            return code;
+        }
     }
 }
