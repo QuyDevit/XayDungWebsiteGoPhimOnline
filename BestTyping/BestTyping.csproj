@@ -175,6 +175,7 @@
     <Compile Include="Models\DTO\RANKTABLE.cs" />
     <Compile Include="Models\DTO\TEXTPRACTICEMODELVIEW.cs" />
     <Compile Include="Models\DTO\TEXTPRACTICETEST.cs" />
+    <Compile Include="Models\DTO\TEXTEDUVIEW.cs" />
     <Compile Include="Models\DTO\TYPINGRESULTSETTING.cs" />
     <Compile Include="Models\DTO\USERCOMPLETED.cs" />
     <Compile Include="Models\DTO\USERFAVORITE.cs" />
@@ -258,6 +259,7 @@
     <Content Include="Theme\images\topics\step8.jpg" />
     <Content Include="Theme\images\topics\step9.jpg" />
     <Content Include="Theme\images\topics\undraw_Graduation_re_gthn.png" />
+    <Content Include="Theme\js\addtextedu.js" />
     <Content Include="Theme\js\addtextpractice.js" />
     <Content Include="Theme\js\bootstrap.bundle.min.js" />
     <Content Include="Theme\js\checktyping.js" />
@@ -268,6 +270,7 @@
     <Content Include="Theme\js\competition.js" />
     <Content Include="Theme\js\custom.js" />
     <Content Include="Theme\js\dashboardedu.js" />
+    <Content Include="Theme\js\edittextedu.js" />
     <Content Include="Theme\js\edittextpractice.js" />
     <Content Include="Theme\js\game3typing.js" />
     <Content Include="Theme\js\game2typing.js" />
@@ -279,6 +282,7 @@
     <Content Include="Theme\js\login-social.js" />
     <Content Include="Theme\js\main.js" />
     <Content Include="Theme\js\managegroup.js" />
+    <Content Include="Theme\js\mytextedu.js" />
     <Content Include="Theme\js\mytextpractice.js" />
     <Content Include="Theme\js\settingroomedu.js" />
     <Content Include="Theme\js\settinguser.js" />
@@ -326,6 +330,9 @@
     <Content Include="Views\DashBoardEdu\DashboardEdu.cshtml" />
     <Content Include="Views\DashBoardEdu\ManageGroupEdu.cshtml" />
     <Content Include="Views\DashBoardEdu\SettingClassRoom.cshtml" />
+    <Content Include="Views\DashBoardEdu\TextTestEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\MyTextTestEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\EditTextTestEdu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -17,7 +17,7 @@ namespace BestTyping.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public JsonResult CreateTextPractice(string title,string language, string content,bool isprivate,long createat,int textlength)
         {
             try
@@ -64,7 +64,8 @@ namespace BestTyping.Controllers
             }
            
         }
-        public JsonResult EditTextPractice(string codejoin,string title, string language, string content, bool isprivate, int textlength)
+        [HttpPost]
+        public JsonResult EditTextPracticeApi(string codejoin,string title, string language, string content, bool isprivate, int textlength)
         {
             try
             {
@@ -82,7 +83,7 @@ namespace BestTyping.Controllers
                     else
                     {
                         var getlanguage = db.EXERCISELANGUAGEs.FirstOrDefault(l => l.LanguageName.Equals(language));
-                        var getTextPractice = db.TEXTPRACTICEs.FirstOrDefault(t => t.JoinCode == codejoin);
+                        var getTextPractice = db.TEXTPRACTICEs.FirstOrDefault(t => t.JoinCode == codejoin && t.UserCreate == user.Id);
                         if(getTextPractice == null)
                         {
                             return Json(new { code = 500, msg = "Không tồn tại văn bản này" });
@@ -105,6 +106,7 @@ namespace BestTyping.Controllers
                 return Json(new { code = 500, msg = ex.Message });
             }
         }
+        [HttpPost]
         public JsonResult LikeTextPracticeByUser(string codejoin)
         {
             try
@@ -164,7 +166,7 @@ namespace BestTyping.Controllers
 
             return code;
         }
-
+        [HttpPost]
         public JsonResult SaveResultTypingTextPractice(string codejoin,int rating)
         {
             try

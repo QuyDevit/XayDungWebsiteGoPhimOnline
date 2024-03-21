@@ -32,8 +32,8 @@
 
         <div class="sidebar-edu__wrapper">
             <div class="sidebar-edu__wrapper-box">
-                <img src="@user.Avatar" />
-                <p>@user.HoTen</p>
+                <img src="@(user != null? user.Avatar : "")" />
+                <p>@(user != null ? user.HoTen : "")</p>
             </div>
             <div class="box_setting">
                 <a href=""><i class="fa fa-user" aria-hidden="true"></i><span>Hồ sơ</span></a>
@@ -48,7 +48,7 @@
                     <li class="@IsActive("DashboardEdu","DashBoardEdu")"><a href="@Url.Action("DashboardEdu","DashBoardEdu")"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Bảng điều khiển</span></a></li>
                     <li class="@IsActive("ManageGroupEdu","DashBoardEdu")"><a href="@Url.Action("ManageGroupEdu","DashBoardEdu")"><i class="fa fa-users" aria-hidden="true"></i><span>Quản lý nhóm</span></a></li>
                     <li><a href=""><i class="fa fa-tasks" aria-hidden="true"></i><span>Quản lý bài kiểm tra</span></a></li>
-                    <li><a href=""><i class="fa fa-plus" aria-hidden="true"></i><span>Tạo văn bản</span></a></li>
+                    <li class="@IsActive("TextTestEdu","DashBoardEdu","MyTextTestEdu","DashBoardEdu")"><a href="@Url.Action("TextTestEdu","DashBoardEdu")"><i class="fa fa-plus" aria-hidden="true"></i><span>Tạo văn bản</span></a></li>
 
                 </ul>
             </div>

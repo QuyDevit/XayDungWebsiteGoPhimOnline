@@ -661,3 +661,16 @@
     right:10px;
     font-size:2em;
 }
+
+/*Text test Edu*/
+.title-text__table {
+    color: #638499;
+    font-size:15px;
+    font-weight:600;
+}
+.text_content__table {
+    width: 400px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

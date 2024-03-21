@@ -11,7 +11,7 @@
             didClose: function () {
                 // Sự kiện này sẽ được gọi khi Toast đóng
                 if (shouldReload) {
-                    location.href = '/Home/MyTextPractice';
+                    location.href = '/DashBoardEdu/MyTextTestEdu';
                 }
             }
         });
@@ -28,28 +28,28 @@
         });
     }
 
+
     $("#btn-createtext").click(function () {
         let title = $("#titletext").val();
         let language = $("#languageSelect").val();
-        let content = $("#contenttext").val();
+        let content = $("#contenttext").val().trim().replaceAll(/\n+/g, " ");
         let isprivate = $("#checkprivate").is(":checked");
 
+   
         if (title === "" || content == "") {
             ToastError("Tiêu đề và nội dung không được rỗng")
             return;
         }
-
-        const wordCount = content.trim().split(/\s+/).length;
+        var currentTimestamp = new Date().getTime();
         $.ajax({
             type: "post",
-            url: "/TextPractice/EditTextPracticeApi",
+            url: "/DashBoardEdu/CreateTextTestEdu",
             data: {
-                codejoin: codejoin,
                 title: title,
                 language: language,
                 content: content,
                 isprivate: isprivate,
-                textlength: wordCount
+                createat: currentTimestamp
             },
             success: function (response) {
                 if (response.code === 200) {
@@ -57,6 +57,8 @@
                 } else {
                     ToastError(response.msg)
                 }
+            }, error: function (err) {
+
             }
         })
     })

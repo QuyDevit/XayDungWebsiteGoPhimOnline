@@ -1,0 +1,93 @@
+﻿@model IEnumerable<BestTyping.Models.DTO.TEXTEDUVIEW>
+@{
+    ViewBag.Title = "MyTextTestEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Quản lý văn bản</h3>
+                    <ul class="list-group flex-row nav__tab">
+                        <li class="nav-item">
+                            <a href="@Url.Action("TextTestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background" data-tab="list-member">
+                                <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
+                                <span>Tạo văn bản</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("MyTextTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background show" data-tab="browse-members">
+                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                                <span>Văn bản của tôi</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab__wrapper">
+                        <div class="tab__wrapper-content">
+                            <div class="table_wrapper">
+                                <table class="table table-responsive">
+                                    <thead style="background-color: #8caec3; ">
+                                        <tr>
+                                            <th style="padding: 8px; text-align: center" scope="col">STT</th>
+                                            <th style="padding:8px" scope="col">Trạng thái</th>
+                                            <th style="padding:8px" scope="col">Văn bản</th>
+                                            <th style="padding:8px" scope="col">Ngày tạo</th>
+                                            <th style="padding:8px;text-align:center" scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="5" style="padding:0;">
+                                                    <p style="text-align:center">Không có văn bản nào</p>
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            int index = 1;
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td style="padding: 5px; text-align: center">@index</td>
+                                                    <td class="status" style=" padding: 5px"><span class="@(item.Status == true ? "private":"public") ">@(item.Status == true ? "Không hiển thị" : "Hiển thị")</span></td>
+                                                    <td style="padding:5px">
+                                                        <div class="text_content__table">
+                                                            <span class="title-text__table">@item.Title</span> <br />
+                                                            <span>@item.Text</span>
+                                                        </div>
+
+                                                    </td>
+                                                    <td style="padding:5px">@item.CreateDate</td>
+                                                    <td style="text-align: center; padding: 5px">
+                                                        <a href="@Url.Action("EditTextTestEdu","DashBoardEdu", new {id = item.ID})" class="operations-setting"><i class="fa fa-pencil-square-o operations-icon" aria-hidden="true"></i></a>
+                                                        <a class="operations-delete" data-id="@item.ID"><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                                index++;
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/Theme/js/mytextedu.js"></script>

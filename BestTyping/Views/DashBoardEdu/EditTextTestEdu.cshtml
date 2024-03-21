@@ -1,0 +1,83 @@
+﻿@model BestTyping.Models.DTO.EDITTEXTPRACTICEVIEW
+@{
+    ViewBag.Title = "EditTextTestEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/textpractice.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Quản lý văn bản</h3>
+                    <ul class="list-group flex-row nav__tab">
+                        <li class="nav-item">
+                            <a href="@Url.Action("TextTestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
+                                <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
+                                <span>Tạo văn bản</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("MyTextTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background" data-tab="browse-members">
+                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                                <span>Văn bản của tôi</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab__wrapper">
+                        <div class="tab__wrapper-content">
+                            <div class="container">
+                                <div class="title-textpractice">
+                                    <p>Tạo văn bản</p>
+                                </div>
+                                <div class="textpractice_form">
+                                    <div class="textpractice_form-item">
+                                        <label for="languageSelect">Ngôn ngữ</label>
+
+                                        <select class="form-select select-custom dropdown" id="languageSelect">
+
+                                            @foreach (var item in Model.ListLanguage)
+                                            {
+                                                <option value="@item.LanguageName" @(item.LanguageName == Model.Language ? "selected" : "")>@item.LanguageName</option>
+                                            }
+                                        </select>
+
+
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <label for="titletext">Tiêu đề</label>
+                                        <input id="titletext" class="form-control input-title" placeholder="Nhập tiêu đề văn bản" type="text" value="@Model.Title" />
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <label for="contenttext">Nội dung</label>
+                                        <textarea class="form-control textarea-custom" placeholder="Nhập nội dung văn bản" id="contenttext">@Model.Text</textarea>
+                                    </div>
+                                    <div class="check-private">
+                                        <input id="checkprivate" type="checkbox" @(Model.IsPrivate == true ? "checked" : "") />
+                                        <label for="checkprivate" style="color:black">Không hiển thị</label>
+                                    </div>
+                                    <div class="textpractice_form-item">
+                                        <button id="btn-createtext" type="button">Lưu văn bản</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script>
+    let data = `@Model.ID`;
+</script>
+<script src="~/Theme/js/edittextedu.js"></script>

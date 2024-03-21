@@ -501,7 +501,7 @@ namespace BestTyping.Controllers
             }
             else
             {
-                var getTextPractice = db.TEXTPRACTICEs.FirstOrDefault(t => t.JoinCode == codejoin);
+                var getTextPractice = db.TEXTPRACTICEs.FirstOrDefault(t => t.JoinCode == codejoin && t.UserCreate == user.Id);
                 if(getTextPractice == null)
                 {
                     return RedirectToAction("CreateTextPractice", "Home");
@@ -517,7 +517,6 @@ namespace BestTyping.Controllers
                     edittext.Language = getLanguagebyText.LanguageName;
                     edittext.Title = getTextPractice.Title;
                     edittext.ListLanguage = getLanguage;
-
                     return View(edittext);
                 }
             }

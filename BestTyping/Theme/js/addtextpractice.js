@@ -30,10 +30,10 @@ $(document).ready(function () {
     }
 
     $("#btn-createtext").click(function () {
-        const title = $("#titletext").val();
-        const language = $("#languageSelect").val();
-        const content = $("#contenttext").val();
-        const isprivate = $("#checkprivate").is(":checked");
+        let title = $("#titletext").val();
+        let language = $("#languageSelect").val();
+        let content = $("#contenttext").val();
+        let isprivate = $("#checkprivate").is(":checked");
 
         if (title === "" || content == "") {
             ToastError("Tiêu đề và nội dung không được rỗng")

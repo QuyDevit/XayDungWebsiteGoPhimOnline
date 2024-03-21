@@ -43,6 +43,188 @@ namespace BestTyping.Controllers
                 return View();
             }
         }
+        public ActionResult TextTestEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var getLanguage = db.EXERCISELANGUAGEs.ToList();
+                return View(getLanguage);
+            }
+        }
+        public ActionResult EditTextTestEdu(int id)
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var gettext = db.TEXTTESTEDUs.FirstOrDefault(t=>t.ID == id && t.UserCreate == user.Id);
+                if(gettext == null)
+                {
+                    return RedirectToAction("MyTextTestEdu", "DashBoardEdu");
+                }
+                else
+                {
+                    var getLanguage = db.EXERCISELANGUAGEs.ToList();
+                    var getLanguagebyText = db.EXERCISELANGUAGEs.FirstOrDefault(t => t.LanguageID == gettext.LanguageID);
+                    EDITTEXTPRACTICEVIEW edittext = new EDITTEXTPRACTICEVIEW();
+                    edittext.ID = gettext.ID;
+                    edittext.IsPrivate = gettext.IsPrivate ?? false;
+                    edittext.Text = gettext.Text;
+                    edittext.Language = getLanguagebyText.LanguageName;
+                    edittext.Title = gettext.Title;
+                    edittext.ListLanguage = getLanguage;
+                    return View(edittext);
+                }
+            }
+        }
+        [HttpPost]
+        public JsonResult EditTextEduApi(int data, string title, string language, string content, bool isprivate)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 400, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(language) || string.IsNullOrEmpty(content) || (isprivate != true && isprivate != false))
+                    {
+                        return Json(new { code = 400, msg = "Vui lòng điền đầy đủ thông tin" });
+                    }
+                    else
+                    {
+                        var getlanguage = db.EXERCISELANGUAGEs.FirstOrDefault(l => l.LanguageName.Equals(language));
+                        var getTextEdu = db.TEXTTESTEDUs.FirstOrDefault(t => t.ID == data && t.UserCreate == user.Id);
+                        if (getTextEdu == null)
+                        {
+                            return Json(new { code = 500, msg = "Không tồn tại văn bản này" });
+                        }
+                        else
+                        {
+                            getTextEdu.LanguageID = getlanguage.LanguageID;
+                            getTextEdu.IsPrivate = isprivate;
+                            getTextEdu.Text = content;
+                            getTextEdu.Title = title;
+                            db.SubmitChanges();
+                            return Json(new { code = 200, msg = "Lưu văn bản thành công" });
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult DeleteTextEdu(int data)
+        {
+            try
+            {
+                USER us = (USER)Session["User"];
+                if (us != null)
+                {
+                    if (data == 0)
+                    {
+                        return Json(new { code = 500, msg = "Đã có lỗi xảy ra" });
+                    }
+                    else
+                    {
+                        var text = db.TEXTTESTEDUs.FirstOrDefault(t => t.ID == data);
+                        if (text != null)
+                        {
+                            db.TEXTTESTEDUs.DeleteOnSubmit(text);
+                        }
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Xóa thành công" });
+                    }
+                }
+                else
+                {
+                    return Json(new { code = 400, msg = "Vui lòng đăng nhập" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult CreateTextTestEdu(string title, string language, string content, bool isprivate, long createat)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 400, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(language) || string.IsNullOrEmpty(content) || (isprivate != true && isprivate != false) || createat <= 0)
+                    {
+                        return Json(new { code = 400, msg = "Vui lòng điền đầy đủ thông tin" });
+
+                    }
+                    else
+                    {
+                        var getlanguage = db.EXERCISELANGUAGEs.FirstOrDefault(l => l.LanguageName.Equals(language));
+                        TEXTTESTEDU text = new TEXTTESTEDU();
+                        text.UserCreate = user.Id;
+                        text.Title = title;
+                        text.CreateDate = createat;
+                        text.Text = content;
+                        text.LanguageID = getlanguage.LanguageID;
+                        text.IsPrivate = isprivate;
+                        db.TEXTTESTEDUs.InsertOnSubmit(text);
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Tạo văn bản thành công" });
+                    }
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+
+        }
+        public ActionResult MyTextTestEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var mytext = db.TEXTTESTEDUs.Where(t => t.UserCreate == user.Id).OrderByDescending(t => t.ID);
+                var list = new List<TEXTEDUVIEW>();
+                foreach(var item in mytext)
+                {
+                    var text = new TEXTEDUVIEW();
+                    text.ID = item.ID;
+                    text.Text = item.Text;
+                    text.Title = item.Title;
+                    text.CreateDate = ConvertTimestampToDate(item.CreateDate ?? 0);
+                    text.Status = item.IsPrivate ?? true;
+                    list.Add(text);
+                }
+
+                return View(list);
+            }
+        }
 
         public ActionResult SettingClassRoom(int id)
         {
