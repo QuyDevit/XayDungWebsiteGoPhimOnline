@@ -332,6 +332,58 @@ $(document).ready(function () {
     })
 
 
+    //Hủy duyệt
+    $(document).on("click", ".delete-join", function () {
+        var data = $(this).data("delete");
+
+        var row = $(this).closest(".request-row");
+        row.remove();
+
+         $.ajax({
+            type: 'post',
+             url: '/DashBoardStudent/DeleteRequestJoin',
+            data: {
+                data: data,
+                roomid: idRoom
+            },
+            success: function (response) {
+                if (response.code === 200) {
+                    toastr.success(response.msg);
+                } else {
+                    console.log(response.msg);
+                }
+            }, error: function (err) {
+
+            }
+        })
+    });
+    //Thêm duyệt
+    $(document).on("click", ".accept-join", function () {
+        var data = $(this).data("add");
+
+        var row = $(this).closest(".request-row");
+        row.remove();
+
+        $.ajax({
+            type: 'post',
+            url: '/DashBoardStudent/AcceptRequestJoin',
+            data: {
+                data: data,
+                roomid: idRoom
+            },
+            success: function (response) {
+                if (response.code === 200) {
+                    toastr.success(response.msg);
+                } else {
+                    console.log(response.msg);
+                }
+            }, error: function (err) {
+
+            }
+        })
+    });
+
+
     $(document).ready(function () {
         // Lấy tất cả các nút bằng class 'button__rank-background'
         const buttons = $(".button__tab-background");

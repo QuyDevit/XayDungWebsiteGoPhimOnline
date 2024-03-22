@@ -17,7 +17,7 @@ namespace BestTyping.Controllers
         {
             return View();
         }
-       
+
         public ActionResult _PartialSideBarEdu()
         {
             return PartialView();

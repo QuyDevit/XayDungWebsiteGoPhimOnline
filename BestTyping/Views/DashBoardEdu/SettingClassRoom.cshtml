@@ -133,12 +133,12 @@
                         </div>
                         <div class="tab__wrapper-content" id="browse-members" style="display:none">
                             <div class="table_wrapper">
-                                <table class="table table-responsive">
+                                <table class="table table-responsive" id="listrequest" data-roomid="@Model.RoomId">
                                     <thead style="background-color: #8caec3; ">
                                         <tr>
                                             <th style="padding:8px" scope="col">Tên</th>
                                             <th style="padding:8px" scope="col">Email</th>
-                                            <th style="padding:8px" scope="col">Vai trò</th>
+                                            <th style="padding:8px" scope="col">Trạng thái</th>
                                             <th style="padding:8px;text-align:center" scope="col">Thao tác</th>
                                         </tr>
                                     </thead>
@@ -158,13 +158,13 @@
                                         {
                                             foreach (var item in Model.ListUserRequest)
                                             {
-                                                <tr>
-                                                    <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;border-radius:50%;" src="@user.Avatar" />@user.HoTen</td>
-                                                    <td style=" padding: 5px">@user.Email</td>
-                                                    <td style="padding:5px">Chủ sớ hữu</td>
-                                                    <td style="text-align:center">
-                                                        <a class="operations-setting"><i class="fa fa-plus operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px">Chấp nhận</span></a>
-                                                        <a class="operations-delete"><i class="fa fa-trash operations-icon" aria-hidden="true"></i><span style="color: white; margin-left: 5px">Hủy</span></a>
+                                                <tr class="request-row">
+                                                    <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;border-radius:50%;" src="@item.UserAvatar" />@item.UserName</td>
+                                                    <td style=" padding: 5px">@item.Email</td>
+                                                    <td style="padding:5px">Xin vào</td>
+                                                    <td style="text-align: center; padding: 5px">
+                                                        <a class="operations-setting accept-join" data-add="@item.UserId"><i class="fa fa-plus operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px">Chấp nhận</span></a>
+                                                        <a class="operations-delete delete-join" data-delete="@item.UserId"><i class="fa fa-trash operations-icon" aria-hidden="true"></i><span style="color: white; margin-left: 5px">Hủy</span></a>
                                                     </td>
                                                 </tr>
 
@@ -206,7 +206,7 @@
                             </div>
 
                             <div class="box__wrapper-item" id="setting-status" style="display:none">
-                                <input id="status-input" type="checkbox" @(Model.IsPrivate == true ? "checked" :"") style="display:none" />
+                                <input id="status-input" type="checkbox" @(Model.IsPrivate == true ? "checked" : "") style="display:none" />
                                 <button id="change-status" type="button">Đổi trạng thái</button>
                             </div>
 
@@ -218,7 +218,7 @@
                             <div class="box__wrapper-item" id="setting-code" style="display:none">
                                 <button id="create-code" @(Model.JoinCode != null ? "disabled" : "") style="display:@(Model.JoinCode != null ? "none" : "")" type="button">Tạo mã</button>
 
-                                <div class="render-code" style="display:@(Model.JoinCode == null ? "none" : "")" >
+                                <div class="render-code" style="display:@(Model.JoinCode == null ? "none" : "")">
                                     <p id="code-room">@Model.JoinCode</p>
                                     <div class="btn-option">
                                         <a id="fullscreen-code" class="btn-option__item"><i class="fa fa-arrows-alt" aria-hidden="true"></i><span>Toàn màn hình</span></a>
@@ -255,8 +255,64 @@
         </main>
     </div>
 </div>
-<script>
-    var datalist = JSON.parse('@Html.Raw(Model.ListUserFilter)');
-    var idRoom = `@Model.RoomId`;
-</script>
-<script src="~/Theme/js/settingroomedu.js" defer type="module"></script>
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <!--Reference the autogenerated SignalR hub script. -->
+    <script src="~/signalr/hubs"></script>
+    <script>
+        $(function () {
+
+            function attachDeleteEvent() {
+                $(".delete-join").click(function () {
+                    var data = $(this).data("delete");
+                    var row = $(this).closest(".request-row");
+                    row.remove();
+                });
+            }
+
+            var dataid = $("#listrequest").data("roomid");
+
+
+            // Reference the auto-generated proxy for the hub.
+            var hub = $.connection.requestJoinHub;
+
+            // Function to call when data is updated.
+            hub.client.updateRequestJoinTable = function (dataUserRequest, roomId) {
+
+                if (roomId === dataid) { // Kiểm tra xem roomId có trùng với idroom không
+                    var $table = $("#listrequest > tbody");
+                    $table.empty(); // Clear existing rows.
+
+                    if (dataUserRequest.length === 0) {
+                        $table.append(`<tr><td colspan="4" style="padding:0;"><p style="text-align:center">Không có yêu cầu nào</p></td></tr>`);
+                    } else {
+                        dataUserRequest.forEach(function (user) {
+                            $table.append(`<tr class="request-row">
+                            <td style="padding:5px"><img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px; border-radius:50%;" src="${user.UserAvatar}" />${user.UserName}</td>
+                            <td style="padding:5px">${user.Email}</td>
+                            <td style="padding:5px">Xin vào</td>
+                            <td style="text-align:center;padding:5px">
+                                <a class="operations-setting accept-join" data-add="${user.UserId}"><i class="fa fa-plus operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px">Chấp nhận</span></a>
+                                <a class="operations-delete delete-join" data-delete="${user.UserId}"><i class="fa fa-trash operations-icon" aria-hidden="true"></i><span style="color: white; margin-left: 5px">Hủy</span></a>
+                            </td>
+                        </tr>`);
+                        });
+                    }
+                    attachDeleteEvent();
+                }
+            };
+
+            $.connection.hub.start().done(function () {
+
+
+            });
+        });
+    </script>
+    <script>
+        var datalist = JSON.parse('@Html.Raw(Model.ListUserFilter)');
+        var idRoom = `@Model.RoomId`;
+    </script>
+    <script src="~/Theme/js/settingroomedu.js" defer type="module"></script>
+}
+
+

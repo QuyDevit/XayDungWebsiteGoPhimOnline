@@ -1,0 +1,54 @@
+﻿@using BestTyping.Models
+@{
+    USER user = (USER)Session["User"];
+}
+
+
+@functions {
+    public string IsActive(params string[] actionsAndControllers)
+    {
+        var routeData = HttpContext.Current.Request.RequestContext.RouteData;
+        var routeAction = (string)routeData.Values["action"];
+        var routeController = (string)routeData.Values["controller"];
+
+        for (int i = 0; i < actionsAndControllers.Length; i += 2)
+        {
+            if (i + 1 < actionsAndControllers.Length)
+            {
+                var action = actionsAndControllers[i];
+                var controller = actionsAndControllers[i + 1];
+                if (action == routeAction && controller == routeController)
+                {
+                    return "show";
+                }
+            }
+        }
+
+        return "";
+    }
+}
+<aside id="sidebar">
+    <div class="h-100 sidebar__content">
+
+        <div class="sidebar-edu__wrapper">
+            <div class="sidebar-edu__wrapper-box">
+                <img src="@(user != null? user.Avatar : "")" />
+                <p>@(user != null ? user.HoTen : "")</p>
+            </div>
+            <div class="box_setting">
+                <a href=""><i class="fa fa-user" aria-hidden="true"></i><span>Hồ sơ</span></a>
+                <a href=""><i class="fa fa-cog" aria-hidden="true"><span>Thiết lập</span></i></a>
+            </div>
+            <div class="box_setting">
+                <a href=""><i class="fa fa-bell" aria-hidden="true"></i><span>Thông báo</span></a>
+                <a href="@Url.Action("LogoutEdu","Account")"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Đăng xuất</span></a>
+            </div>
+            <div class="box_wrapper-dashboard">
+                <ul class="list-dashboard">
+                    <li class="@IsActive("DashboardEdu","DashBoardEdu")"><a href="@Url.Action("DashboardEdu","DashBoardEdu")"><i class="fa fa-tachometer" aria-hidden="true"></i><span>Danh sách lớp học</span></a></li>
+                    <li class="@IsActive("ManageGroupEdu","DashBoardEdu")"><a href="@Url.Action("ManageGroupEdu","DashBoardEdu")"><i class="fa fa-users" aria-hidden="true"></i><span>Kết quả bài thi</span></a></li>                 
+                </ul>
+            </div>
+        </div>
+    </div>
+</aside>
