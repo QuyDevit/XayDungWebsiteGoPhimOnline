@@ -163,3 +163,67 @@
     .active-event a:hover {
         text-decoration:underline;
     }
+
+
+ /*Test Edu*/
+.test__form{
+    padding:0 10px;
+}
+.form-custom {
+    height: 150px;
+    overflow-x: auto;
+}
+.form-custom::-webkit-scrollbar {
+    width: 4px; /* Độ rộng của thanh cuộn */
+}
+
+.form-custom::-webkit-scrollbar-track {
+    background-color: rgba(143, 143, 145, 0.3);
+    border-radius: 1px;
+}
+
+    .form-custom::-webkit-scrollbar-thumb {
+        background-color: rgb(105 148 155); /* Màu của phần thumb trong suốt */
+        border-radius: 6px; /* Độ bo tròn của góc thanh cuộn */
+    }
+.title-test{
+    display:flex;
+    justify-content:center;
+}
+    .title-test p {
+        font-size: 28px;
+        font-weight: 600;
+        color: #61869d;
+    }
+    .test__form-item {
+        display: flex;
+        flex-direction: column;
+        margin-bottom:15px;
+    }
+.test__form-item label{
+    margin-bottom:5px;
+}
+#choose-class {
+    width: 100px;
+    border: none;
+    border-radius: 5px;
+    background-color: #68bdb3;
+    color: white;
+}
+#choose-class:hover {
+    opacity:0.8;
+}
+#title-choose {
+    cursor:unset;
+    font-size: 20px;
+    font-weight: 600;
+    color: #61869d;
+}
+#create-test {
+    padding:3px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #68bdb3;
+    color: white;
+    margin-bottom:30px;
+}

@@ -361,6 +361,7 @@
     <Content Include="Views\DashBoardStudent\DashboardStudent.cshtml" />
     <Content Include="Views\DashBoardStudent\_PartialSideBarStu.cshtml" />
     <Content Include="Views\DashBoardStudent\RoomStu.cshtml" />
+    <Content Include="Views\DashBoardEdu\TestEdu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

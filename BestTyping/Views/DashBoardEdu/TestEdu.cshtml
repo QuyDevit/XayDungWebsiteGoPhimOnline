@@ -1,0 +1,167 @@
+﻿
+@{
+    ViewBag.Title = "TestEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+
+            <div class="dashboard_wrapper-nav">
+                <h3>Quản lý bài kiểm tra</h3>
+                <ul class="list-group flex-row nav__tab">
+                    <li class="nav-item">
+                        <a href="@Url.Action("TextTestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
+                            <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
+                            <span>Tạo bài kiểm tra</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="@Url.Action("MyTextTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background" data-tab="browse-members">
+                            <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                            <span>Bài kiểm tra</span>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab__wrapper">
+                    <div class="tab__wrapper-content">
+                        <div class="container">
+                            <div class="title-test">
+                                <p>Tạo bài kiểm tra</p>
+                            </div>
+                            <div>
+                                <div class="test__form">
+                                    <div class="test__form-item col-lg-5">
+                                        <label>Chọn văn bản kiểm tra</label>
+                                        <select class="form-select">
+                                            <option>test</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="test__form-item">
+                                        <label>Chọn lớp học cần kiểm tra</label>
+                                        <button id="choose-class" type="button">Chọn</button>
+                                        <div id="modalchooseclass" class="modal">
+                                            <div class="modal-content" style="width:30%">
+                                                <div class="modal-header_title">
+                                                    <p id="title-choose">Chọn nhóm cần kiểm tra</p>
+                                                    <span class="close">&times;</span>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <form class="form-control form-custom">
+                                                        <table class="table table-responsive">
+                                                            <thead style="background-color: rgb(105 148 155)">
+                                                                <tr>
+                                                                    <th style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" id="check-all" type="checkbox" /></th>
+                                                                    <th style="padding:0" scope="col">Nhóm học</th>
+                                                                    <th style="text-align: center; padding: 0" scope="col">Số lượng tham gia</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                                <tr>
+                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
+                                                                    <td style="padding:0">Lớp lạ</td>
+                                                                    <td style="text-align:center;padding:0">50</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
+                                                                    <td style="padding:0">Lớp lạ</td>
+                                                                    <td style="text-align:center;padding:0">50</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
+                                                                    <td style="padding:0">Lớp lạ</td>
+                                                                    <td style="text-align:center;padding:0">50</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                    </form>
+                                                </div>
+                                                <div class="modal-footer_custom">
+                                                    <button id="cancel" type="button">Hủy</button>
+                                                    <button id="confirm" type="button">Xác nhận</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="test__form-item col-lg-8">
+                                        <label>Tên bài kiểm tra</label>
+                                        <input class="form-control " />
+                                    </div>
+                                    <div class="test__form-item col-lg-8">
+                                        <label>Thời gian bắt đầu</label>
+                                        <div style="display:flex;gap:20px;">
+                                            <input class="form-control" type="text" id="datepickerstart" placeholder="Từ" />
+                                            <input class="form-control" type="text" id="datepickerend" placeholder="Đến" />
+                                        </div>
+                                    </div>
+                                    <div class="test__form-item col-lg-6">
+                                        <div style="display:flex;gap:20px;">
+                                            <div style="flex:1">
+                                                <label>Thời gian kiểm tra</label>
+
+                                                <select class="form-select">
+                                                    <option value="60" selected>1 phút</option>
+                                                    <option value="120">2 phút</option>
+                                                    <option value="180">3 phút</option>
+                                                    <option value="240">4 phút</option>
+                                                    <option value="300">5 phút</option>
+                                                    <option value="360">6 phút</option>
+                                                    <option value="420">7 phút</option>
+                                                    <option value="480">8 phút</option>
+                                                    <option value="540">9 phút</option>
+                                                    <option value="600">10 phút</option>
+                                                </select>
+                                            </div>
+                                            <div style="flex:0.5">
+                                                <label>Số lần làm bài</label>
+                                                <input class="form-control" value="1" type="number" />
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="test__form-item col-lg-8">
+                                        <label>Mật khẩu bài làm</label>
+                                            <input class="form-control" type="password"  placeholder="Mật khẩu" />
+
+                                    </div>
+                                    <button id="create-test" type="button">Tạo bài kiểm tra</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+</div>
+<script>
+    flatpickr("#datepickerstart,#datepickerend ", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+    });
+
+    var $modal = $("#modalchooseclass");
+    var $modalContent = $modal.find('.modal-content');
+
+    $("#choose-class").click(function () {
+        $modal.show();
+        $modalContent.css('animation', 'zoomIn 0.6s');
+    })
+</script>

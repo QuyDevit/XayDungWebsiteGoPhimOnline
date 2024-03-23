@@ -43,6 +43,19 @@ namespace BestTyping.Controllers
                 return View();
             }
         }
+        public ActionResult TestEdu()
+        {
+            return View();
+            //USER user = (USER)Session["User"];
+            //if (user == null)
+            //{
+            //    return RedirectToAction("CheckTyping", "Home");
+            //}
+            //else
+            //{
+            //    return View();
+            //}
+        }
         public ActionResult TextTestEdu()
         {
             USER user = (USER)Session["User"];
