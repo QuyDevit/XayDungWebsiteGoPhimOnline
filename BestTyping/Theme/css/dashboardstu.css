@@ -49,3 +49,117 @@
     background-color:green;
     color:white;
 }
+.event__wrapper {
+    margin-top: 36px;
+    padding: 30px;
+    border: 1px solid #ccc;
+    box-shadow: 1px 1px 5px 0 rgba(49, 57,66,.5);
+    min-height: 540px;
+}
+.event__wrapper p{
+  font-size:19px;
+}
+
+.event__box-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #ccc;
+}
+.event__box-item-title i{
+    color:dodgerblue;
+}
+.event__box-item-title span {
+    margin-left: 10px;
+    color: #1862a9;
+    font-weight: 600;
+}
+
+.event__box-item-time span:first-child {
+    color: black;
+}
+.event__box-item a {
+    color: #1862a9;
+}
+.event__box-item a:hover {
+    text-decoration:underline;
+}
+
+/*Room student*/
+.room__wrapper-title, .room__wrapper-content {
+    margin-bottom:20px;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+}
+    .room__wrapper-title p {
+        margin: 0;
+        font-size: 37px;
+        font-weight: 300;
+        color: #615555;
+    }
+.room__wrapper-content ul {
+    padding:0 20px;
+    list-style-type: "-";
+}
+    .room__wrapper-content ul li {
+        color: #615555;
+        font-size: 16px;
+        margin-bottom: 15px;
+    }
+        .room__wrapper-content ul li span {
+            color: #696969;
+            margin-left: 10px;
+            font-weight: 600;
+        }
+
+.title-event {
+    font-size: 18px;
+    color: #1862a9;
+    font-weight: 600
+}
+.event__box-content {
+    padding: 20px 0;
+}
+.event-room__box {
+    border-radius: 5px;
+    margin-bottom:50px;
+}
+.event-room__box-item {
+    border: 1px solid #ccc;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+.event-room__box-item .event-status {
+    color: #212529;
+    padding: 10px 20px;
+    margin: 0;
+    background-color: #dbbe88;
+}
+
+.box-content {
+    display: flex;
+    align-items: center;
+}
+    .box-content p {
+        color: #212529;
+        margin: 0;
+        font-size: 16px;
+    }
+    .box-content i {
+        padding:0 20px;
+        font-size: 16px;
+    }
+    .box-content span {
+        margin-left: 50px;
+        font-size: 16px;     
+    }
+
+.active-event {
+    text-align: right;
+    padding: 10px 20px;
+    border-top: 1px solid #ccc;
+}
+    .active-event a {
+        color: #1862a9;
+    }
+    .active-event a:hover {
+        text-decoration:underline;
+    }

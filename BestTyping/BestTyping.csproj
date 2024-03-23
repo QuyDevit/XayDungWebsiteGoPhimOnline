@@ -360,6 +360,7 @@
     <Content Include="Views\DashBoardEdu\EditTextTestEdu.cshtml" />
     <Content Include="Views\DashBoardStudent\DashboardStudent.cshtml" />
     <Content Include="Views\DashBoardStudent\_PartialSideBarStu.cshtml" />
+    <Content Include="Views\DashBoardStudent\RoomStu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

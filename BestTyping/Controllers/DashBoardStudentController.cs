@@ -38,6 +38,10 @@ namespace BestTyping.Controllers
                 return View(list);
             }          
         }
+        public ActionResult RoomStu()
+        {
+            return View();
+        }
         public ActionResult _PartialSideBarStu()
         {
             return PartialView();

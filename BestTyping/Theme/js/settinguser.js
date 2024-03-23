@@ -197,7 +197,7 @@ $(document).ready(function () {
         checkboxes.filter(':checked').each(function () {
             arrvalue.push($(this).val());
         })
-
+   
         // Sử dụng SweetAlert2 để hiện thị hộp thoại xác nhận
         Swal.fire({
             title: 'Bạn có chắc không?',
@@ -209,7 +209,11 @@ $(document).ready(function () {
             cancelButtonText:"Hủy",
             confirmButtonText: 'Đồng ý'
         }).then((result) => {
-            if (result.isConfirmed) {      
+            if (result.isConfirmed) {
+                if (arrvalue.length == 0) {
+                    toastr.warning("Vui lòng chọn kết quả để xóa");
+                    return;
+                }
                 $.ajax({
                     type: "post",
                     url: "/Account/DeleteTypingResult",

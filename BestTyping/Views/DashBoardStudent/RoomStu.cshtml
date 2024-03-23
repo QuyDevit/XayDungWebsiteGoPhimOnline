@@ -1,0 +1,126 @@
+﻿
+@{
+    ViewBag.Title = "RoomStu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<div class="wrapper">
+    @Html.Action("_PartialSideBarStu", "DashBoardStudent")
+    <!-- Main Component -->
+    <div class="main" style=" flex-direction: row;">
+        <div class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="room__wrapper">
+                    <div class="room__wrapper-title">
+                        <p>Nhóm lạ </p>
+                    </div>
+                    <div class="room__wrapper-content">
+                        <p style="font-size: 26px; color: #615555;">Chào mừng bạn tham gia lớp học </p>
+                        <p style="font-size: 18px; color: #615555;">Lớp học này giúp học sinh:</p>
+                        <ul>
+                            <li><span>Cải thiện tốc độ và chính xác:</span> Lớp học này giúp cải thiện tốc độ gõ phím và độ chính xác, tăng hiệu suất và giảm thời gian hoàn thành công việc.</li>
+                            <li><span>Hình thành thói quen đúng đắn:</span> Học gõ phím giúp hình thành thói quen gõ đúng, tránh sai lầm gây mỏi tay và lỗi khi gõ.</li>
+                            <li><span>Thích ứng với công nghệ hiện đại:</span> Lớp học này giúp thích ứng với nhu cầu của xã hội hiện đại.</li>
+                            <li><span>Phát triển sự tự tin:</span> Trở nên thành thạo trong việc gõ phím giúp tăng sự tự tin.</li>
+                            <li><span>Tiết kiệm thời gian:</span> Gõ phím nhanh và chính xác giúp tiết kiệm thời gian trong công việc hàng ngày.</li>
+                            <li><span>Phòng tránh chấn thương:</span> Học gõ phím đúng cách giúp tránh chấn thương từ việc gõ sai lầm.</li>
+                        </ul>
+                        <p style="text-align:center">
+                            <span>----------------------------------------------------------------------------------------------------------</span>
+                        </p>
+                        <p style="text-align: center; font-size: 18px; color: #615555;">Chủ nhóm: <strong>Qúy Nguyễn </strong> | Email: <strong>pingvocuc333@gmail.com</strong></p>
+                        <div class="event-room__wrapper">
+                            <p class="title-event" >Sự kiện sắp diễn ra</p>
+                            <div class="event-room__box">
+                                <div class="event-room__box-item">
+                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
+                                    <div class="event__box-content">
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </div>
+                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </div>
+                                            <span>Sự kiện nhóm học</span>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                            </div>
+                                            <span style=" color: #1862a9;">Lớp mới</span>
+                                        </div>
+                                    </div>
+                                    <div class="active-event">
+                                        <a href="">Đi đến hoạt động</a>
+                                    </div>
+                                </div>
+                                <div class="event-room__box-item">
+                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
+                                    <div class="event__box-content">
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </div>
+                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </div>
+                                            <span>Sự kiện nhóm học</span>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                            </div>
+                                            <span style=" color: #1862a9;">Lớp mới</span>
+                                        </div>
+                                    </div>
+                                    <div class="active-event">
+                                        <a href="">Đi đến hoạt động</a>
+                                    </div>
+                                </div>
+                                <div class="event-room__box-item">
+                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
+                                    <div class="event__box-content">
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                            </div>
+                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-calendar" aria-hidden="true"></i>
+                                            </div>
+                                            <span>Sự kiện nhóm học</span>
+                                        </div>
+                                        <div class="box-content">
+                                            <div style="width:50px">
+                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                            </div>
+                                            <span style=" color: #1862a9;">Lớp mới</span>
+                                        </div>
+                                    </div>
+                                    <div class="active-event">
+                                        <a href="">Đi đến hoạt động</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+    </div>
+</div>
