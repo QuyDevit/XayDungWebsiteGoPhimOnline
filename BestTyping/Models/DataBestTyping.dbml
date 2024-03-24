@@ -132,4 +132,22 @@
       <Column Name="IsPrivate" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TESTEDU" Member="TESTEDUs">
+    <Type Name="TESTEDU">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserCreate" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TitleTest" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="TextID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IsRandom" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ListClass" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="DateStart" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="DateEnd" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="ExamDuration" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodeLink" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="PassTest" Type="System.String" DbType="VarChar(25)" CanBeNull="true" />
+      <Column Name="MaxAttempts" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

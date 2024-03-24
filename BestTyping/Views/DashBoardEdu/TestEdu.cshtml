@@ -1,10 +1,12 @@
-﻿
+﻿@model BestTyping.Models.DTO.TESTEDUVIEW
+
 @{
     ViewBag.Title = "TestEdu";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
 <link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -23,13 +25,13 @@
                 <h3>Quản lý bài kiểm tra</h3>
                 <ul class="list-group flex-row nav__tab">
                     <li class="nav-item">
-                        <a href="@Url.Action("TextTestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
+                        <a href="@Url.Action("TestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
                             <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
                             <span>Tạo bài kiểm tra</span>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="@Url.Action("MyTextTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background" data-tab="browse-members">
+                        <a href="@Url.Action("MyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background" data-tab="browse-members">
                             <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
                             <span>Bài kiểm tra</span>
                         </a>
@@ -43,11 +45,23 @@
                             </div>
                             <div>
                                 <div class="test__form">
-                                    <div class="test__form-item col-lg-5">
-                                        <label>Chọn văn bản kiểm tra</label>
-                                        <select class="form-select">
-                                            <option>test</option>
-                                        </select>
+                                    <div class="test__form-item col-lg-8">
+                                        <div style="display:flex;gap:20px">
+                                            <div style="flex:1">
+                                                <label>Chọn văn bản kiểm tra</label>
+                                                <select id="text-test" class="form-select">
+                                                    @foreach (var item in Model.ListTextEdu)
+                                                    {
+                                                        <option value="@item.ID">@item.Title</option>
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div style="display:flex;flex-direction:column;justify-content:center;align-items:center">
+                                                <label>Xáo trộn(Nguyên mẫu)</label>
+                                                <input id="checkrandom" class="form-check-input" type="checkbox" />
+                                            </div>
+                                        </div>
+
                                     </div>
 
                                     <div class="test__form-item">
@@ -61,7 +75,7 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <form class="form-control form-custom">
-                                                        <table class="table table-responsive">
+                                                        <table class="table table-responsive" id="table-class">
                                                             <thead style="background-color: rgb(105 148 155)">
                                                                 <tr>
                                                                     <th style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" id="check-all" type="checkbox" /></th>
@@ -70,22 +84,15 @@
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
+                                                                @foreach (var item in Model.ListRoom)
+                                                                {
+                                                                    <tr>
+                                                                        <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="@item.RoomId" /></td>
+                                                                        <td style="padding:0">@item.ClassName</td>
+                                                                        <td style="text-align:center;padding:0">@item.SumPeopleJoin</td>
+                                                                    </tr>
+                                                                }
 
-                                                                <tr>
-                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
-                                                                    <td style="padding:0">Lớp lạ</td>
-                                                                    <td style="text-align:center;padding:0">50</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
-                                                                    <td style="padding:0">Lớp lạ</td>
-                                                                    <td style="text-align:center;padding:0">50</td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td style="text-align: unset; padding: 0 0 0 10px;"><input style=" margin: 4px;" class="checkbox form-check-input" type="checkbox" value="" /></td>
-                                                                    <td style="padding:0">Lớp lạ</td>
-                                                                    <td style="text-align:center;padding:0">50</td>
-                                                                </tr>
                                                             </tbody>
                                                         </table>
 
@@ -100,7 +107,7 @@
                                     </div>
                                     <div class="test__form-item col-lg-8">
                                         <label>Tên bài kiểm tra</label>
-                                        <input class="form-control " />
+                                        <input id="title-test" class="form-control" type="text" />
                                     </div>
                                     <div class="test__form-item col-lg-8">
                                         <label>Thời gian bắt đầu</label>
@@ -114,7 +121,7 @@
                                             <div style="flex:1">
                                                 <label>Thời gian kiểm tra</label>
 
-                                                <select class="form-select">
+                                                <select id="time-duration" class="form-select">
                                                     <option value="60" selected>1 phút</option>
                                                     <option value="120">2 phút</option>
                                                     <option value="180">3 phút</option>
@@ -129,17 +136,17 @@
                                             </div>
                                             <div style="flex:0.5">
                                                 <label>Số lần làm bài</label>
-                                                <input class="form-control" value="1" type="number" />
+                                                <input id="max-attempts" class="form-control" value="1" type="number" />
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="test__form-item col-lg-8">
                                         <label>Mật khẩu bài làm</label>
-                                            <input class="form-control" type="password"  placeholder="Mật khẩu" />
+                                        <input id="pass-test" class="form-control" type="password" placeholder="Mật khẩu" />
 
                                     </div>
-                                    <button id="create-test" type="button">Tạo bài kiểm tra</button>
+                                    <button id="create-test" type="button">Hoàn thành</button>
                                 </div>
                             </div>
                         </div>
@@ -151,17 +158,4 @@
         </main>
     </div>
 </div>
-<script>
-    flatpickr("#datepickerstart,#datepickerend ", {
-        enableTime: true,
-        dateFormat: "Y-m-d H:i",
-    });
-
-    var $modal = $("#modalchooseclass");
-    var $modalContent = $modal.find('.modal-content');
-
-    $("#choose-class").click(function () {
-        $modal.show();
-        $modalContent.css('animation', 'zoomIn 0.6s');
-    })
-</script>
+<script src="~/Theme/js/createtestedu.js"></script>

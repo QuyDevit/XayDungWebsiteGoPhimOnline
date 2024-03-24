@@ -1,0 +1,98 @@
+﻿@model IEnumerable<BestTyping.Models.DTO.TESTEDUTABLE>
+@{
+    ViewBag.Title = "MyTestEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<style>
+    .table thead th {
+        color: black;
+    }
+</style>
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Quản lý văn bản</h3>
+                    <ul class="list-group flex-row nav__tab">
+                        <li class="nav-item">
+                            <a href="@Url.Action("TestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background" data-tab="list-member">
+                                <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
+                                <span>Tạo bài kiểm tra</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("MyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background show" data-tab="browse-members">
+                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                                <span>Bài kiểm tra</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab__wrapper">
+                        <div class="tab__wrapper-content">
+                            <div class="table_wrapper">
+                                <table id="table-testedu" class="table table-responsive" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" id="check-all" type="checkbox" /></th>
+                                            <th style="padding:8px" scope="col">Trạng thái</th>
+                                            <th style="padding:8px" scope="col">Bài kiểm tra</th>
+                                            <th style="padding:8px" scope="col">Thời gian bắt đầu</th>
+                                            <th style="padding:8px" scope="col">Thời gian kết thúc</th>
+                                            <th style="padding:8px;text-align:center" scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.Count() == 0)
+                                        {
+                                            <tr>
+                                                <td colspan="5" style="padding:0;">
+                                                    <p style="text-align:center">Không có văn bản nào</p>
+                                                </td>
+                                            </tr>
+                                        }
+                                        else
+                                        {
+                                            foreach (var item in Model)
+                                            {
+                                                <tr>
+                                                    <td style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" type="checkbox" value="@item.ID" /></td>
+                                                    <td class="status" style=" padding: 5px"><span class="@(item.Status == true ? "public":"private")">@(item.Status == true ? "Sẵn sàng":"Kết thúc")</span></td>
+                                                    <td style="padding: 5px"><a style="color: #61869d;font-weight:600" href="">@item.TitleTest</a></td>
+                                                    <td style="padding:5px">@item.TimeStart</td>
+                                                    <td style="padding:5px">@item.TimeEnd</td>
+                                                    <td style="text-align: center; padding: 5px">
+                                                        <a href="" class="operations-setting"><i class="fa fa-pencil-square-o operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px;">Danh sách thi</span></a>
+                                                        <a class="operations-delete"><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>
+<script>
+    $('#table-testedu').DataTable();
+</script>

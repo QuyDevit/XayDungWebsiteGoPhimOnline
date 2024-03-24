@@ -227,3 +227,7 @@
     color: white;
     margin-bottom:30px;
 }
+.form-check-input:checked {
+    background-color: #68bdb3;
+    border-color: #68bdb3;
+}

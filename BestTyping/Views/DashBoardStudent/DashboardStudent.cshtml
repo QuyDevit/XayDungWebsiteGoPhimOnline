@@ -22,7 +22,7 @@
                     @foreach (var item in Model)
                     {
                         <div class="group__wrapper-item ">
-                            <a class="link-group" href="">
+                            <a class="link-group" href="@Url.Action("RoomStu","DashBoardStudent")">
                                 <img class="group__wrapper-img" src="@item.AvatarClassRoom" />
                                 <p class="group__wrapper-title">@item.ClassName </p>
                             </a>

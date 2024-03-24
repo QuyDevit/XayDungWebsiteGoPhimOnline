@@ -1,4 +1,4 @@
-﻿
+﻿@model BestTyping.Models.DTO.DASHBOARDEDU
 @{
     ViewBag.Title = "DashboardEdu";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -20,17 +20,17 @@
                 <div class="dashboard_wrapper-box">
                     <div class="dashboard_wrapper-box-item">
                         <i class="fa fa-users" aria-hidden="true"></i>
-                        <p class="text-data">0</p>
+                        <p class="text-data">@Model.SumGroup</p>
                         <p>Nhóm của bạn</p>
                     </div>
                     <div class="dashboard_wrapper-box-item">
                         <i class="fa fa-tasks" aria-hidden="true"></i>
-                        <p class="text-data">0</p>
+                        <p class="text-data">@Model.SumTest</p>
                         <p>Bài kiểm tra đã tạo</p>
                     </div>
                     <div class="dashboard_wrapper-box-item">
                         <i class="fa fa-file-text-o" aria-hidden="true"></i>
-                        <p class="text-data">0</p>
+                        <p class="text-data">@Model.SumText</p>
                         <p>Văn bản đã tạo</p>
                     </div>
                 </div>

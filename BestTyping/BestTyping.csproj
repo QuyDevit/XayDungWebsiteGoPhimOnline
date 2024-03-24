@@ -180,7 +180,9 @@
       <DependentUpon>DataBestTyping.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DTO\CLASSROOMVIEW.cs" />
+    <Compile Include="Models\DTO\CLASSTEST.cs" />
     <Compile Include="Models\DTO\COMPETITIONVIEWMODEL.cs" />
+    <Compile Include="Models\DTO\DASHBOARDEDU.cs" />
     <Compile Include="Models\DTO\EDITTEXTPRACTICEVIEW.cs" />
     <Compile Include="Models\DTO\GAMETYPING.cs" />
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
@@ -192,6 +194,8 @@
     <Compile Include="Models\DTO\TABLEJOINCOMPETITION.cs" />
     <Compile Include="Models\DTO\TABLERESULTGAME.cs" />
     <Compile Include="Models\DTO\TABLEVIEWMODEL.cs" />
+    <Compile Include="Models\DTO\TESTEDUTABLE.cs" />
+    <Compile Include="Models\DTO\TESTEDUVIEW.cs" />
     <Compile Include="Models\DTO\TESTTABLE.cs" />
     <Compile Include="Models\DTO\RANKTABLE.cs" />
     <Compile Include="Models\DTO\TEXTPRACTICEMODELVIEW.cs" />
@@ -293,6 +297,7 @@
     <Content Include="Theme\js\click-scroll.js" />
     <Content Include="Theme\js\competitionstyping.js" />
     <Content Include="Theme\js\competition.js" />
+    <Content Include="Theme\js\createtestedu.js" />
     <Content Include="Theme\js\custom.js" />
     <Content Include="Theme\js\dashboardedu.js" />
     <Content Include="Theme\js\edittextedu.js" />
@@ -362,6 +367,7 @@
     <Content Include="Views\DashBoardStudent\_PartialSideBarStu.cshtml" />
     <Content Include="Views\DashBoardStudent\RoomStu.cshtml" />
     <Content Include="Views\DashBoardEdu\TestEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\MyTestEdu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -63,6 +63,9 @@ namespace BestTyping.Models
     partial void InsertTEXTTESTEDU(TEXTTESTEDU instance);
     partial void UpdateTEXTTESTEDU(TEXTTESTEDU instance);
     partial void DeleteTEXTTESTEDU(TEXTTESTEDU instance);
+    partial void InsertTESTEDU(TESTEDU instance);
+    partial void UpdateTESTEDU(TESTEDU instance);
+    partial void DeleteTESTEDU(TESTEDU instance);
     #endregion
 		
 		public DataBestTypingDataContext() : 
@@ -180,6 +183,14 @@ namespace BestTyping.Models
 			get
 			{
 				return this.GetTable<TEXTTESTEDU>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TESTEDU> TESTEDUs
+		{
+			get
+			{
+				return this.GetTable<TESTEDU>();
 			}
 		}
 	}
@@ -2689,6 +2700,380 @@ namespace BestTyping.Models
 					this._IsPrivate = value;
 					this.SendPropertyChanged("IsPrivate");
 					this.OnIsPrivateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TESTEDU")]
+	public partial class TESTEDU : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _UserCreate;
+		
+		private string _TitleTest;
+		
+		private System.Nullable<int> _TextID;
+		
+		private System.Nullable<bool> _IsRandom;
+		
+		private string _ListClass;
+		
+		private System.Nullable<long> _DateStart;
+		
+		private System.Nullable<long> _DateEnd;
+		
+		private System.Nullable<int> _ExamDuration;
+		
+		private string _CodeLink;
+		
+		private string _PassTest;
+		
+		private System.Nullable<int> _MaxAttempts;
+		
+		private System.Nullable<bool> _Status;
+		
+		private System.Nullable<long> _CreateDate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserCreateChanging(System.Nullable<int> value);
+    partial void OnUserCreateChanged();
+    partial void OnTitleTestChanging(string value);
+    partial void OnTitleTestChanged();
+    partial void OnTextIDChanging(System.Nullable<int> value);
+    partial void OnTextIDChanged();
+    partial void OnIsRandomChanging(System.Nullable<bool> value);
+    partial void OnIsRandomChanged();
+    partial void OnListClassChanging(string value);
+    partial void OnListClassChanged();
+    partial void OnDateStartChanging(System.Nullable<long> value);
+    partial void OnDateStartChanged();
+    partial void OnDateEndChanging(System.Nullable<long> value);
+    partial void OnDateEndChanged();
+    partial void OnExamDurationChanging(System.Nullable<int> value);
+    partial void OnExamDurationChanged();
+    partial void OnCodeLinkChanging(string value);
+    partial void OnCodeLinkChanged();
+    partial void OnPassTestChanging(string value);
+    partial void OnPassTestChanged();
+    partial void OnMaxAttemptsChanging(System.Nullable<int> value);
+    partial void OnMaxAttemptsChanged();
+    partial void OnStatusChanging(System.Nullable<bool> value);
+    partial void OnStatusChanged();
+    partial void OnCreateDateChanging(System.Nullable<long> value);
+    partial void OnCreateDateChanged();
+    #endregion
+		
+		public TESTEDU()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
+		public System.Nullable<int> UserCreate
+		{
+			get
+			{
+				return this._UserCreate;
+			}
+			set
+			{
+				if ((this._UserCreate != value))
+				{
+					this.OnUserCreateChanging(value);
+					this.SendPropertyChanging();
+					this._UserCreate = value;
+					this.SendPropertyChanged("UserCreate");
+					this.OnUserCreateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TitleTest", DbType="NVarChar(MAX)")]
+		public string TitleTest
+		{
+			get
+			{
+				return this._TitleTest;
+			}
+			set
+			{
+				if ((this._TitleTest != value))
+				{
+					this.OnTitleTestChanging(value);
+					this.SendPropertyChanging();
+					this._TitleTest = value;
+					this.SendPropertyChanged("TitleTest");
+					this.OnTitleTestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TextID", DbType="Int")]
+		public System.Nullable<int> TextID
+		{
+			get
+			{
+				return this._TextID;
+			}
+			set
+			{
+				if ((this._TextID != value))
+				{
+					this.OnTextIDChanging(value);
+					this.SendPropertyChanging();
+					this._TextID = value;
+					this.SendPropertyChanged("TextID");
+					this.OnTextIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsRandom", DbType="Bit")]
+		public System.Nullable<bool> IsRandom
+		{
+			get
+			{
+				return this._IsRandom;
+			}
+			set
+			{
+				if ((this._IsRandom != value))
+				{
+					this.OnIsRandomChanging(value);
+					this.SendPropertyChanging();
+					this._IsRandom = value;
+					this.SendPropertyChanged("IsRandom");
+					this.OnIsRandomChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListClass", DbType="NVarChar(MAX)")]
+		public string ListClass
+		{
+			get
+			{
+				return this._ListClass;
+			}
+			set
+			{
+				if ((this._ListClass != value))
+				{
+					this.OnListClassChanging(value);
+					this.SendPropertyChanging();
+					this._ListClass = value;
+					this.SendPropertyChanged("ListClass");
+					this.OnListClassChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateStart", DbType="BigInt")]
+		public System.Nullable<long> DateStart
+		{
+			get
+			{
+				return this._DateStart;
+			}
+			set
+			{
+				if ((this._DateStart != value))
+				{
+					this.OnDateStartChanging(value);
+					this.SendPropertyChanging();
+					this._DateStart = value;
+					this.SendPropertyChanged("DateStart");
+					this.OnDateStartChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DateEnd", DbType="BigInt")]
+		public System.Nullable<long> DateEnd
+		{
+			get
+			{
+				return this._DateEnd;
+			}
+			set
+			{
+				if ((this._DateEnd != value))
+				{
+					this.OnDateEndChanging(value);
+					this.SendPropertyChanging();
+					this._DateEnd = value;
+					this.SendPropertyChanged("DateEnd");
+					this.OnDateEndChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExamDuration", DbType="Int")]
+		public System.Nullable<int> ExamDuration
+		{
+			get
+			{
+				return this._ExamDuration;
+			}
+			set
+			{
+				if ((this._ExamDuration != value))
+				{
+					this.OnExamDurationChanging(value);
+					this.SendPropertyChanging();
+					this._ExamDuration = value;
+					this.SendPropertyChanged("ExamDuration");
+					this.OnExamDurationChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodeLink", DbType="VarChar(25)")]
+		public string CodeLink
+		{
+			get
+			{
+				return this._CodeLink;
+			}
+			set
+			{
+				if ((this._CodeLink != value))
+				{
+					this.OnCodeLinkChanging(value);
+					this.SendPropertyChanging();
+					this._CodeLink = value;
+					this.SendPropertyChanged("CodeLink");
+					this.OnCodeLinkChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PassTest", DbType="VarChar(25)")]
+		public string PassTest
+		{
+			get
+			{
+				return this._PassTest;
+			}
+			set
+			{
+				if ((this._PassTest != value))
+				{
+					this.OnPassTestChanging(value);
+					this.SendPropertyChanging();
+					this._PassTest = value;
+					this.SendPropertyChanged("PassTest");
+					this.OnPassTestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MaxAttempts", DbType="Int")]
+		public System.Nullable<int> MaxAttempts
+		{
+			get
+			{
+				return this._MaxAttempts;
+			}
+			set
+			{
+				if ((this._MaxAttempts != value))
+				{
+					this.OnMaxAttemptsChanging(value);
+					this.SendPropertyChanging();
+					this._MaxAttempts = value;
+					this.SendPropertyChanged("MaxAttempts");
+					this.OnMaxAttemptsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="BigInt")]
+		public System.Nullable<long> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this.OnCreateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreateDate = value;
+					this.SendPropertyChanged("CreateDate");
+					this.OnCreateDateChanged();
 				}
 			}
 		}

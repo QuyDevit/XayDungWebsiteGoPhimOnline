@@ -31,6 +31,24 @@ namespace BestTyping.Controllers
 
             return formattedDate;
         }
+
+        public static string ConvertTimestampToDateTest(long timestamp)
+        {
+            long timestampInSeconds = timestamp / 1000;
+
+            if (timestampInSeconds < -62135596800 || timestampInSeconds > 253402300799)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timestamp), "Timestamp is out of range.");
+            }
+
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(timestampInSeconds);
+            var dateTime = dateTimeOffset.LocalDateTime; // Hoặc .UtcDateTime nếu bạn muốn thời gian UTC
+
+            // Định dạng ngày tháng theo yêu cầu: ngày/tháng/năm giờ:phút
+            string formattedDate = dateTime.ToString("dd/MM/yyyy HH:mm");
+
+            return formattedDate;
+        }
         public ActionResult DashboardEdu()
         {
             USER user = (USER)Session["User"];
@@ -40,21 +58,114 @@ namespace BestTyping.Controllers
             }
             else
             {
-                return View();
+                var testbyuser = db.TESTEDUs.Where(u => u.UserCreate == user.Id).ToList();
+                var textbyuser = db.TEXTTESTEDUs.Where(u => u.UserCreate == user.Id).ToList();
+                var groupbyuser = db.CLASSROOMs.Where(u => u.UserCreate == user.Id).ToList();
+                var view = new DASHBOARDEDU();
+                view.SumTest = testbyuser.Count();
+                view.SumText = textbyuser.Count();
+                view.SumGroup = groupbyuser.Count();
+                return View(view);
             }
         }
         public ActionResult TestEdu()
         {
-            return View();
-            //USER user = (USER)Session["User"];
-            //if (user == null)
-            //{
-            //    return RedirectToAction("CheckTyping", "Home");
-            //}
-            //else
-            //{
-            //    return View();
-            //}
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var view = new TESTEDUVIEW();
+                var classrooombyuser = db.CLASSROOMs.Where(u => u.UserCreate == user.Id).ToList();
+                var textedubyuser = db.TEXTTESTEDUs.Where(u => u.UserCreate == user.Id).ToList();
+                List<CLASSROOMVIEW> list = new List<CLASSROOMVIEW>();
+                foreach (var item in classrooombyuser)
+                {
+
+                    var data = JsonConvert.DeserializeObject<List<USERROOM>>(item.ListUserJoin);
+                    CLASSROOMVIEW room = new CLASSROOMVIEW();
+                    room.RoomId = item.ClassRoomId;
+                    room.ClassName = item.ClassName;
+                    room.CreateDate = ConvertTimestampToDate(item.CreateDate ?? 0);
+                    room.Status = item.IsPrivate ?? true;
+                    room.JoinCode = item.JoinCode;
+                    room.SumPeopleJoin = data.Count();
+                    list.Add(room);
+                }
+                view.ListRoom = list;
+                view.ListTextEdu = textedubyuser;
+                return View(view);
+            }
+        }
+        [HttpPost]
+        public JsonResult CreateTestEdu(int textid,bool random,string titletest,int[] arrlist, long timestart,long timeend,int examduration,string pass,int maxattempts,long createdate)
+        {
+            try
+            {
+                USER us = (USER)Session["User"];
+                if (us != null)
+                {
+                    if (textid <= 0 || (random != true && random!= false) || arrlist.Length == 0 || timestart <= 0 || timeend <= 0 || examduration <= 0 || string.IsNullOrEmpty(pass) || maxattempts <= 0 || string.IsNullOrEmpty(titletest))
+                    {
+                        return Json(new { code = 500, msg = "Đã có lỗi xảy ra" });
+                    }
+                    else
+                    {
+                        TESTEDU test = new TESTEDU();
+                        test.UserCreate = us.Id;
+                        test.TextID = textid;
+                        test.TitleTest = titletest;
+                        test.IsRandom = random;
+                        test.DateStart = timestart;
+                        test.DateEnd = timeend;
+                        test.ExamDuration = examduration;
+                        test.CodeLink = GenerateCodeTest();
+                        test.PassTest = pass;
+                        test.Status = true;
+                        test.MaxAttempts = maxattempts;
+                        test.CreateDate = createdate;
+                        test.ListClass = JsonConvert.SerializeObject(arrlist.Select(id => new CLASSTEST { IdRoom = id, ClassName = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == id)?.ClassName }));
+                        db.TESTEDUs.InsertOnSubmit(test);
+                        db.SubmitChanges();
+                        return Json(new { code = 200, msg = "Tạo thành công" });
+                    }
+                }
+                else
+                {
+                    return Json(new { code = 400, msg = "Vui lòng đăng nhập" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+        }
+        public ActionResult MyTestEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var listtestbyuser = db.TESTEDUs.Where(u => u.UserCreate == user.Id).ToList();
+                var list = new List<TESTEDUTABLE>();
+                foreach(var item in listtestbyuser)
+                {
+                    var i = new TESTEDUTABLE();
+                    i.ID = item.ID;
+                    i.Status = item.Status ?? true;
+                    i.CodeLink = item.CodeLink;
+                    i.TitleTest = item.TitleTest;
+                    i.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
+                    i.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
+                    list.Add(i);
+                }
+                return View(list);
+            }
         }
         public ActionResult TextTestEdu()
         {
@@ -644,6 +755,21 @@ namespace BestTyping.Controllers
             {
                 return Json(new { code = 500, msg = "Lỗi" });
             }
+        }
+        private string GenerateCodeTest()
+        {
+            var random = new Random();
+            var code = "";
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var length = 25;
+
+            do
+            {
+                code = new string(Enumerable.Repeat(characters, length)
+                  .Select(s => s[random.Next(s.Length)]).ToArray());
+            } while (db.TESTEDUs.Any(c => c.CodeLink == code)); // Đảm bảo mã là duy nhất trong DB
+
+            return code;
         }
         private string GenerateCode()
         {

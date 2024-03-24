@@ -347,3 +347,7 @@
 #table-rank_wrapper {
     padding: 30px 50px;
 }
+.form-check-input:checked {
+    background-color: #68bdb3;
+    border-color: #68bdb3;
+}
