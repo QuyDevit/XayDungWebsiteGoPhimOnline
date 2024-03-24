@@ -163,20 +163,21 @@ namespace BestTyping.Controllers
                             var checkuserjoin = dataUserJoin.FirstOrDefault(u => u.UserId == us.Id);
                             var dataUserRequest = JsonConvert.DeserializeObject<List<USERROOM>>(room.ListUserRequest);
                             var checkusernow = dataUserRequest.FirstOrDefault(u => u.UserId == us.Id);
-                            if(checkusernow != null && checkuserjoin != null)
+                            if(checkuserjoin != null)
                             {
                                 return Json(new { code = 400, msg = "Bạn đã tham gia lớp này rồi" });
                             }
                             else
                             {
-                               
-                                long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
-                                dataUserRequest.Add(new USERROOM { UserId = us.Id, UserName = us.HoTen, UserAvatar = us.Avatar, Email = us.Email, DateJoin = currentTimestamp });
-                            }
-                            room.ListUserRequest = JsonConvert.SerializeObject(dataUserRequest);
-                            db.SubmitChanges();
-                            return Json(new { code = 200, msg = "Đã gửi yêu cầu thành công" });
-
+                                if(checkusernow == null)
+                                {
+                                    long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                                    dataUserRequest.Add(new USERROOM { UserId = us.Id, UserName = us.HoTen, UserAvatar = us.Avatar, Email = us.Email, DateJoin = currentTimestamp });
+                                }
+                                room.ListUserRequest = JsonConvert.SerializeObject(dataUserRequest);
+                                db.SubmitChanges();
+                                return Json(new { code = 200, msg = "Đã gửi yêu cầu thành công" });
+                            }                       
                         }
                         else
                         {
