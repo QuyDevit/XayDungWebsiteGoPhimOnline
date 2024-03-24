@@ -167,10 +167,12 @@ namespace BestTyping.Controllers
                             {
                                 long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
                                 dataUserRequest.Add(new USERROOM { UserId = us.Id, UserName = us.HoTen, UserAvatar = us.Avatar, Email = us.Email, DateJoin = currentTimestamp });
+                             
                             }
                             room.ListUserRequest = JsonConvert.SerializeObject(dataUserRequest);
                             db.SubmitChanges();
                             return Json(new { code = 200, msg = "Đã gửi yêu cầu thành công" });
+
                         }
                         else
                         {
