@@ -14,5 +14,6 @@ namespace BestTyping.Models.DTO
         public string TimeStart { get; set; }
         public string TimeEnd { get; set; }
         public string CodeLink { get; set; }
+        public string ClassName { get; set; }
     }
 }

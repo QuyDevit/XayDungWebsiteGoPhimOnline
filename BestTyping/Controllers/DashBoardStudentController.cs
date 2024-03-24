@@ -13,7 +13,23 @@ namespace BestTyping.Controllers
     {
         DataBestTypingDataContext db = new DataBestTypingDataContext();
         // GET: DashBoardStudent
+        public static string ConvertTimestampToDateTest(long timestamp)
+        {
+            long timestampInSeconds = timestamp / 1000;
 
+            if (timestampInSeconds < -62135596800 || timestampInSeconds > 253402300799)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timestamp), "Timestamp is out of range.");
+            }
+
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(timestampInSeconds);
+            var dateTime = dateTimeOffset.LocalDateTime; // Hoặc .UtcDateTime nếu bạn muốn thời gian UTC
+
+            // Định dạng ngày tháng theo yêu cầu: ngày/tháng/năm giờ:phút
+            string formattedDate = dateTime.ToString("dd/MM/yyyy HH:mm");
+
+            return formattedDate;
+        }
         public ActionResult DashboardStudent()
         {
             USER user = (USER)Session["User"];
@@ -25,17 +41,41 @@ namespace BestTyping.Controllers
             {
                 var listClass = db.CLASSROOMs.ToList();
                 var list = new List<CLASSROOM>();
-                foreach(var item in listClass)
+                foreach (var item in listClass)
                 {
                     var dataUserJoin = JsonConvert.DeserializeObject<List<USERROOM>>(item.ListUserJoin);
                     var checkusernow = dataUserJoin.FirstOrDefault(u => u.UserId == user.Id);
-                    if(checkusernow != null)
+                    if (checkusernow != null)
                     {
                         list.Add(item);
                     }
                 }
 
-                return View(list);
+                var listeventbyuser = db.TESTEDUs.ToList();
+                List<TESTEDUTABLE> listevent = new List<TESTEDUTABLE>();
+                foreach(var item in listeventbyuser)
+                {
+                    var data = JsonConvert.DeserializeObject<List<CLASSTEST>>(item.ListClass);
+                    foreach(var room in list)
+                    {
+                        TESTEDUTABLE test = new TESTEDUTABLE();
+                        var classroom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == room.ClassRoomId);
+                        var checkclass = data.FirstOrDefault(c => c.IdRoom == room.ClassRoomId);
+                        if(checkclass != null)
+                        {
+                            test.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
+                            test.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
+                            test.ClassName = classroom.ClassName;
+                            test.CodeLink = item.CodeLink;
+                            listevent.Add(test);
+                        }
+                    }
+                }
+                var view = new DASHBOARDSTU();
+                view.ListClass = list;
+                view.ListEvent = listevent;
+
+                return View(view);
             }          
         }
         public ActionResult RoomStu()

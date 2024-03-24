@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BestTyping.Models.CLASSROOM>
+﻿@model BestTyping.Models.DTO.DASHBOARDSTU
 @{
     ViewBag.Title = "DashboardStudent";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -19,7 +19,7 @@
             <div class="dashboard_wrapper">
                 <button id="join-group">Tham gia nhóm học</button>
                 <div class="dashboard_wrapper-content">
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.ListClass)
                     {
                         <div class="group__wrapper-item ">
                             <a class="link-group" href="@Url.Action("RoomStu","DashBoardStudent")">
@@ -40,17 +40,21 @@
                     <div class="event__box-item">
                         <span style="text-align:center">Không có sự kiện nào diễn ra</span>
                     </div>
-                    @*<div class="event__box-item">
-                        <div class="event__box-item-title">
-                            <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                            <span>Lớp lạ mà quen</span>
+                    @foreach(var item in Model.ListEvent)
+                    {
+                        <div class="event__box-item">
+                            <div class="event__box-item-title">
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                <span>@item.ClassName</span>
+                            </div>
+                            <div class="event__box-item-time">
+                                <span>@item.TimeStart » </span>
+                                <span> @item.TimeEnd</span>
+                            </div>
+                            <a href="">Đi đến hoạt động</a>
                         </div>
-                        <div class="event__box-item-time">
-                            <span>24/3/2024, </span>
-                            <span> 2:00 AM » 2:15 AM</span>
-                        </div>
-                        <a href="">Đi đến hoạt động</a>
-                    </div>*@
+                    }
+                    
                 </div>
             </div>
         </div>

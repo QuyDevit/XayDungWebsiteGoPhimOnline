@@ -183,6 +183,7 @@
     <Compile Include="Models\DTO\CLASSTEST.cs" />
     <Compile Include="Models\DTO\COMPETITIONVIEWMODEL.cs" />
     <Compile Include="Models\DTO\DASHBOARDEDU.cs" />
+    <Compile Include="Models\DTO\DASHBOARDSTU.cs" />
     <Compile Include="Models\DTO\EDITTEXTPRACTICEVIEW.cs" />
     <Compile Include="Models\DTO\GAMETYPING.cs" />
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
