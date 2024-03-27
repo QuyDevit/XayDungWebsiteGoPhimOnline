@@ -132,8 +132,12 @@ $("#create-test").click(function () {
         toastr.warning("Số lần làm bài không được <= 0");
         return;
     }
-
     var currentTimestamp = new Date().getTime();
+    if (timeend < currentTimestamp) {
+        toastr.warning("Thời gian kết thúc không hợp lệ");
+        return;
+    }
+ 
     $.ajax({
         type: 'post',
         url: '/DashBoardEdu/CreateTestEdu',

@@ -22,7 +22,7 @@
                     @foreach (var item in Model.ListClass)
                     {
                         <div class="group__wrapper-item ">
-                            <a class="link-group" href="@Url.Action("RoomStu","DashBoardStudent")">
+                            <a class="link-group" href="@Url.Action("RoomStu","DashBoardStudent",new { data = item.ClassRoomId})">
                                 <img class="group__wrapper-img" src="@item.AvatarClassRoom" />
                                 <p class="group__wrapper-title">@item.ClassName </p>
                             </a>
@@ -37,24 +37,30 @@
             <div class="event__wrapper">
                 <p>Sự kiện sắp diễn ra</p>
                 <div class="event__box">
-                    <div class="event__box-item">
-                        <span style="text-align:center">Không có sự kiện nào diễn ra</span>
-                    </div>
-                    @foreach(var item in Model.ListEvent)
+                    @if (Model.ListEvent.Count() == 0)
                     {
                         <div class="event__box-item">
-                            <div class="event__box-item-title">
-                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                                <span>@item.ClassName</span>
-                            </div>
-                            <div class="event__box-item-time">
-                                <span>@item.TimeStart » </span>
-                                <span> @item.TimeEnd</span>
-                            </div>
-                            <a href="">Đi đến hoạt động</a>
+                            <span style="text-align:center">Không có sự kiện nào diễn ra</span>
                         </div>
                     }
-                    
+                    else
+                    {
+                        foreach (var item in Model.ListEvent)
+                        {
+                            <div class="event__box-item">
+                                <div class="event__box-item-title">
+                                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                    <span>@item.ClassName</span>
+                                </div>
+                                <div class="event__box-item-time">
+                                    <span>@item.TimeStart » </span>
+                                    <span> @item.TimeEnd</span>
+                                </div>
+                                <a href="">Đi đến hoạt động</a>
+                            </div>
+                        }
+                    }
+
                 </div>
             </div>
         </div>

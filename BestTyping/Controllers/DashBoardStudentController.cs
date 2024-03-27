@@ -78,9 +78,61 @@ namespace BestTyping.Controllers
                 return View(view);
             }          
         }
-        public ActionResult RoomStu()
+        public ActionResult RoomStu(int data)
         {
-            return View();
+            USER us = (USER)Session["User"];
+            if(us == null)
+            {
+                return RedirectToAction("DashboardStudent", "DashBoardStudent");
+            }
+            else
+            {
+                var getRoom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == data);
+                if (getRoom == null)
+                {
+                    return RedirectToAction("DashboardStudent", "DashBoardStudent");
+                }
+                else
+                {
+                    var datajs = JsonConvert.DeserializeObject<List<USERROOM>>(getRoom.ListUserJoin);
+                    var checkusernow = datajs.FirstOrDefault(u => u.UserId == us.Id);
+                    if(checkusernow == null)
+                    {
+                        return RedirectToAction("DashboardStudent", "DashBoardStudent");
+                    }
+                    else
+                    {
+                        var getuser = db.USERs.FirstOrDefault(u => u.Id == getRoom.UserCreate);
+                    
+                        var listeventbyclass = db.TESTEDUs.ToList();
+                        List<TESTEDUTABLE> listevent = new List<TESTEDUTABLE>();
+                        foreach (var item in listeventbyclass)
+                        {
+                            var dataclass = JsonConvert.DeserializeObject<List<CLASSTEST>>(item.ListClass);
+                            var checkclass = dataclass.FirstOrDefault(c => c.IdRoom == getRoom.ClassRoomId);
+                            if(checkclass != null)
+                            {
+                                TESTEDUTABLE test = new TESTEDUTABLE();
+                                test.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
+                                test.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
+                                test.ClassName = getRoom.ClassName;
+                                test.CodeLink = item.CodeLink;
+                                listevent.Add(test);
+
+                            }                               
+                        }
+                        ROOMSTUVIEW roomstu = new ROOMSTUVIEW();
+                        roomstu.Name = getuser.HoTen;
+                        roomstu.Email = getuser.Email;
+                        roomstu.ClassName = getRoom.ClassName;
+                        roomstu.Room = getRoom;
+                        roomstu.ListEvent = listevent;
+                        return View(roomstu);
+                    }               
+                }
+
+            }
+            
         }
         public ActionResult _PartialSideBarStu()
         {

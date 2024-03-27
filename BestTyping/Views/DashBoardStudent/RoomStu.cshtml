@@ -1,4 +1,4 @@
-﻿
+﻿@model BestTyping.Models.DTO.ROOMSTUVIEW
 @{
     ViewBag.Title = "RoomStu";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -17,7 +17,7 @@
             <div class="dashboard_wrapper">
                 <div class="room__wrapper">
                     <div class="room__wrapper-title">
-                        <p>Nhóm lạ </p>
+                        <p>@Model.ClassName </p>
                     </div>
                     <div class="room__wrapper-content">
                         <p style="font-size: 26px; color: #615555;">Chào mừng bạn tham gia lớp học </p>
@@ -33,88 +33,39 @@
                         <p style="text-align:center">
                             <span>----------------------------------------------------------------------------------------------------------</span>
                         </p>
-                        <p style="text-align: center; font-size: 18px; color: #615555;">Chủ nhóm: <strong>Qúy Nguyễn </strong> | Email: <strong>pingvocuc333@gmail.com</strong></p>
+                        <p style="text-align: center; font-size: 18px; color: #615555;">Chủ nhóm: <strong>@Model.Name </strong> | Email: <strong>@Model.Email</strong></p>
                         <div class="event-room__wrapper">
-                            <p class="title-event" >Sự kiện sắp diễn ra</p>
+                            <p class="title-event">Sự kiện sắp diễn ra</p>
                             <div class="event-room__box">
-                                <div class="event-room__box-item">
-                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
-                                    <div class="event__box-content">
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                @foreach (var item in Model.ListEvent)
+                                {
+                                    <div class="event-room__box-item">
+                                        <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">@item.TitleTest</span></p>
+                                        <div class="event__box-content">
+                                            <div class="box-content">
+                                                <div style="width:50px">
+                                                    <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                                </div>
+                                                <p><span style=" color: #1862a9;">@item.TimeStart,</span>  <span style="margin:0;"> @item.TimeEnd</span></p>
                                             </div>
-                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
+                                            <div class="box-content">
+                                                <div style="width:50px">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </div>
+                                                <span>Sự kiện nhóm học</span>
+                                            </div>
+                                            <div class="box-content">
+                                                <div style="width:50px">
+                                                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                                                </div>
+                                                <span style=" color: #1862a9;">@item.ClassName</span>
+                                            </div>
                                         </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </div>
-                                            <span>Sự kiện nhóm học</span>
-                                        </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            </div>
-                                            <span style=" color: #1862a9;">Lớp mới</span>
-                                        </div>
-                                    </div>
-                                    <div class="active-event">
-                                        <a href="">Đi đến hoạt động</a>
-                                    </div>
-                                </div>
-                                <div class="event-room__box-item">
-                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
-                                    <div class="event__box-content">
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            </div>
-                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
-                                        </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </div>
-                                            <span>Sự kiện nhóm học</span>
-                                        </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            </div>
-                                            <span style=" color: #1862a9;">Lớp mới</span>
+                                        <div class="active-event">
+                                            <a href="">Đi đến hoạt động</a>
                                         </div>
                                     </div>
-                                    <div class="active-event">
-                                        <a href="">Đi đến hoạt động</a>
-                                    </div>
-                                </div>
-                                <div class="event-room__box-item">
-                                    <p class="event-status"><i class="fa fa-fire" aria-hidden="true"></i><span style="margin-left:10px;">Bài kiểm tra gõ phím</span></p>
-                                    <div class="event__box-content">
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-clock-o" aria-hidden="true"></i>
-                                            </div>
-                                            <p><span style=" color: #1862a9;">22/3/2024,</span>  <span style="margin:0;"> 2:00 AM » 2:15 AM</span></p>
-                                        </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-calendar" aria-hidden="true"></i>
-                                            </div>
-                                            <span>Sự kiện nhóm học</span>
-                                        </div>
-                                        <div class="box-content">
-                                            <div style="width:50px">
-                                                <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                                            </div>
-                                            <span style=" color: #1862a9;">Lớp mới</span>
-                                        </div>
-                                    </div>
-                                    <div class="active-event">
-                                        <a href="">Đi đến hoạt động</a>
-                                    </div>
-                                </div>
+                                }
                             </div>
                         </div>
                     </div>

@@ -189,6 +189,7 @@
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
     <Compile Include="Models\DTO\RESULTCOMPETITIONVIEWMODEL.cs" />
     <Compile Include="Models\DTO\ROOMSETTINGVIEW.cs" />
+    <Compile Include="Models\DTO\ROOMSTUVIEW.cs" />
     <Compile Include="Models\DTO\SETTINGVIEW.cs" />
     <Compile Include="Models\DTO\PROGRESSUSER.cs" />
     <Compile Include="Models\DTO\TABLERESULTCOMPETITION.cs" />
