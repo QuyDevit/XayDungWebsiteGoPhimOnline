@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "EventAction";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<div class="wrapper">
+    @Html.Action("_PartialSideBarStu", "DashBoardStudent")
+    <!-- Main Component -->
+    <div class="main" style=" flex-direction: row;">
+        <div class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">     
+                <div class="event-title__wrapper">
+                    <p class="event-title">Kiểm tra gõ phím bài: Luyện gõ phím test cơ tay</p>
+                    <p class="note-numtest">Chỉ được làm bài 1 lần</p>
+                    <p class="note-content">Bài thi/kiểm tra có hiệu lực: <strong>13:54, Thứ năm ngày 28 tháng 03 năm 2024</strong></p>
+                    <p class="note-content">Bài thi/kiểm tra sẽ đóng vào lúc:<strong>14:55, Thứ năm ngày 28 tháng 03 năm 2024</strong> </p>
+                    <p class="note-content">Để bắt đầu làm bài, bạn phải có <strong>"Mật khẩu Đề thi"</strong></p>
+                    <p class="note-content">Thời gian làm bài: <strong>1 phút</strong></p>
+                    <button id="start-action">Băt đầu làm bài</button>
+                    <img class="img-test" src="~/Theme/images/Finger_position_on_a_keyboard.png" />
+                </div> 
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div id="modalstarttest" class="modal">
+    <div class="modal-content" style="width:40%">
+        <div class="modal-header_title" style="border-bottom:1px solid #ccc">
+            <p id="title-class">Bắt đầu làm bài kiểm tra</p>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <div>
+                <p style="font-size: 22px; color: black; margin: 0">Mật khẩu:</p>
+                <div style="display:flex;align-items:end;">
+                    <div style="flex:0.4">
+                        <p style="font-size:15px;color:black;">Mật khẩu đề thi</p>
+                    </div>
+                    <div style="display:flex;flex-direction:column;flex:1">
+                        <p style="font-size: 15px; color: black; margin-bottom: 5px;">Để bắt đầu làm bài, bạn phải có "Mật khẩu Đề thi"</p>
+                        <input type="password" class="form-control" />
+                    </div>
+                </div>
+                <p style="font-size:22px;color:black;margin:0">Thời gian làm bài:</p>
+                <div style="display:flex;align-items:end;">
+                    <div style="flex:0.4">
+                        
+                    </div>
+                    <div style="display:flex;flex-direction:column;flex:1">
+                        <p style="font-size: 15px; color: black; margin-bottom: 5px;">Thời gian làm bài của bạn là <strong>1 phút</strong>. Khi bắt đầu làm bài, thời gian làm bài bắt đầu được tính và không thể dừng lại. Bạn phải hoàn thành bài làm trước khi hết thời gian làm bài. Bạn có muốn bắt đầu làm bài ngay bây giờ không?</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div style="display:flex;align-items:end;">
+            <div style="flex:0.4">
+
+            </div>
+            <div style="display:flex;flex:1">
+                <button id="start" type="button" style="border: none; background-color: #61869d;color:white;padding:6px 30px;border-radius:5px;margin-left:5px">Bắt đầu kiểm tra</button>
+                <button id="cancel" type="button" style="border: none; background-color: #cd3a3a; color: white; padding: 6px 30px; border-radius: 5px; margin-left: 10px ">Đóng</button>
+            </div>
+        </div>           
+    </div>
+</div>
+<script>
+    var $modal = $("#modalstarttest");
+    var $modalContent = $modal.find('.modal-content');
+
+    $("#start-action").click(function () {
+        $modal.show();
+        $modalContent.css('animation', 'zoomIn 0.6s');
+    })
+</script>

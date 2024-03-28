@@ -370,6 +370,7 @@
     <Content Include="Views\DashBoardStudent\RoomStu.cshtml" />
     <Content Include="Views\DashBoardEdu\TestEdu.cshtml" />
     <Content Include="Views\DashBoardEdu\MyTestEdu.cshtml" />
+    <Content Include="Views\DashBoardStudent\EventAction.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

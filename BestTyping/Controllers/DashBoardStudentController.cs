@@ -138,7 +138,10 @@ namespace BestTyping.Controllers
         {
             return PartialView();
         }
-
+        public ActionResult EventAction()
+        {
+            return View();
+        }
         [HttpPost]
         public JsonResult CheckCodeRoom(string data)
         {
