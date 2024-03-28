@@ -45,18 +45,33 @@
                     }
                     else
                     {
+                        int count = 0;
                         foreach (var item in Model.ListEvent)
                         {
+                            if (item.Status == true)
+                            {
+
+                                <div class="event__box-item">
+                                    <div class="event__box-item-title">
+                                        <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                                        <span>@item.ClassName</span>
+                                    </div>
+                                    <div class="event__box-item-time">
+                                        <span>@item.TimeStart » </span>
+                                        <span> @item.TimeEnd</span>
+                                    </div>
+                                    <a href="@Url.Action("EventAction","DashBoardStudent",new { key = item.CodeLink, idroom = item.IDRoom})">Đi đến hoạt động</a>
+                                </div>
+                            }
+                            else
+                            {
+                                count++;
+                            }
+                        }
+                        if (count == Model.ListEvent.Count())
+                        {
                             <div class="event__box-item">
-                                <div class="event__box-item-title">
-                                    <i class="fa fa-hand-o-right" aria-hidden="true"></i>
-                                    <span>@item.ClassName</span>
-                                </div>
-                                <div class="event__box-item-time">
-                                    <span>@item.TimeStart » </span>
-                                    <span> @item.TimeEnd</span>
-                                </div>
-                                <a href="">Đi đến hoạt động</a>
+                                <span style="text-align:center">Không có sự kiện nào diễn ra</span>
                             </div>
                         }
                     }
@@ -114,6 +129,7 @@
     var $modalContent = $modal.find('.modal-content');
 
     $("#join-group").click(function () {
+        $("body").addClass("modal-open");
         $modal.show();
         $modalContent.css('animation', 'zoomIn 0.6s');
     })

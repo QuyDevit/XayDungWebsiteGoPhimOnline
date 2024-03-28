@@ -156,7 +156,7 @@ namespace BestTyping.Controllers
                 foreach(var item in listtestbyuser)
                 {
                     var i = new TESTEDUTABLE();
-                    i.ID = item.ID;
+                    i.IDRoom = item.ID;
                     i.Status = item.Status ?? true;
                     i.CodeLink = item.CodeLink;
                     i.TitleTest = item.TitleTest;

@@ -30,6 +30,25 @@ namespace BestTyping.Controllers
 
             return formattedDate;
         }
+        public static string ConvertTimestampToDateTestEvent(long timestamp)
+        {
+            long timestampInSeconds = timestamp / 1000;
+
+            if (timestampInSeconds < -62135596800 || timestampInSeconds > 253402300799)
+            {
+                throw new ArgumentOutOfRangeException(nameof(timestamp), "Timestamp is out of range.");
+            }
+
+            var dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(timestampInSeconds);
+            var dateTime = dateTimeOffset.LocalDateTime; // Hoặc .UtcDateTime nếu bạn muốn thời gian UTC
+
+            // Định dạng ngày tháng theo yêu cầu mới: "HH:mm Thứ x ngày dd tháng MM năm yyyy"
+            // Lưu ý: Định dạng này phụ thuộc vào cài đặt ngôn ngữ và vùng lãnh thổ của hệ thống
+            // Bạn có thể cần chỉnh sửa định dạng để phù hợp với môi trường cụ thể của bạn
+            string formattedDate = dateTime.ToString("HH:mm, 'Thứ' dddd 'ngày' dd 'tháng' MM 'năm' yyyy", new System.Globalization.CultureInfo("vi-VN"));
+
+            return formattedDate;
+        }
         public ActionResult DashboardStudent()
         {
             USER user = (USER)Session["User"];
@@ -63,6 +82,16 @@ namespace BestTyping.Controllers
                         var checkclass = data.FirstOrDefault(c => c.IdRoom == room.ClassRoomId);
                         if(checkclass != null)
                         {
+                            test.IDRoom = classroom.ClassRoomId;
+                            long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                            if (currentTimestamp > item.DateEnd)
+                            {
+                                test.Status = false;
+                            }
+                            else
+                            {
+                                test.Status = true;
+                            }
                             test.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
                             test.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
                             test.ClassName = classroom.ClassName;
@@ -113,6 +142,16 @@ namespace BestTyping.Controllers
                             if(checkclass != null)
                             {
                                 TESTEDUTABLE test = new TESTEDUTABLE();
+                                test.IDRoom = getRoom.ClassRoomId;
+                                long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                                if (currentTimestamp > item.DateEnd)
+                                {
+                                    test.Status = false;
+                                }
+                                else
+                                {
+                                    test.Status = true;
+                                }
                                 test.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
                                 test.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
                                 test.ClassName = getRoom.ClassName;
@@ -138,10 +177,86 @@ namespace BestTyping.Controllers
         {
             return PartialView();
         }
-        public ActionResult EventAction()
+        public ActionResult EventAction(string key,int idroom)
         {
-            return View();
+            // Kiểm tra nếu key rỗng hoặc null
+            if (string.IsNullOrEmpty(key) )
+            {
+                // Lấy URL của trang trước đó
+                var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+
+                // Chuyển hướng người dùng quay lại trang trước đó
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                USER us = (USER)Session["User"];
+                if (us == null)
+                {
+                    return RedirectToAction("CheckTyping", "Home");
+                }
+                else
+                {
+                    var getevent = db.TESTEDUs.FirstOrDefault(e => e.CodeLink == key);
+                    if(getevent == null)
+                    {
+                        var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+
+                        // Chuyển hướng người dùng quay lại trang trước đó
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        var data = JsonConvert.DeserializeObject<List<CLASSTEST>>(getevent.ListClass);
+                        var checkclass = data.FirstOrDefault(c => c.IdRoom == idroom);
+                        if(checkclass == null)
+                        {
+                            var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+
+                            // Chuyển hướng người dùng quay lại trang trước đó
+                            return Redirect(returnUrl);
+                        }
+                        else
+                        {
+                            var getclassbyevent = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == checkclass.IdRoom);
+                            var getlistuserjoinbyclass = JsonConvert.DeserializeObject<List<USERROOM>>(getclassbyevent.ListUserJoin);
+                            var checkuser = getlistuserjoinbyclass.FirstOrDefault(u => u.UserId == us.Id);
+                            if(checkuser == null && us.Id != getevent.UserCreate)
+                            {
+                                var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+                                // Chuyển hướng người dùng quay lại trang trước đó
+                                return Redirect(returnUrl);
+
+                            }
+                            else
+                            {
+                                var view = new TESTEDUTABLE();
+                                view.ClassName = getclassbyevent.ClassName;
+                                view.IDRoom = getclassbyevent.ClassRoomId;
+                                view.CodeLink = getevent.CodeLink;
+                                long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                                if(currentTimestamp > getevent.DateEnd)
+                                {
+                                    view.Status = false;
+                                }
+                                else
+                                {
+                                    view.Status = true;
+                                }
+                                view.TitleTest = getevent.TitleTest;
+                                view.TimeStart = ConvertTimestampToDateTestEvent(getevent.DateStart ?? 0);
+                                view.TimeEnd = ConvertTimestampToDateTestEvent(getevent.DateEnd ?? 0);
+                                view.ExamDuration = getevent.ExamDuration / 60 + " phút";
+                                view.MaxAttempts = getevent.MaxAttempts ?? 0;
+                                return View(view);
+                            }
+                        }
+                    }
+                }
+            }
+            
         }
+
         [HttpPost]
         public JsonResult CheckCodeRoom(string data)
         {

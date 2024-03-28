@@ -1,4 +1,4 @@
-﻿
+﻿@model BestTyping.Models.DTO.TESTEDUTABLE
 @{
     ViewBag.Title = "EventAction";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -17,13 +17,20 @@
         <div class="content col-md-11 px-3 py-2">
             <div class="dashboard_wrapper">     
                 <div class="event-title__wrapper">
-                    <p class="event-title">Kiểm tra gõ phím bài: Luyện gõ phím test cơ tay</p>
-                    <p class="note-numtest">Chỉ được làm bài 1 lần</p>
-                    <p class="note-content">Bài thi/kiểm tra có hiệu lực: <strong>13:54, Thứ năm ngày 28 tháng 03 năm 2024</strong></p>
-                    <p class="note-content">Bài thi/kiểm tra sẽ đóng vào lúc:<strong>14:55, Thứ năm ngày 28 tháng 03 năm 2024</strong> </p>
-                    <p class="note-content">Để bắt đầu làm bài, bạn phải có <strong>"Mật khẩu Đề thi"</strong></p>
-                    <p class="note-content">Thời gian làm bài: <strong>1 phút</strong></p>
-                    <button id="start-action">Băt đầu làm bài</button>
+                    <p class="event-title">Kiểm tra gõ phím bài: @Model.TitleTest</p>
+                    @if (Model.Status == true)
+                    {
+                        <p class="note-numtest">Chỉ được làm bài @Model.MaxAttempts lần</p>
+                        <p class="note-content">Bài thi/kiểm tra có hiệu lực: <strong>@Model.TimeStart</strong></p>
+                        <p class="note-content">Bài thi/kiểm tra sẽ đóng vào lúc: <strong>@Model.TimeEnd</strong> </p>
+                        <p class="note-content">Để bắt đầu làm bài, bạn phải có <strong>"Mật khẩu Đề thi"</strong></p>
+                        <p class="note-content">Thời gian làm bài: <strong>@Model.ExamDuration</strong></p><button id="start-action">Băt đầu làm bài</button>
+                    }
+                    else
+                    {
+                        <p class="note-content">Bài thi/kiểm tra này đã kết thúc lúc: <strong>@Model.TimeEnd</strong> </p>
+                    }
+
                     <img class="img-test" src="~/Theme/images/Finger_position_on_a_keyboard.png" />
                 </div> 
 
@@ -56,7 +63,7 @@
                         
                     </div>
                     <div style="display:flex;flex-direction:column;flex:1">
-                        <p style="font-size: 15px; color: black; margin-bottom: 5px;">Thời gian làm bài của bạn là <strong>1 phút</strong>. Khi bắt đầu làm bài, thời gian làm bài bắt đầu được tính và không thể dừng lại. Bạn phải hoàn thành bài làm trước khi hết thời gian làm bài. Bạn có muốn bắt đầu làm bài ngay bây giờ không?</p>
+                        <p style="font-size: 15px; color: black; margin-bottom: 5px;">Thời gian làm bài của bạn là <strong>@Model.ExamDuration</strong>. Khi bắt đầu làm bài, thời gian làm bài bắt đầu được tính và không thể dừng lại. Bạn phải hoàn thành bài làm trước khi hết thời gian làm bài. Bạn có muốn bắt đầu làm bài ngay bây giờ không?</p>
                         
                     </div>
                 </div>
@@ -78,7 +85,16 @@
     var $modalContent = $modal.find('.modal-content');
 
     $("#start-action").click(function () {
+        $("body").addClass("modal-open");
         $modal.show();
         $modalContent.css('animation', 'zoomIn 0.6s');
     })
+
+    $(".close, #cancel").click(function () {
+        $("body").removeClass("modal-open");
+        $modalContent.css('animation', 'zoomOut 0.6s');
+        setTimeout(function () {
+            $modal.hide();
+        }, 500);
+    });
 </script>
