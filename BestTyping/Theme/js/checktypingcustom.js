@@ -378,7 +378,7 @@ $(document).ready(function () {
         $(".highlight").removeClass("highlight");
         $("#word" + currentWord).addClass("highlight");
     }
-
+    var arrchar = [];
     $("#inputfield").on("input", function (event) {
         if (!typingStarted) {
             typingStarted = true;
@@ -393,6 +393,14 @@ $(document).ready(function () {
         if (isFullScreen) {
             $("#settings").hide();
             toggleFullScreen(true);
+        }
+        var currentValue = $(this).val();
+        // Xác định ký tự mới bằng cách so sánh độ dài của mảng arrchar với giá trị hiện tại
+        if (arrchar.join("").length < currentValue.length) {
+            arrchar.push(currentValue.slice(-1)); // Chỉ thêm ký tự mới nhất
+        } else {
+            // Xử lý xóa: Cập nhật lại mảng arrchar dựa trên giá trị hiện tại của input
+            arrchar = currentValue.split("");
         }
         var charEntered = $(this).val().slice(-1);
 
@@ -430,12 +438,12 @@ $(document).ready(function () {
         var inputText = $("#inputfield").val().trim();
         var targetWord = $("#word" + currentWord).text();
 
-        if (inputText === targetWord) {
+        if (inputText === targetWord && arrchar.length - 1 == targetWord.length) {
             $("#word" + currentWord).addClass("correct");
         } else {
             $("#word" + currentWord).removeClass("checkhighlight").addClass("wrong");
         }
-
+        arrchar = [];
         currentWord++;
 
         if (currentWord <= 200) {
