@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "TestTypingEduAction";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+
+
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<div class="wrapper">
+    @Html.Action("_PartialSideBarStu", "DashBoardStudent")
+    <!-- Main Component -->
+    <div class="main" style=" flex-direction: row;">
+        <div class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="" id="fillter">
+                    <div id="container__fillter" style="padding:150px 400px">
+                        <div id="container__content">
+                            <p id="quote" style="border-top-left-radius: 5px">
+                            </p>
+                        </div>
+                        <div class="typing-speed">
+                            <div class="typing-speed__inner">
+                                <input id="inputfield" class="form-control typing-speed__input" type="text" />
+                                <div id="timer" class="typing-speed__timer">1:00</div>
+                                <button class="btn btn-primary btn-reset"><i class="fa fa-refresh btn-reset__text" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 mb-4 mb-md-0 container-result">
+                    <div class="box-result" id="result-test" >
+                        <div class="box-result__header">
+                            <span>KẾT QUẢ</span>
+                            <strong id="wpm"></strong>
+                        </div>
+                        <div class="box-result__content">
+                            <div class="box-result__wrapper">
+                                <div class="box-result__wrapper-content">
+                                    <span>Tổ hợp phím</span>
+                                    <span id="keystroke"></span>
+                                </div>
+                                <div class="box-result__wrapper-content">
+                                    <span>Độ chính xác</span>
+                                    <span id="accuracy"></span>
+                                </div>
+                                <div class="box-result__wrapper-content">
+                                    <span>Số từ đúng</span>
+                                    <span id="correctword"></span>
+                                </div>
+                                <div class="box-result__wrapper-content">
+                                    <span>Số từ sai</span>
+                                    <span id="wrongword"></span>
+                                </div>
+                            </div>
+                            <div class="box-result__footer">
+                                <a class="btn-share" href="">
+                                    <i class="fa fa-facebook box-result__footer-icon" aria-hidden="true"></i>
+                                    <span>Chia sẻ qua Facebook</span>
+                                </a>
+                                <a class="btn-screen" href="">
+                                    <i class="fa fa-camera box-result__footer-icon" aria-hidden="true"></i>
+                                    <span>Chụp kết quả</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script>
+    $("#result-test").hide();
+</script>

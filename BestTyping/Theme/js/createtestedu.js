@@ -155,7 +155,7 @@ $("#create-test").click(function () {
         },
         success: function (response) {
             if (response.code == 200) {
-                ToastSuccess("Thành công", response.msg, false);
+                ToastSuccess("Thành công", response.msg, true);
             } else {
                 ToastError(response.msg);
             }

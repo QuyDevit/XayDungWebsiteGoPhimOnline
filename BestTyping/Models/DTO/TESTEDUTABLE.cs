@@ -7,6 +7,7 @@ namespace BestTyping.Models.DTO
 {
     public class TESTEDUTABLE
     {
+        public int IDTest { get; set; }
         public int IDRoom { get; set; }
         public bool Status { get; set; }
 

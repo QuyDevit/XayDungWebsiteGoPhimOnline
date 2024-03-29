@@ -66,9 +66,9 @@
                                             foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" type="checkbox" value="@item.ID" /></td>
+                                                    <td style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" type="checkbox" value="@item.IDTest" /></td>
                                                     <td class="status" style=" padding: 5px"><span class="@(item.Status == true ? "public":"private")">@(item.Status == true ? "Sẵn sàng":"Kết thúc")</span></td>
-                                                    <td style="padding: 5px"><a style="color: #61869d;font-weight:600" href="">@item.TitleTest</a></td>
+                                                    <td style="padding: 5px"><a style="color: #61869d;font-weight:600" href="@Url.Action("EventAction","DashBoardStudent",new { key = item.CodeLink, idroom = item.IDRoom})">@item.TitleTest</a></td>
                                                     <td style="padding:5px">@item.TimeStart</td>
                                                     <td style="padding:5px">@item.TimeEnd</td>
                                                     <td style="text-align: center; padding: 5px">

@@ -155,14 +155,25 @@ namespace BestTyping.Controllers
                 var list = new List<TESTEDUTABLE>();
                 foreach(var item in listtestbyuser)
                 {
+                    var dataroom = JsonConvert.DeserializeObject<List<CLASSTEST>>(item.ListClass);
+                    var firstItem = dataroom.FirstOrDefault();
+                    long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    var eventtest = db.TESTEDUs.FirstOrDefault(t => t.ID == item.ID);
+                    if (currentTimestamp > item.DateEnd)
+                    {
+                        eventtest.Status = false;
+                    }
+                    db.SubmitChanges();
                     var i = new TESTEDUTABLE();
-                    i.IDRoom = item.ID;
+                    i.IDRoom = firstItem.IdRoom;
+                    i.IDTest = item.ID;
                     i.Status = item.Status ?? true;
                     i.CodeLink = item.CodeLink;
                     i.TitleTest = item.TitleTest;
                     i.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
                     i.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
                     list.Add(i);
+              
                 }
                 return View(list);
             }

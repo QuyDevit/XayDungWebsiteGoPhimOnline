@@ -171,7 +171,11 @@ namespace BestTyping.Controllers
                 }
 
             }
-            
+
+        }
+        public ActionResult TestTypingEduAction()
+        {
+            return View();
         }
         public ActionResult _PartialSideBarStu()
         {

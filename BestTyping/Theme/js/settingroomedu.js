@@ -324,10 +324,10 @@ $(document).ready(function () {
 
     // full screen code
     $("#fullscreen-code").click(function () {
-        $(".full-screen").show();
+        $(".full-screen-zoom").show();
         $(".full-screen_wrapper span").text($("#code-room").text());
         $(".full-screen_wrapper i").click(function () {
-            $(".full-screen").hide();
+            $(".full-screen-zoom").hide();
         })
     })
 
