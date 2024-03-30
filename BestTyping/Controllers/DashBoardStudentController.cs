@@ -173,16 +173,159 @@ namespace BestTyping.Controllers
             }
 
         }
-        public ActionResult TestTypingEduAction()
+        public ActionResult TestTypingEduAction(string key ,int data)
         {
-            return View();
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
+            if (string.IsNullOrEmpty(key))
+            {
+                // Lấy URL của trang trước đó
+                var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+
+                // Chuyển hướng người dùng quay lại trang trước đó
+                return Redirect(returnUrl);
+            }
+            else
+            {
+                USER us = (USER)Session["User"];
+                if (us == null)
+                {
+                    return RedirectToAction("CheckTyping", "Home");
+                }
+                else
+                {
+                    var getevent = db.TESTEDUs.FirstOrDefault(e => e.CodeLink == key);
+                    if (getevent == null)
+                    {
+                        var returnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.ToString() : Url.Action("Index", "Home"); // Giả sử trang chủ là mặc định nếu không có trang trước
+
+                        // Chuyển hướng người dùng quay lại trang trước đó
+                        return Redirect(returnUrl);
+                    }
+                    else
+                    {
+                        var test = new TESTEDUTABLE();
+                        TYPINGRESULTEDU result = (TYPINGRESULTEDU)Session["ResultEdu"];
+                        if(result == null)
+                        {
+                            test.CheckView = true;
+                        }
+                        else
+                        {
+                            test.Result = result;
+                            test.CheckView = false;
+                        }
+
+                        test.IDTest = getevent.ID;
+                        test.IDRoom = data;
+                        test.ExamDuration = Convert.ToString(getevent.ExamDuration ?? 0);
+                        var gettextedu = db.TEXTTESTEDUs.FirstOrDefault(t => t.ID == getevent.TextID);
+                        var words = new List<string>();
+                        if (getevent.IsRandom == true)
+                        {
+                            var random = new Random();
+                            var wordArray = gettextedu.Text.ToLower().Split(' ');
+                            var shuffledWords = wordArray.OrderBy(x => random.Next()).ToList();
+                            words.AddRange(shuffledWords);
+                            test.TextTest = words;
+                        }
+                        else
+                        {
+                            var wordArray = gettextedu.Text.ToLower().Split(' ');
+                            words.AddRange(wordArray);
+                            test.TextTest = words;
+                        }
+                        return View(test);
+                    }
+
+                }
+
+            }
+
         }
+        public JsonResult CheckPassTest(string passtest,string codelink)
+        {
+            try
+            {
+                USER us = (USER)Session["User"];
+                if (us != null)
+                {
+                    var getevent = db.TESTEDUs.FirstOrDefault(t => t.CodeLink == codelink);
+                    if(getevent != null)
+                    {
+                        bool flag = false;
+                        if(getevent.PassTest == passtest)
+                        {
+                            Session["ResultEdu"] = null;
+                            flag = true;
+                        }
+                        else
+                        {
+                            flag = false;
+                        }
+                        return Json(new { code = 200,check = flag, msg = "Thành công" });
+                    }
+                    else
+                    {
+                        return Json(new { code = 500, msg = "Đã có lỗi xảy ra" });
+                    }
+                }
+                else
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+        }
+        [HttpPost]
+        public JsonResult HandleSaveResultTypingEdu(int testid,int roomid,float accuracy,int wpm,int mistakes,int correctwords,long timestamp,int keystrokes,int correctcharacters, int wrongcharacters)
+        {
+            try
+            {
+                USER us = (USER)Session["User"];
+                if (us != null)
+                {
+                    var result = new TYPINGRESULTEDU();
+                    result.Accuracy = accuracy;
+                    result.UserID = us.Id;
+                    result.TestId = testid;
+                    result.ClassRoomId = roomid;
+                    result.Mistakes = mistakes;
+                    result.KeyStrokes = keystrokes;
+                    result.Timestamp = timestamp;
+                    result.WPM = wpm;
+                    result.CorrectWords = correctwords;
+                    result.CorrectCharacter = correctcharacters;
+                    result.WrongCharacter = wrongcharacters;
+                    db.TYPINGRESULTEDUs.InsertOnSubmit(result);
+
+                    Session["ResultEdu"] = result;
+                    db.SubmitChanges();
+                    return Json(new { code = 200, msg = "Thành công" });
+                }
+                else
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 500, msg = ex.Message });
+            }
+        }
+
         public ActionResult _PartialSideBarStu()
         {
             return PartialView();
         }
+
         public ActionResult EventAction(string key,int idroom)
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
             // Kiểm tra nếu key rỗng hoặc null
             if (string.IsNullOrEmpty(key) )
             {
@@ -234,6 +377,7 @@ namespace BestTyping.Controllers
                             }
                             else
                             {
+                                var listresultedubyuser = db.TYPINGRESULTEDUs.Where(r => r.UserID == us.Id).ToList();
                                 var view = new TESTEDUTABLE();
                                 view.ClassName = getclassbyevent.ClassName;
                                 view.IDRoom = getclassbyevent.ClassRoomId;
@@ -252,6 +396,7 @@ namespace BestTyping.Controllers
                                 view.TimeEnd = ConvertTimestampToDateTestEvent(getevent.DateEnd ?? 0);
                                 view.ExamDuration = getevent.ExamDuration / 60 + " phút";
                                 view.MaxAttempts = getevent.MaxAttempts ?? 0;
+                                view.CountResultByUser = listresultedubyuser.Count();
                                 return View(view);
                             }
                         }

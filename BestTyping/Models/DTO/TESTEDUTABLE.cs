@@ -18,5 +18,9 @@ namespace BestTyping.Models.DTO
         public string ClassName { get; set; }
         public string ExamDuration { get; set; }
         public int MaxAttempts { get; set; }
+        public bool CheckView { get; set; }
+        public TYPINGRESULTEDU Result { get; set; }
+        public int CountResultByUser { get; set; }
+        public List<string> TextTest { get; set; }
     }
 }

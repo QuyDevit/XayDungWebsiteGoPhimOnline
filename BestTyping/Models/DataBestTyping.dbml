@@ -150,4 +150,20 @@
       <Column Name="CreateDate" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.TYPINGRESULTEDU" Member="TYPINGRESULTEDUs">
+    <Type Name="TYPINGRESULTEDU">
+      <Column Name="ResultId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="TestId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ClassRoomId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UserID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Accuracy" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="WPM" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Mistakes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CorrectWords" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="KeyStrokes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Timestamp" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="WrongCharacter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CorrectCharacter" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

@@ -1,9 +1,9 @@
-﻿
+﻿@model BestTyping.Models.DTO.TESTEDUTABLE
 @{
     ViewBag.Title = "TestTypingEduAction";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
-
+@using Newtonsoft.Json
 
 
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
@@ -18,7 +18,7 @@
     <div class="main" style=" flex-direction: row;">
         <div class="content col-md-11 px-3 py-2">
             <div class="dashboard_wrapper">
-                <div class="" id="fillter">
+                <div class="full-screen" id="fillter">
                     <div id="container__fillter" style="padding:150px 400px">
                         <div id="container__content">
                             <p id="quote" style="border-top-left-radius: 5px">
@@ -27,14 +27,13 @@
                         <div class="typing-speed">
                             <div class="typing-speed__inner">
                                 <input id="inputfield" class="form-control typing-speed__input" type="text" />
-                                <div id="timer" class="typing-speed__timer">1:00</div>
-                                <button class="btn btn-primary btn-reset"><i class="fa fa-refresh btn-reset__text" aria-hidden="true"></i></button>
+                                <div id="timer" class="typing-speed__timer"></div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-5 mb-4 mb-md-0 container-result">
-                    <div class="box-result" id="result-test" >
+                    <div class="box-result" id="result-test">
                         <div class="box-result__header">
                             <span>KẾT QUẢ</span>
                             <strong id="wpm"></strong>
@@ -76,6 +75,38 @@
 
     </div>
 </div>
+<script src="~/Theme/animated/confetti.js"></script>
 <script>
-    $("#result-test").hide();
+
+    let text = JSON.parse('@Html.Raw(JsonConvert.SerializeObject(Model.TextTest))');
+    let examDuration = parseInt(`@Model.ExamDuration`, 10);
+    let data = `@Model.IDRoom`;
+    let datatest = `@Model.IDTest`;
+    if (`@Html.Raw(JsonConvert.SerializeObject(Model.Result))` != null) {
+        let resultString  = `@Html.Raw(JsonConvert.SerializeObject(Model.Result))`;
+        let result = JSON.parse(resultString);
+        if (result !== null) {
+            $("#keystroke").html(`( <span style="color: green;">${result.CorrectCharacter}</span> | <span style="color: red;">${result.WrongCharacter}</span> )   ${result.KeyStrokes}`);
+            $("#wpm").text(result.WPM + " WPM");
+            var ac = parseFloat(result.Accuracy);
+            $("#accuracy").text(ac.toFixed(2) + "%");
+
+            $("#correctword").html(`<span style="color: green;">${result.CorrectWords}</span>`);
+
+            $("#wrongword").html(`<span style="color: red;">${result.Mistakes}</span>`);
+        }
+        
+    }
+    
+
+    let checkview = `@Model.CheckView`;
+    if (checkview == "True") {
+        $("#result-test").hide();
+    } else {
+        $("#fillter").remove();
+
+    }
+
+
 </script>
+<script src="~/Theme/js/testtypingeduaction.js"></script>

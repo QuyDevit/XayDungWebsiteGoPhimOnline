@@ -4,7 +4,8 @@
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
-
+<link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
 <link href="~/Theme/css/dashboardstu.css" rel="stylesheet" />
 <header class="site-header-two">
@@ -15,16 +16,33 @@
     <!-- Main Component -->
     <div class="main" style=" flex-direction: row;">
         <div class="content col-md-11 px-3 py-2">
-            <div class="dashboard_wrapper">     
+            <div class="dashboard_wrapper">
                 <div class="event-title__wrapper">
                     <p class="event-title">Kiểm tra gõ phím bài: @Model.TitleTest</p>
                     @if (Model.Status == true)
                     {
-                        <p class="note-numtest">Chỉ được làm bài @Model.MaxAttempts lần</p>
-                        <p class="note-content">Bài thi/kiểm tra có hiệu lực: <strong>@Model.TimeStart</strong></p>
-                        <p class="note-content">Bài thi/kiểm tra sẽ đóng vào lúc: <strong>@Model.TimeEnd</strong> </p>
-                        <p class="note-content">Để bắt đầu làm bài, bạn phải có <strong>"Mật khẩu Đề thi"</strong></p>
-                        <p class="note-content">Thời gian làm bài: <strong>@Model.ExamDuration</strong></p><button id="start-action">Băt đầu làm bài</button>
+                        int count = Model.MaxAttempts - Model.CountResultByUser;
+                        if (count > 0)
+                        {
+                            if (Model.CountResultByUser == 0)
+                            {
+                                <p class="note-numtest">Chỉ được làm bài @count lần</p>
+                            }
+                            else
+                            {
+                                 <p class="note-numtest">Bạn còn @count lần làm bài</p>
+                            }
+
+                            <p class="note-content">Bài thi/kiểm tra có hiệu lực: <strong>@Model.TimeStart</strong></p>
+                            <p class="note-content">Bài thi/kiểm tra sẽ đóng vào lúc: <strong>@Model.TimeEnd</strong> </p>
+                            <p class="note-content">Để bắt đầu làm bài, bạn phải có <strong>"Mật khẩu Đề thi"</strong></p>
+                            <p class="note-content">Thời gian làm bài: <strong>@Model.ExamDuration</strong></p><button id="start-action">Băt đầu làm bài</button>
+                        }
+                        else
+                        {
+                            <p class="note-numtest" style="color: #f51313; font-size: 20px;">Bạn đã hết số lần làm bài quy định @Model.CountResultByUser/@Model.MaxAttempts </p>
+                        }
+
                     }
                     else
                     {
@@ -32,7 +50,7 @@
                     }
 
                     <img class="img-test" src="~/Theme/images/Finger_position_on_a_keyboard.png" />
-                </div> 
+                </div>
 
             </div>
         </div>
@@ -54,17 +72,17 @@
                     </div>
                     <div style="display:flex;flex-direction:column;flex:1">
                         <p style="font-size: 15px; color: black; margin-bottom: 5px;">Để bắt đầu làm bài, bạn phải có "Mật khẩu Đề thi"</p>
-                        <input type="password" class="form-control" />
+                        <input id="passtest" type="password" class="form-control" />
                     </div>
                 </div>
                 <p style="font-size:22px;color:black;margin:0">Thời gian làm bài:</p>
                 <div style="display:flex;align-items:end;">
                     <div style="flex:0.4">
-                        
+
                     </div>
                     <div style="display:flex;flex-direction:column;flex:1">
                         <p style="font-size: 15px; color: black; margin-bottom: 5px;">Thời gian làm bài của bạn là <strong>@Model.ExamDuration</strong>. Khi bắt đầu làm bài, thời gian làm bài bắt đầu được tính và không thể dừng lại. Bạn phải hoàn thành bài làm trước khi hết thời gian làm bài. Bạn có muốn bắt đầu làm bài ngay bây giờ không?</p>
-                        
+
                     </div>
                 </div>
             </div>
@@ -77,10 +95,27 @@
                 <button id="start" type="button" style="border: none; background-color: #61869d;color:white;padding:6px 30px;border-radius:5px;margin-left:5px">Bắt đầu kiểm tra</button>
                 <button id="cancel" type="button" style="border: none; background-color: #cd3a3a; color: white; padding: 6px 30px; border-radius: 5px; margin-left: 10px ">Đóng</button>
             </div>
-        </div>           
+        </div>
     </div>
 </div>
 <script>
+    toastr.options = {
+        "closeButton": true, // Hiển thị nút đóng
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": true, // Hiển thị thanh tiến trình
+        "positionClass": "toast-top-right", // Vị trí
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "2000", // Thời gian tự đóng (ms)
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
     var $modal = $("#modalstarttest");
     var $modalContent = $modal.find('.modal-content');
 
@@ -97,4 +132,42 @@
             $modal.hide();
         }, 500);
     });
+
+    $("#start").click(() => {
+        checkpass();
+    })
+
+    $("#passtest").keypress(function (e) {
+        if (e.which === 13) {
+            checkpass();
+        }
+    });
+
+    function checkpass() {
+        var pass = $("#passtest").val();
+        if (pass == "") {
+            toastr.error("Vui lòng nhập mật khẩu");
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '/DashBoardStudent/CheckPassTest',
+            data: {
+                passtest: pass,
+                codelink:`@Model.CodeLink`
+            },
+            success: function (responese) {
+                if (responese.code == 200) {
+                    if (responese.check == true) {
+                        location.href = `/DashBoardStudent/TestTypingEduAction/?key=@Model.CodeLink&data=@Model.IDRoom`;
+                    } else {
+                        toastr.error("Mật khẩu không hợp lệ");
+                    }
+                }
+            },
+            error: function (err) {
+
+            }
+        })
+    }
 </script>

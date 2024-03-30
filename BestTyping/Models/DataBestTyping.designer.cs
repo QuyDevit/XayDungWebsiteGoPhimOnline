@@ -66,6 +66,9 @@ namespace BestTyping.Models
     partial void InsertTESTEDU(TESTEDU instance);
     partial void UpdateTESTEDU(TESTEDU instance);
     partial void DeleteTESTEDU(TESTEDU instance);
+    partial void InsertTYPINGRESULTEDU(TYPINGRESULTEDU instance);
+    partial void UpdateTYPINGRESULTEDU(TYPINGRESULTEDU instance);
+    partial void DeleteTYPINGRESULTEDU(TYPINGRESULTEDU instance);
     #endregion
 		
 		public DataBestTypingDataContext() : 
@@ -191,6 +194,14 @@ namespace BestTyping.Models
 			get
 			{
 				return this.GetTable<TESTEDU>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TYPINGRESULTEDU> TYPINGRESULTEDUs
+		{
+			get
+			{
+				return this.GetTable<TYPINGRESULTEDU>();
 			}
 		}
 	}
@@ -3074,6 +3085,332 @@ namespace BestTyping.Models
 					this._CreateDate = value;
 					this.SendPropertyChanged("CreateDate");
 					this.OnCreateDateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTEDU")]
+	public partial class TYPINGRESULTEDU : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ResultId;
+		
+		private System.Nullable<int> _TestId;
+		
+		private System.Nullable<int> _ClassRoomId;
+		
+		private System.Nullable<int> _UserID;
+		
+		private System.Nullable<double> _Accuracy;
+		
+		private System.Nullable<int> _WPM;
+		
+		private System.Nullable<int> _Mistakes;
+		
+		private System.Nullable<int> _CorrectWords;
+		
+		private System.Nullable<int> _KeyStrokes;
+		
+		private System.Nullable<long> _Timestamp;
+		
+		private System.Nullable<int> _WrongCharacter;
+		
+		private System.Nullable<int> _CorrectCharacter;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnResultIdChanging(int value);
+    partial void OnResultIdChanged();
+    partial void OnTestIdChanging(System.Nullable<int> value);
+    partial void OnTestIdChanged();
+    partial void OnClassRoomIdChanging(System.Nullable<int> value);
+    partial void OnClassRoomIdChanged();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    partial void OnAccuracyChanging(System.Nullable<double> value);
+    partial void OnAccuracyChanged();
+    partial void OnWPMChanging(System.Nullable<int> value);
+    partial void OnWPMChanged();
+    partial void OnMistakesChanging(System.Nullable<int> value);
+    partial void OnMistakesChanged();
+    partial void OnCorrectWordsChanging(System.Nullable<int> value);
+    partial void OnCorrectWordsChanged();
+    partial void OnKeyStrokesChanging(System.Nullable<int> value);
+    partial void OnKeyStrokesChanged();
+    partial void OnTimestampChanging(System.Nullable<long> value);
+    partial void OnTimestampChanged();
+    partial void OnWrongCharacterChanging(System.Nullable<int> value);
+    partial void OnWrongCharacterChanged();
+    partial void OnCorrectCharacterChanging(System.Nullable<int> value);
+    partial void OnCorrectCharacterChanged();
+    #endregion
+		
+		public TYPINGRESULTEDU()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResultId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ResultId
+		{
+			get
+			{
+				return this._ResultId;
+			}
+			set
+			{
+				if ((this._ResultId != value))
+				{
+					this.OnResultIdChanging(value);
+					this.SendPropertyChanging();
+					this._ResultId = value;
+					this.SendPropertyChanged("ResultId");
+					this.OnResultIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TestId", DbType="Int")]
+		public System.Nullable<int> TestId
+		{
+			get
+			{
+				return this._TestId;
+			}
+			set
+			{
+				if ((this._TestId != value))
+				{
+					this.OnTestIdChanging(value);
+					this.SendPropertyChanging();
+					this._TestId = value;
+					this.SendPropertyChanged("TestId");
+					this.OnTestIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClassRoomId", DbType="Int")]
+		public System.Nullable<int> ClassRoomId
+		{
+			get
+			{
+				return this._ClassRoomId;
+			}
+			set
+			{
+				if ((this._ClassRoomId != value))
+				{
+					this.OnClassRoomIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClassRoomId = value;
+					this.SendPropertyChanged("ClassRoomId");
+					this.OnClassRoomIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accuracy", DbType="Float")]
+		public System.Nullable<double> Accuracy
+		{
+			get
+			{
+				return this._Accuracy;
+			}
+			set
+			{
+				if ((this._Accuracy != value))
+				{
+					this.OnAccuracyChanging(value);
+					this.SendPropertyChanging();
+					this._Accuracy = value;
+					this.SendPropertyChanged("Accuracy");
+					this.OnAccuracyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPM", DbType="Int")]
+		public System.Nullable<int> WPM
+		{
+			get
+			{
+				return this._WPM;
+			}
+			set
+			{
+				if ((this._WPM != value))
+				{
+					this.OnWPMChanging(value);
+					this.SendPropertyChanging();
+					this._WPM = value;
+					this.SendPropertyChanged("WPM");
+					this.OnWPMChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mistakes", DbType="Int")]
+		public System.Nullable<int> Mistakes
+		{
+			get
+			{
+				return this._Mistakes;
+			}
+			set
+			{
+				if ((this._Mistakes != value))
+				{
+					this.OnMistakesChanging(value);
+					this.SendPropertyChanging();
+					this._Mistakes = value;
+					this.SendPropertyChanged("Mistakes");
+					this.OnMistakesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectWords", DbType="Int")]
+		public System.Nullable<int> CorrectWords
+		{
+			get
+			{
+				return this._CorrectWords;
+			}
+			set
+			{
+				if ((this._CorrectWords != value))
+				{
+					this.OnCorrectWordsChanging(value);
+					this.SendPropertyChanging();
+					this._CorrectWords = value;
+					this.SendPropertyChanged("CorrectWords");
+					this.OnCorrectWordsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KeyStrokes", DbType="Int")]
+		public System.Nullable<int> KeyStrokes
+		{
+			get
+			{
+				return this._KeyStrokes;
+			}
+			set
+			{
+				if ((this._KeyStrokes != value))
+				{
+					this.OnKeyStrokesChanging(value);
+					this.SendPropertyChanging();
+					this._KeyStrokes = value;
+					this.SendPropertyChanged("KeyStrokes");
+					this.OnKeyStrokesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="BigInt")]
+		public System.Nullable<long> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WrongCharacter", DbType="Int")]
+		public System.Nullable<int> WrongCharacter
+		{
+			get
+			{
+				return this._WrongCharacter;
+			}
+			set
+			{
+				if ((this._WrongCharacter != value))
+				{
+					this.OnWrongCharacterChanging(value);
+					this.SendPropertyChanging();
+					this._WrongCharacter = value;
+					this.SendPropertyChanged("WrongCharacter");
+					this.OnWrongCharacterChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectCharacter", DbType="Int")]
+		public System.Nullable<int> CorrectCharacter
+		{
+			get
+			{
+				return this._CorrectCharacter;
+			}
+			set
+			{
+				if ((this._CorrectCharacter != value))
+				{
+					this.OnCorrectCharacterChanging(value);
+					this.SendPropertyChanging();
+					this._CorrectCharacter = value;
+					this.SendPropertyChanged("CorrectCharacter");
+					this.OnCorrectCharacterChanged();
 				}
 			}
 		}
