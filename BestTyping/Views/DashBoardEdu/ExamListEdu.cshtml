@@ -1,0 +1,173 @@
+﻿@model BestTyping.Models.DTO.LISTEXAMEDU
+@{
+    ViewBag.Title = "ExamListEdu";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
+<link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<header class="site-header-two">
+    @Html.Partial("_PartialNavTop")
+</header>
+<style>
+    .table tbody td {
+        padding:5px 0;
+    }
+    .table thead th{
+        padding:10px;
+    }
+</style>
+<div class="wrapper">
+    @Html.Action("_PartialSideBarEdu", "Home")
+    <!-- Main Component -->
+    <div class="main">
+        <main class="content col-md-11 px-3 py-2">
+            <div class="dashboard_wrapper">
+                <div class="dashboard_wrapper-nav">
+                    <h3>Quản lý văn bản</h3>
+                    <ul class="list-group flex-row nav__tab">
+                        <li class="nav-item">
+                            <a href="@Url.Action("ListMyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background " data-tab="browse-members">
+                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                                <span>Bài kiểm tra</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="@Url.Action("ExamListEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background show" data-tab="list-member">
+                                <i class="fa fa-list-alt nav__tab-icon" aria-hidden="true"></i>
+                                <span>Danh sách thi</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab__wrapper">
+                        <div class="tab__wrapper-content">
+                            <div class="d-flex flex-row">
+                                <div class="col-lg-5 flex-row d-flex align-items-center gap-2" style="margin:20px">
+                                    <span style="flex:none;font-weight:600">Chọn bài kiểm tra</span>
+                                    <select id="choose-test" class="form-select">
+                                        @if (Model.ListTest != null)
+                                        {
+                                            foreach (var item in Model.ListTest)
+                                            {
+                                                <option value="@item.ID" @(item.ID == Model.TestIDChoose ? "selected" : "")>@item.TitleTest</option>
+                                            }
+                                        }
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 flex-row d-flex align-items-center gap-2" style="margin:20px">
+                                    <span style="flex:none;font-weight:600">Chọn lớp</span>
+                                    <select id="choose-classroom" class="form-select">
+                                        @if (Model.ListClassByTest != null)
+                                        {
+                                            foreach (var item in Model.ListClassByTest)
+                                            {
+                                                <option value="@item.IdRoom" @(item.IdRoom == Model.RoomIdChoose ? "selected" : "")>@item.ClassName</option>
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            
+
+                            <div class="table_wrapper">
+                                <table class="table table-responsive" id="examedu">
+                                    <thead style="background-color: rgb(105 148 155)">
+                                        <tr>
+                                            <th scope="col">Họ tên</th>
+                                            <th scope="col">Bài kiểm tra</th>
+                                            <th style="text-align:center" scope="col">Lớp</th>
+                                            <th style="text-align:center" scope="col">Số thực hiện</th>
+                                            <th scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @if (Model.ListUserExam != null)
+                                        {
+                                            foreach (var item in Model.ListUserExam)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <img style="width: 30px; height: 30px; margin-right: 5px; margin-left: 10px;" src="@item.Avatar" />
+                                                            <div class="d-flex flex-column">
+                                                                <span style="color: #61869d;font-weight:600">@item.UserName</span>
+                                                                <span>@item.Email</span>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                    <td>@item.TitleTest</td>
+                                                    <td style="text-align:center">@item.ClassName</td>
+                                                    <td style="text-align:center">@item.UserTestAttempts / @item.MaxTestAttempts</td>
+                                                    <td>
+                                                        <a class="operations-setting" href=""><i class="fa fa-cog operations-icon" aria-hidden="true"></i></a>
+                                                        <a class="operations-delete" data-id=""><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+<script src="~/Theme/Datatable/vfs_fonts.js"></script>
+<script src="~/Theme/Datatable/pdfmake.min.js"></script>
+<script src="~/Theme/Datatable/datatables.min.js"></script>
+<script>
+    $('#examedu').DataTable();
+
+    $('#choose-test').change(function () {
+        var selectedTestId = $(this).val();
+        $.ajax({
+            type: 'post',
+            url: '/DashBoardEdu/GetListClassByTest',
+            data: {
+                data: selectedTestId
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    $('#choose-classroom').empty();
+                    $.each(res.list, function (i, item) {
+                        $('#choose-classroom').append($('<option>', {
+                            value: item.IdRoom,
+                            text: item.ClassName
+                        }));
+                    });
+                    var selectedClassroomId = $("#choose-classroom").val();
+                    window.location.href = `/DashBoardEdu/ExamListEdu?key=${selectedTestId}&data=${selectedClassroomId}`;
+                } else {
+                    console.log("Error");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error: " + status + ": " + error);
+            }
+        });
+    });
+
+    $(document).on('change', '#choose-classroom', function () {
+        var selectedClassroomId = $(this).val();
+        var selectedTestId = $("#choose-test").val();
+
+        $.ajax({
+            type: 'post',
+            url: `/DashBoardEdu/ExamListEdu?key=${selectedTestId}&data=${selectedClassroomId}`,
+            success: function (res) {
+                window.location.href = `/DashBoardEdu/ExamListEdu?key=${selectedTestId}&data=${selectedClassroomId}`;
+            },
+            error: function (xhr, status, error) {
+                console.error("AJAX Error: " + status + ": " + error);
+            }
+        });
+    });
+
+   
+</script>

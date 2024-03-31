@@ -52,7 +52,7 @@ namespace BestTyping
             );
             routes.MapRoute(
                name: "TextPracticeNew",
-               url: "text-practice/upcomping",
+               url: "text-practice/upcoming",
                defaults: new { controller = "Home", action = "TextPracticeNew" }
             );
             routes.MapRoute(

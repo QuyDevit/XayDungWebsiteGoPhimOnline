@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<BestTyping.Models.DTO.TESTEDUTABLE>
 @{
-    ViewBag.Title = "MyTestEdu";
+    ViewBag.Title = "ListMyTestEdu";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
 }
 
@@ -24,15 +24,15 @@
                     <h3>Quản lý văn bản</h3>
                     <ul class="list-group flex-row nav__tab">
                         <li class="nav-item">
-                            <a href="@Url.Action("TestEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background" data-tab="list-member">
-                                <i class="fa fa-plus nav__tab-icon" aria-hidden="true"></i>
-                                <span>Tạo bài kiểm tra</span>
+                            <a href="@Url.Action("ListMyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background show" data-tab="browse-members">
+                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
+                                <span>Bài kiểm tra</span>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="@Url.Action("MyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background show" data-tab="browse-members">
-                                <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
-                                <span>Bài kiểm tra</span>
+                            <a href="@Url.Action("ExamListEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background" data-tab="list-member">
+                                <i class="fa fa-list-alt nav__tab-icon" aria-hidden="true"></i>
+                                <span>Danh sách thi</span>
                             </a>
                         </li>
                     </ul>
@@ -42,7 +42,6 @@
                                 <table id="table-testedu" class="table table-responsive" width="100%">
                                     <thead>
                                         <tr>
-                                            <th style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" id="check-all" type="checkbox" /></th>
                                             <th style="padding:8px" scope="col">Trạng thái</th>
                                             <th style="padding:8px" scope="col">Bài kiểm tra</th>
                                             <th style="padding:8px" scope="col">Thời gian bắt đầu</th>
@@ -51,17 +50,16 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-  
+   
                                             @foreach (var item in Model)
                                             {
                                                 <tr>
-                                                    <td style="text-align: unset; padding: 8px;"><input class="checkbox form-check-input" type="checkbox" value="@item.IDTest" /></td>
                                                     <td class="status" style=" padding: 5px"><span class="@(item.Status == true ? "public":"private")">@(item.Status == true ? "Sẵn sàng":"Kết thúc")</span></td>
                                                     <td style="padding: 5px"><a style="color: #61869d;font-weight:600" href="@Url.Action("EventAction","DashBoardStudent",new { key = item.CodeLink, idroom = item.IDRoom})">@item.TitleTest</a></td>
                                                     <td style="padding:5px">@item.TimeStart</td>
                                                     <td style="padding:5px">@item.TimeEnd</td>
                                                     <td style="text-align: center; padding: 5px">
-                                                        <a class="operations-delete"><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                                        <a href="@Url.Action("ExamListEdu","DashBoardEdu", new { key = item.IDTest})" class="operations-setting"><i class="fa fa-pencil-square-o operations-icon" aria-hidden="true"></i><span style="color:white;margin-left:5px;">Danh sách thi</span></a>
                                                     </td>
                                                 </tr>
                                             }

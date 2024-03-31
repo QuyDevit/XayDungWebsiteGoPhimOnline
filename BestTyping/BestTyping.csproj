@@ -187,6 +187,7 @@
     <Compile Include="Models\DTO\EDITTEXTPRACTICEVIEW.cs" />
     <Compile Include="Models\DTO\GAMETYPING.cs" />
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
+    <Compile Include="Models\DTO\LISTEXAMEDU.cs" />
     <Compile Include="Models\DTO\RESULTCOMPETITIONVIEWMODEL.cs" />
     <Compile Include="Models\DTO\ROOMSETTINGVIEW.cs" />
     <Compile Include="Models\DTO\ROOMSTUVIEW.cs" />
@@ -205,6 +206,7 @@
     <Compile Include="Models\DTO\TEXTEDUVIEW.cs" />
     <Compile Include="Models\DTO\TYPINGRESULTSETTING.cs" />
     <Compile Include="Models\DTO\USERCOMPLETED.cs" />
+    <Compile Include="Models\DTO\USEREXAMEDU.cs" />
     <Compile Include="Models\DTO\USERFAVORITE.cs" />
     <Compile Include="Models\DTO\USERFILTER.cs" />
     <Compile Include="Models\DTO\USERROOM.cs" />
@@ -374,15 +376,11 @@
     <Content Include="Views\DashBoardEdu\MyTestEdu.cshtml" />
     <Content Include="Views\DashBoardStudent\EventAction.cshtml" />
     <Content Include="Views\DashBoardStudent\TestTypingEduAction.cshtml" />
+    <Content Include="Views\DashBoardEdu\ListMyTestEdu.cshtml" />
+    <Content Include="Views\DashBoardEdu\ExamListEdu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\CompetitionsTyping\" />
-    <Folder Include="Views\TextPractice\" />
-    <Folder Include="Views\TypingGame\" />
-    <Folder Include="Views\TypingTestAdvanced\" />
-    <Folder Include="Views\TypingTestCustom\" />
-    <Folder Include="Views\TypingTest\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

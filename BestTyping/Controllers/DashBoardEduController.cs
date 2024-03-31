@@ -151,7 +151,7 @@ namespace BestTyping.Controllers
             }
             else
             {
-                var listtestbyuser = db.TESTEDUs.Where(u => u.UserCreate == user.Id).ToList();
+                var listtestbyuser = db.TESTEDUs.Where(u => u.UserCreate == user.Id).OrderByDescending(u => u.ID).ToList();
                 var list = new List<TESTEDUTABLE>();
                 foreach(var item in listtestbyuser)
                 {
@@ -178,6 +178,158 @@ namespace BestTyping.Controllers
                 return View(list);
             }
         }
+
+        public ActionResult ListMyTestEdu()
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var listtestbyuser = db.TESTEDUs.Where(u => u.UserCreate == user.Id).OrderByDescending(u => u.CreateDate).ToList();
+                var list = new List<TESTEDUTABLE>();
+                foreach (var item in listtestbyuser)
+                {
+                    var dataroom = JsonConvert.DeserializeObject<List<CLASSTEST>>(item.ListClass);
+                    var firstItem = dataroom.FirstOrDefault();
+                    long currentTimestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
+                    var eventtest = db.TESTEDUs.FirstOrDefault(t => t.ID == item.ID);
+                    if (currentTimestamp > item.DateEnd)
+                    {
+                        eventtest.Status = false;
+                    }
+                    db.SubmitChanges();
+                    var i = new TESTEDUTABLE();
+                    i.IDRoom = firstItem.IdRoom;
+                    i.IDTest = item.ID;
+                    i.Status = item.Status ?? true;
+                    i.CodeLink = item.CodeLink;
+                    i.TitleTest = item.TitleTest;
+                    i.TimeStart = ConvertTimestampToDateTest(item.DateStart ?? 0);
+                    i.TimeEnd = ConvertTimestampToDateTest(item.DateEnd ?? 0);
+                    list.Add(i);
+
+                }
+                return View(list);
+            }
+        }
+        [HttpPost]
+        public JsonResult GetListClassByTest(int data)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var getTest = db.TESTEDUs.FirstOrDefault(t => t.ID == data);
+                    var listclassbyfirsttest = JsonConvert.DeserializeObject<List<CLASSTEST>>(getTest.ListClass);
+
+                    return Json(new { code = 200,list = listclassbyfirsttest, msg = "Lấy dữ liệu thành công" });
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+        public ActionResult ExamListEdu(int? key = null, int? data = null)
+        {
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                if (key == null && data == null)
+                {
+                    var gettest = db.TESTEDUs.Where(t => t.UserCreate == user.Id).OrderByDescending(t => t.ID).ToList();
+                    var firsttest = gettest.FirstOrDefault();
+                    if (firsttest != null)
+                    {
+                        var listclassbyfirsttest = JsonConvert.DeserializeObject<List<CLASSTEST>>(firsttest.ListClass);
+
+                        var listuserexam = new List<USEREXAMEDU>();
+                        var getfirstclassbytest = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == listclassbyfirsttest.FirstOrDefault().IdRoom);
+
+                        var listuserclass = JsonConvert.DeserializeObject<List<USERROOM>>(getfirstclassbytest.ListUserJoin);
+                        foreach (var item in listuserclass)
+                        {
+                            var us = new USEREXAMEDU();
+                            us.UserId = item.UserId;
+                            us.Email = item.Email;
+                            us.Avatar = item.UserAvatar;
+                            us.UserName = item.UserName;
+                            us.TitleTest = firsttest.TitleTest;
+                            us.ClassName = getfirstclassbytest.ClassName;
+                            var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == firsttest.ID).ToList();
+                            us.UserTestAttempts = getlistresult.Count();
+                            us.MaxTestAttempts = firsttest.MaxAttempts ?? 0;
+                            listuserexam.Add(us);
+                        }
+                        var view = new LISTEXAMEDU();
+                        view.ListClassByTest = listclassbyfirsttest;
+                        view.TestIDChoose = firsttest.ID;
+                        view.RoomIdChoose = listclassbyfirsttest.FirstOrDefault().IdRoom;
+                        view.ListUserExam = listuserexam;
+                        view.ListTest = gettest;
+                        return View(view);
+                    }
+                    else
+                    {
+                        var emptyModel = new LISTEXAMEDU();
+                        return View(emptyModel);
+                    }
+                }
+                else
+                {
+                    var gettest = db.TESTEDUs.Where(t => t.UserCreate == user.Id).OrderByDescending(t => t.ID).ToList();
+                    var gettestbykey = db.TESTEDUs.FirstOrDefault(t => t.ID == key);
+                    var listclassbyfirsttest = JsonConvert.DeserializeObject<List<CLASSTEST>>(gettestbykey.ListClass);
+
+                    var listuserexam = new List<USEREXAMEDU>();
+                    CLASSROOM getclassbydata = null;
+                    if (data != null)
+                    {
+                        getclassbydata = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == data);
+                    }
+                    else
+                    {
+                        getclassbydata = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == listclassbyfirsttest.FirstOrDefault().IdRoom);
+                    }
+                        
+                    var listuserclass = JsonConvert.DeserializeObject<List<USERROOM>>(getclassbydata.ListUserJoin);
+                    foreach (var item in listuserclass)
+                    {
+                        var us = new USEREXAMEDU();
+                        us.UserId = item.UserId;
+                        us.Email = item.Email;
+                        us.Avatar = item.UserAvatar;
+                        us.UserName = item.UserName;
+                        us.TitleTest = gettestbykey.TitleTest;
+                        us.ClassName = getclassbydata.ClassName;
+                        var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == key).ToList();
+                        us.UserTestAttempts = getlistresult.Count();
+                        us.MaxTestAttempts = gettestbykey.MaxAttempts ?? 0;
+                        listuserexam.Add(us);
+                    }
+                    var view = new LISTEXAMEDU();
+                    view.ListClassByTest = listclassbyfirsttest;
+                    view.TestIDChoose = gettestbykey.ID;
+                    view.RoomIdChoose = data ?? 0;
+                    view.ListUserExam = listuserexam;
+                    view.ListTest = gettest;
+                    return View(view);
+                }
+            }
+        }
+
         public ActionResult TextTestEdu()
         {
             USER user = (USER)Session["User"];
