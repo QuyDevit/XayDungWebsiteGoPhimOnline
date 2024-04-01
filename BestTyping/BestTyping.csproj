@@ -378,6 +378,7 @@
     <Content Include="Views\DashBoardStudent\TestTypingEduAction.cshtml" />
     <Content Include="Views\DashBoardEdu\ListMyTestEdu.cshtml" />
     <Content Include="Views\DashBoardEdu\ExamListEdu.cshtml" />
+    <Content Include="Views\DashBoardStudent\MyExamResult.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

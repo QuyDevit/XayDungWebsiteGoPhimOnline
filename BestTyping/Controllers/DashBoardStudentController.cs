@@ -49,6 +49,20 @@ namespace BestTyping.Controllers
 
             return formattedDate;
         }
+        public ActionResult MyExamResult()
+        {
+            return View();
+            //USER user = (USER)Session["User"];
+            //if (user == null)
+            //{
+            //    return RedirectToAction("CheckTyping", "Home");
+            //}
+            //else
+            //{
+               
+            //    return View();
+            //}
+        }
         public ActionResult DashboardStudent()
         {
             USER user = (USER)Session["User"];

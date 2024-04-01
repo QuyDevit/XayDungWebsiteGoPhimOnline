@@ -268,7 +268,7 @@ namespace BestTyping.Controllers
                             us.UserName = item.UserName;
                             us.TitleTest = firsttest.TitleTest;
                             us.ClassName = getfirstclassbytest.ClassName;
-                            var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == firsttest.ID).ToList();
+                            var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == firsttest.ID && r.ClassRoomId == listclassbyfirsttest.FirstOrDefault().IdRoom).ToList();
                             us.UserTestAttempts = getlistresult.Count();
                             us.MaxTestAttempts = firsttest.MaxAttempts ?? 0;
                             listuserexam.Add(us);
@@ -314,7 +314,7 @@ namespace BestTyping.Controllers
                         us.UserName = item.UserName;
                         us.TitleTest = gettestbykey.TitleTest;
                         us.ClassName = getclassbydata.ClassName;
-                        var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == key).ToList();
+                        var getlistresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == item.UserId && r.TestId == key && r.ClassRoomId == getclassbydata.ClassRoomId).ToList();
                         us.UserTestAttempts = getlistresult.Count();
                         us.MaxTestAttempts = gettestbykey.MaxAttempts ?? 0;
                         listuserexam.Add(us);
@@ -327,6 +327,28 @@ namespace BestTyping.Controllers
                     view.ListTest = gettest;
                     return View(view);
                 }
+            }
+        }
+        [HttpPost]
+        public JsonResult GetResultByUser(int keyuser,int testid,int roomid)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var listresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == keyuser && r.TestId == testid && r.ClassRoomId == roomid).ToList();
+
+                    return Json(new { code = 200, list = listresult, msg = "Lấy dữ liệu thành công" });
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
             }
         }
 

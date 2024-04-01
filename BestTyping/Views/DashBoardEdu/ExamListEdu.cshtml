@@ -6,6 +6,7 @@
 
 <link href="~/Theme/Datatable/datatables.min.css" rel="stylesheet" />
 <link href="~/Theme/css/dashboardedu.css" rel="stylesheet" />
+<link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
 <header class="site-header-two">
     @Html.Partial("_PartialNavTop")
 </header>
@@ -16,6 +17,25 @@
     .table thead th{
         padding:10px;
     }
+    .span-hover:hover {
+        opacity: 0.8;
+        cursor: pointer;
+    }
+    .div-result::-webkit-scrollbar {
+        width: 8px; /* Độ rộng của thanh cuộn */
+    }
+
+    .div-result::-webkit-scrollbar-track {
+        background: #f1eded; /* Màu nền của track */
+    }
+
+    .div-result::-webkit-scrollbar-thumb {
+        background: #ccc; /* Màu của thanh cuộn */
+    }
+
+        .div-result::-webkit-scrollbar-thumb:hover {
+            background: #555; /* Màu của thanh cuộn khi hover */
+        }
 </style>
 <div class="wrapper">
     @Html.Action("_PartialSideBarEdu", "Home")
@@ -77,7 +97,7 @@
                                             <th scope="col">Họ tên</th>
                                             <th scope="col">Bài kiểm tra</th>
                                             <th style="text-align:center" scope="col">Lớp</th>
-                                            <th style="text-align:center" scope="col">Số thực hiện</th>
+                                            <th style="text-align:center" scope="col">Số lần thực hiện</th>
                                             <th scope="col">Thao tác</th>
                                         </tr>
                                     </thead>
@@ -101,8 +121,8 @@
                                                     <td style="text-align:center">@item.ClassName</td>
                                                     <td style="text-align:center">@item.UserTestAttempts / @item.MaxTestAttempts</td>
                                                     <td>
-                                                        <a class="operations-setting" href=""><i class="fa fa-cog operations-icon" aria-hidden="true"></i></a>
-                                                        <a class="operations-delete" data-id=""><i class="fa fa-trash operations-icon" aria-hidden="true"></i></a>
+                                                        <a class="operations-setting" data-name="@item.UserName" data-userid="@item.UserId"><i class="fa fa-eye operations-icon" aria-hidden="true"></i></a>
+                                                        <a class="operations-delete" data-id=""><i class="fa fa-print operations-icon" aria-hidden="true"></i></a>
                                                     </td>
                                                 </tr>
                                             }
@@ -118,6 +138,56 @@
         </main>
     </div>
 </div>
+
+<div id="modalshowresult" class="modal">
+    <div class="modal-content" style="width:40%;margin:100px auto;">
+        <div class="modal-header_title">
+            <p id="title-class">Kết quả bài thi</p>
+            <span class="close">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form class="form-control form-custom">
+                <label id="name-user"></label>
+                <div class="div-result" style="max-height:375px;overflow-y:auto;">
+                    <div class="d-flex flex-column mb-2">
+                        <span class="span-hover" data-id="8" style="padding: 5px 10px; border-radius: 5px; background-color: #a7adb9; color: white; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">Bài làm lần 1 <i id="icon-8" class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                        <div class="box-result mt-2" id="result-8" style="display:none">
+                            <div class="box-result__header">
+                                <span>KẾT QUẢ</span>
+                                <strong id="wpm"></strong>
+                            </div>
+                            <div class="box-result__content">
+                                <div class="box-result__wrapper">
+                                    <div class="box-result__wrapper-content">
+                                        <span>Tổ hợp phím</span>
+                                        <span id="keystroke"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Độ chính xác</span>
+                                        <span id="accuracy"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ đúng</span>
+                                        <span id="correctword"></span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ sai</span>
+                                        <span id="wrongword"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer_custom">
+            <button id="cancel" type="button">Đóng</button>
+        </div>
+    </div>
+</div>
+
 <script src="~/Theme/Datatable/vfs_fonts.js"></script>
 <script src="~/Theme/Datatable/pdfmake.min.js"></script>
 <script src="~/Theme/Datatable/datatables.min.js"></script>
@@ -169,5 +239,84 @@
         });
     });
 
-   
+
+    var $modal = $("#modalshowresult");
+    var $modalContent = $modal.find('.modal-content');
+
+    $(".operations-setting").click(function () {
+        let data = $(this).data("name");
+        let userid = $(this).data("userid");
+        var selectedTestId = $("#choose-test").val();
+        var selectedClassroomId = $("#choose-classroom").val();
+        $("body").addClass("modal-open");
+        $modal.show();
+        $modalContent.css('animation', 'zoomIn 0.6s');
+        $("#name-user").html(`Danh sách bài làm của <strong>"${data}"</strong>`);
+
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/GetResultByUser",
+            data: {
+                keyuser: userid,
+                testid: selectedTestId,
+                roomid: selectedClassroomId
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    $('.div-result').empty();
+                    let counter = 1;
+                    res.list.forEach(function (result) {
+                        $('.div-result').append(`
+                        <div class="d-flex flex-column mb-2">
+                            <span class="span-hover" data-id="${result.ResultId}" style="padding: 5px 10px; border-radius: 5px; background-color: #a7adb9; color: white; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">Bài làm lần ${counter} <i id="icon-${result.ResultId}" class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                            <div class="box-result mt-2" id="result-${result.ResultId}" style="display:none">
+                            <div class="box-result__header">
+                                <span>KẾT QUẢ</span>
+                                <strong id="wpm">${result.WPM} WPM</strong>
+                            </div>
+                            <div class="box-result__content">
+                                <div class="box-result__wrapper">
+                                    <div class="box-result__wrapper-content">
+                                        <span>Tổ hợp phím</span>
+                                        <span id="keystroke">( <span style="color: green;">${result.CorrectCharacter}</span> | <span style="color: red;">${result.WrongCharacter}</span> )   ${result.KeyStrokes}</span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Độ chính xác</span>
+                                        <span id="accuracy">${parseFloat(result.Accuracy).toFixed(2)} %</span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ đúng</span>
+                                        <span id="correctword">${result.CorrectWords}</span>
+                                    </div>
+                                    <div class="box-result__wrapper-content">
+                                        <span>Số từ sai</span>
+                                        <span id="wrongword">${result.Mistakes}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`); // Adjust this to match your result structure
+                        counter++;
+                    });
+                }
+            }
+        })
+    })
+
+    $(".close, #cancel").click(function () {
+        $("body").removeClass("modal-open");
+        $modalContent.css('animation', 'zoomOut 0.6s');
+        setTimeout(function () {
+            $modal.hide();
+        }, 500);
+    });
+
+    $(document).on("click", ".span-hover", function () {
+        let id = $(this).data("id");
+        var changeicon = "#icon-" + id;
+        var showresult = "#result-" + id;
+        $(changeicon).find(".fa").toggleClass("fa-chevron-right fa-chevron-down");
+        $(showresult).toggle();
+    })
+
 </script>
