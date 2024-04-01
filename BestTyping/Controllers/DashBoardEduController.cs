@@ -99,6 +99,7 @@ namespace BestTyping.Controllers
                 return View(view);
             }
         }
+ 
         [HttpPost]
         public JsonResult CreateTestEdu(int textid,bool random,string titletest,int[] arrlist, long timestart,long timeend,int examduration,string pass,int maxattempts,long createdate)
         {
@@ -342,8 +343,27 @@ namespace BestTyping.Controllers
                 else
                 {
                     var listresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == keyuser && r.TestId == testid && r.ClassRoomId == roomid).ToList();
+                    var resultexcel = new List<USEREXAMEDU>();
+                    foreach(var item in listresult)
+                    {
+                        var getuser = db.USERs.FirstOrDefault(u => u.Id == item.UserID);
+                        var gettest = db.TESTEDUs.FirstOrDefault(t => t.ID == item.TestId);
+                        var getclassroom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == item.ClassRoomId);
+                        var result = new USEREXAMEDU();
+                        result.ClassName = getclassroom.ClassName;
+                        result.Email = getuser.Email;
+                        result.TitleTest = gettest.TitleTest;
+                        result.UserName = getuser.HoTen;
+                        result.WPM = item.WPM ?? 0;
+                        result.KeyStrokes = item.KeyStrokes ?? 0;
+                        result.CorrectCharacters = item.CorrectCharacter ?? 0;
+                        result.CorrectWords = item.CorrectWords ?? 0;
+                        result.WrongWords = item.Mistakes ?? 0;
+                        result.WrongCharacters = item.WrongCharacter ?? 0;
+                        resultexcel.Add(result);
+                    }
 
-                    return Json(new { code = 200, list = listresult, msg = "Lấy dữ liệu thành công" });
+                    return Json(new { code = 200, list = listresult,listexcel = resultexcel, msg = "Lấy dữ liệu thành công" });
                 }
             }
             catch (Exception)

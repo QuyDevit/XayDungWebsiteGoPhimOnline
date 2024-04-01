@@ -171,11 +171,11 @@
         cursor:pointer;
         background-color: #06a5e5;
     }
-.operations-delete:hover {
+.operations-delete:hover, .operations-print:hover {
     cursor: pointer;
     background-color: #df0052;
 }
-.operations-delete {
+.operations-delete, .operations-print {
     margin-left: 5px;
     background-color: #f94688;
     padding: 2px 10px;

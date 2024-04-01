@@ -1,4 +1,4 @@
-﻿
+﻿@model IEnumerable<BestTyping.Models.DTO.USEREXAMEDU>
 @{
     ViewBag.Title = "MyExamResult";
     Layout = "~/Views/Shared/_LayoutUser.cshtml";
@@ -15,7 +15,7 @@
     }
 </style>
 <div class="wrapper">
-    @Html.Action("_PartialSideBarEdu", "Home")
+    @Html.Action("_PartialSideBarStu", "DashBoardStudent")
     <!-- Main Component -->
     <div class="main">
         <main class="content col-md-11 px-3 py-2">
@@ -24,43 +24,40 @@
                     <h3>Quản lý văn bản</h3>
                     <ul class="list-group flex-row nav__tab">
                         <li class="nav-item">
-                            <a href="@Url.Action("ListMyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background show" data-tab="browse-members">
+                            <a href="@Url.Action("ListMyTestEdu","DashBoardEdu")" id="tests-taken-tab" class="button__tab-background " data-tab="browse-members">
                                 <i class="fa fa-file-text-o nav__tab-icon" aria-hidden="true"></i>
                                 <span>Bài kiểm tra</span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="@Url.Action("ExamListEdu","DashBoardEdu")" id="top-ranking-tab" class="button__tab-background" data-tab="list-member">
-                                <i class="fa fa-list-alt nav__tab-icon" aria-hidden="true"></i>
-                                <span>Danh sách thi</span>
                             </a>
                         </li>
                     </ul>
                     <div class="tab__wrapper">
                         <div class="tab__wrapper-content">
+                          
                             <div class="table_wrapper">
                                 <table id="table-testedu" class="table table-responsive" width="100%">
                                     <thead>
                                         <tr>
-                                            <th style="padding:8px" scope="col">Trạng thái</th>
                                             <th style="padding:8px" scope="col">Bài kiểm tra</th>
-                                            <th style="padding:8px" scope="col">Thời gian bắt đầu</th>
-                                            <th style="padding:8px" scope="col">Thời gian kết thúc</th>
-                                            <th style="padding:8px;text-align:center" scope="col">Thao tác</th>
+                                            <th style="padding:8px" scope="col">Lớp học</th>
+                                            <th style="padding:8px" scope="col">WPM</th>
+                                            <th style="padding:8px" scope="col">Số từ đúng</th>
+                                            <th style="padding:8px" scope="col">Số từ sai</th>
+                                            <th style="padding:8px" scope="col">Tổ hợp phím</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-
-                                        <tr>
-                                            <td class="status" style=" padding: 5px">ok</td>
-                                            <td style="padding: 5px">213</td>
-                                            <td style="padding:5px">re</td>
-                                            <td style="padding:5px">gdf</td>
-                                            <td style="padding:5px">214</td>
-                                        </tr>
-
-
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr>
+                                                <td style=" padding: 5px">@item.TitleTest</td>
+                                                <td style="padding: 5px">@item.ClassName</td>
+                                                <td style="padding:5px">@item.WPM</td>
+                                                <td style="padding:5px">@item.CorrectWords</td>
+                                                <td style="padding:5px">@item.WrongWords</td>
+                                                <td style="padding:5px">@item.KeyStrokes</td>
+                                            </tr>
+                                        }
                                     </tbody>
                                 </table>
                             </div>

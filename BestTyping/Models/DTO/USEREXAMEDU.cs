@@ -15,6 +15,12 @@ namespace BestTyping.Models.DTO
         public string TitleTest { get; set; }
         public int UserTestAttempts { get; set; }
         public int MaxTestAttempts { get; set; }
+        public int WPM { get; set; }
+        public int CorrectWords { get; set; }
+        public int WrongWords { get; set; }
+        public int KeyStrokes { get; set; }
+        public int WrongCharacters { get; set; }
+        public int CorrectCharacters { get; set; }
 
     }
 }

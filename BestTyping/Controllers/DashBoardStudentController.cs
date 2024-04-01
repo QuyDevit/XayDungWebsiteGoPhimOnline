@@ -51,17 +51,30 @@ namespace BestTyping.Controllers
         }
         public ActionResult MyExamResult()
         {
-            return View();
-            //USER user = (USER)Session["User"];
-            //if (user == null)
-            //{
-            //    return RedirectToAction("CheckTyping", "Home");
-            //}
-            //else
-            //{
-               
-            //    return View();
-            //}
+            USER user = (USER)Session["User"];
+            if (user == null)
+            {
+                return RedirectToAction("CheckTyping", "Home");
+            }
+            else
+            {
+                var list = db.TYPINGRESULTEDUs.Where(r => r.UserID == user.Id).ToList();
+                var listresultbyuser = new List<USEREXAMEDU>();
+                foreach(var item in list)
+                {
+                    var result = new USEREXAMEDU();
+                    var getclass = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == item.ClassRoomId);
+                    var gettest = db.TESTEDUs.FirstOrDefault(t => t.ID == item.TestId);
+                    result.TitleTest = gettest.TitleTest;
+                    result.ClassName = getclass.ClassName;
+                    result.WPM = item.WPM ?? 0;
+                    result.CorrectWords = item.CorrectWords ?? 0;
+                    result.WrongWords = item.Mistakes ?? 0;
+                    result.KeyStrokes = item.KeyStrokes ?? 0;
+                    listresultbyuser.Add(result);
+                }
+                return View(listresultbyuser);
+            }
         }
         public ActionResult DashboardStudent()
         {

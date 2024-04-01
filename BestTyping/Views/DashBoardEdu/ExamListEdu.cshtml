@@ -12,15 +12,18 @@
 </header>
 <style>
     .table tbody td {
-        padding:5px 0;
+        padding: 5px 0;
     }
-    .table thead th{
-        padding:10px;
+
+    .table thead th {
+        padding: 10px;
     }
+
     .span-hover:hover {
         opacity: 0.8;
         cursor: pointer;
     }
+
     .div-result::-webkit-scrollbar {
         width: 8px; /* Độ rộng của thanh cuộn */
     }
@@ -88,7 +91,7 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
 
                             <div class="table_wrapper">
                                 <table class="table table-responsive" id="examedu">
@@ -122,7 +125,7 @@
                                                     <td style="text-align:center">@item.UserTestAttempts / @item.MaxTestAttempts</td>
                                                     <td>
                                                         <a class="operations-setting" data-name="@item.UserName" data-userid="@item.UserId"><i class="fa fa-eye operations-icon" aria-hidden="true"></i></a>
-                                                        <a class="operations-delete" data-id=""><i class="fa fa-print operations-icon" aria-hidden="true"></i></a>
+                                                        <a class="operations-print" data-name="@item.UserName" data-userid="@item.UserId" data-countresult="@item.UserTestAttempts"><i class="fa fa-print operations-icon" aria-hidden="true"></i></a>
                                                     </td>
                                                 </tr>
                                             }
@@ -150,33 +153,33 @@
                 <label id="name-user"></label>
                 <div class="div-result" style="max-height:375px;overflow-y:auto;">
                     <div class="d-flex flex-column mb-2">
-                        <span class="span-hover" data-id="8" style="padding: 5px 10px; border-radius: 5px; background-color: #a7adb9; color: white; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">Bài làm lần 1 <i id="icon-8" class="fa fa-chevron-right" aria-hidden="true"></i></span>
-                        <div class="box-result mt-2" id="result-8" style="display:none">
-                            <div class="box-result__header">
-                                <span>KẾT QUẢ</span>
-                                <strong id="wpm"></strong>
-                            </div>
-                            <div class="box-result__content">
-                                <div class="box-result__wrapper">
-                                    <div class="box-result__wrapper-content">
-                                        <span>Tổ hợp phím</span>
-                                        <span id="keystroke"></span>
-                                    </div>
-                                    <div class="box-result__wrapper-content">
-                                        <span>Độ chính xác</span>
-                                        <span id="accuracy"></span>
-                                    </div>
-                                    <div class="box-result__wrapper-content">
-                                        <span>Số từ đúng</span>
-                                        <span id="correctword"></span>
-                                    </div>
-                                    <div class="box-result__wrapper-content">
-                                        <span>Số từ sai</span>
-                                        <span id="wrongword"></span>
+                        @*<span class="span-hover" data-id="8" style="padding: 5px 10px; border-radius: 5px; background-color: #a7adb9; color: white; font-weight: 600; display: flex; justify-content: space-between; align-items: center;">Bài làm lần 1 <i id="icon-8" class="fa fa-chevron-right" aria-hidden="true"></i></span>
+                            <div class="box-result mt-2" id="result-8" style="display:none">
+                                <div class="box-result__header">
+                                    <span>KẾT QUẢ</span>
+                                    <strong id="wpm"></strong>
+                                </div>
+                                <div class="box-result__content">
+                                    <div class="box-result__wrapper">
+                                        <div class="box-result__wrapper-content">
+                                            <span>Tổ hợp phím</span>
+                                            <span id="keystroke"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Độ chính xác</span>
+                                            <span id="accuracy"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Số từ đúng</span>
+                                            <span id="correctword"></span>
+                                        </div>
+                                        <div class="box-result__wrapper-content">
+                                            <span>Số từ sai</span>
+                                            <span id="wrongword"></span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
+                            </div>*@
                     </div>
 
                 </div>
@@ -191,6 +194,7 @@
 <script src="~/Theme/Datatable/vfs_fonts.js"></script>
 <script src="~/Theme/Datatable/pdfmake.min.js"></script>
 <script src="~/Theme/Datatable/datatables.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <script>
     $('#examedu').DataTable();
 
@@ -315,8 +319,51 @@
         let id = $(this).data("id");
         var changeicon = "#icon-" + id;
         var showresult = "#result-" + id;
-        $(changeicon).find(".fa").toggleClass("fa-chevron-right fa-chevron-down");
+        $(changeicon).toggleClass("fa-chevron-down fa-chevron-right");
         $(showresult).toggle();
     })
 
+    $(".operations-print").click(function () {
+        let name = $(this).data("name");
+        let userid = $(this).data("userid");
+        let countresultbyuser = $(this).data("countresult");
+        var selectedTestId = $("#choose-test").val();
+        var selectedClassroomId = $("#choose-classroom").val();
+        if (countresultbyuser == 0) {
+            return;
+        }
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/GetResultByUser",
+            data: {
+                keyuser: userid,
+                testid: selectedTestId,
+                roomid: selectedClassroomId
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    var currentTimestamp = new Date().getTime();
+                    // Process the data to generate the Excel file
+                    var data = res.listexcel.map(function (item) {
+                        return {
+                            "Tên người dùng": item.UserName,
+                            "Email": item.Email,
+                            "Lớp học": item.ClassName,
+                            "Bài kiểm tra": item.TitleTest,
+                            "Số từ đúng mỗi phút (WPM)": item.WPM,
+                            "Số từ đúng": item.CorrectWords,
+                            "Số từ sai": item.WrongWords,
+                            "Tổ hợp phím": item.KeyStrokes,
+                            "Ký tự sai": item.WrongCharacters,
+                            "Ký tự đúng": item.CorrectCharacters
+                        };
+                    });
+                    var wb = XLSX.utils.book_new();
+                    var ws = XLSX.utils.json_to_sheet(data);
+                    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+                    XLSX.writeFile(wb, `Kết quả thi của ${name}-${currentTimestamp}.xlsx`);
+                }
+            }
+        })
+    })
 </script>
