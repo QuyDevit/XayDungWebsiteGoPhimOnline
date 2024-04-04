@@ -79,6 +79,7 @@ namespace BestTyping.Controllers
                         user.IsEnable = false;
                         user.Avatar = "https://firebasestorage.googleapis.com/v0/b/login-besttyping.appspot.com/o/Avatars%2Fuser-default.jpg?alt=media&token=a336a970-1f58-46fe-91c3-362edad77581";
                         user.CreateDate = milliseconds;
+                        user.TypeAccount = 1;
                         user.LinkVerification = verifyToken;
                         db.USERs.InsertOnSubmit(user);
                         db.SubmitChanges();
@@ -115,6 +116,7 @@ namespace BestTyping.Controllers
                         user.Email = email;
                         user.Avatar = avatar;
                         user.IsEnable = true;
+                        user.TypeAccount = 1;
                         db.USERs.InsertOnSubmit(user);
                         db.SubmitChanges();
                         Session["User"] = user;
