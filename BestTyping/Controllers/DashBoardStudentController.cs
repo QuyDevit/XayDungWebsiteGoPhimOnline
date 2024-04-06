@@ -404,7 +404,7 @@ namespace BestTyping.Controllers
                             }
                             else
                             {
-                                var listresultedubyuser = db.TYPINGRESULTEDUs.Where(r => r.UserID == us.Id).ToList();
+                                var listresultedubyuser = db.TYPINGRESULTEDUs.Where(r => r.UserID == us.Id && r.TestId == getevent.ID && r.ClassRoomId == idroom).ToList();
                                 var view = new TESTEDUTABLE();
                                 view.ClassName = getclassbyevent.ClassName;
                                 view.IDRoom = getclassbyevent.ClassRoomId;

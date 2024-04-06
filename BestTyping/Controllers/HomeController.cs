@@ -289,6 +289,8 @@ namespace BestTyping.Controllers
         }
         public ActionResult CompetitionsTyping()
         {
+            Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            Response.Cache.SetNoStore();
             var currentTime = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds(); // Sử dụng DateTimeOffset để tránh vấn đề múi giờ và chuyển đổi sang Unix milliseconds
             var twentyFourHoursAgo = currentTime - (24 * 60 * 60 * 1000); // Trừ đi 24 giờ tính bằng milliseconds
 

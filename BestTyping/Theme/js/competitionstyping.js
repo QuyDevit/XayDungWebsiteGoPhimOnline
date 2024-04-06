@@ -21,7 +21,7 @@ $(document).ready(function () {
             didClose: function () {
                 // Sự kiện này sẽ được gọi khi Toast đóng
                 if (joincode) {
-                    location.href = '../Home/Competitions/' + joincode;
+                    location.href = '../competitiontest/' + joincode;
                 }
             }
         });

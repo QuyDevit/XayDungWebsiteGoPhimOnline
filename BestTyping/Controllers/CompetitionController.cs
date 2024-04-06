@@ -30,7 +30,6 @@ namespace BestTyping.Controllers
                 return $"{timeSpan / 2592000000} tháng trước";
             return $"{timeSpan / 31536000000} năm trước";
         }
-        // GET: Competition
         public ActionResult Competitions(string codejoin)
         {
             var getcompetition = db.COMPETITIONs.FirstOrDefault(c => c.JoinCode == codejoin);

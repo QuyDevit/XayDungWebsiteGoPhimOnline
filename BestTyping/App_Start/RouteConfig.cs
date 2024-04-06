@@ -14,7 +14,7 @@ namespace BestTyping
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "competitions",
+                name: "competitiontest",
                 url: "competitiontest/{codejoin}",
                 defaults: new { controller = "Competition", action = "Competitions", codejoin = UrlParameter.Optional }
             );
