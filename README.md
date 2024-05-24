@@ -36,10 +36,6 @@
 
 <h4 align="center">Chế độ custom</h4>
 
-![Giao diện chế độ custom](./img/chedocustom.jpg)
-
-<h4 align="center">Chế độ custom</h4>
-
 ![Giao diện chế độ cuộc thi đánh máy](./img/cuocthidanhmay.jpg)
 
 <h4 align="center">Chế độ cuộc thi đánh máy</h4>
