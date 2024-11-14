@@ -1,0 +1,94 @@
+﻿@{
+    var requestUrl = Request.RawUrl;
+}
+<div class="sidebar" data-background-color="dark">
+    <div class="sidebar-logo">
+        <!-- Logo Header -->
+        <div class="logo-header" data-background-color="dark">
+            <a href="@Url.Action("Index","Home")" class="logo">
+                <img src="~/Theme/images/icon_logo.png" style="width:40px;margin-right:10px" alt="">
+                <span style="font-size:20px;font-weight:bold;color:#fff">BestTyping</span>
+            </a>
+            <div class="nav-toggle">
+                <button class="btn btn-toggle toggle-sidebar">
+                    <i class="gg-menu-right"></i>
+                </button>
+                <button class="btn btn-toggle sidenav-toggler">
+                    <i class="gg-menu-left"></i>
+                </button>
+            </div>
+            <button class="topbar-toggler more">
+                <i class="gg-more-vertical-alt"></i>
+            </button>
+        </div>
+        <!-- End Logo Header -->
+    </div>
+    <div class="sidebar-wrapper scrollbar scrollbar-inner">
+        <div class="sidebar-content">
+            <ul class="nav nav-secondary">
+                <li class="nav-item @(requestUrl.Contains("/Admin/Home") ? "active" : "")">
+                    <a href="@Url.Action("Index","Home")"
+                       class="collapsed"
+                       aria-expanded="false">
+                        <i class="fas fa-home"></i>
+                        <p>Bảng điều khiển</p>
+                    </a>
+                </li>
+                <li class="nav-item @(requestUrl.Contains("/Admin/ManageAccount") ? "active" : "")">
+                    <a href="@Url.Action("Index","ManageAccount")">
+                        <i class="fas fa-layer-group"></i>
+                        <p>Quản lý tài khoản</p>
+                    </a>
+                </li>
+                <li class="nav-item @(requestUrl.Contains("/Admin/ExerciseTextSystem") ? "active submenu" : "")">
+                    <a data-bs-toggle="collapse" href="#text">
+                        <i class="fas fa-th-list"></i>
+                        <p>QL văn bản hệ thống</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse @(requestUrl.Contains("/Admin/ExerciseTextSystem") ? "show" : "")" id="text">
+                        <ul class="nav nav-collapse">
+                            <li class="@(requestUrl.Equals("/Admin/ExerciseTextSystem") ? "active" : "")">
+                                <a href="@Url.Action("Index","ExerciseTextSystem")">
+                                    <span class="sub-item">Tất cả văn bản</span>
+                                </a>
+                            </li>
+                            <li class="@(requestUrl.Equals("/Admin/ExerciseTextSystem/TextBasic") ? "active" : "")">
+                                <a href="@Url.Action("TextBasic","ExerciseTextSystem")">
+                                    <span class="sub-item">Văn bản Cơ bản</span>
+                                </a>
+                            </li>
+                            <li class="@(requestUrl.Equals("/Admin/ExerciseTextSystem/TextAdvanced") ? "active" : "")">
+                                <a href="@Url.Action("TextAdvanced","ExerciseTextSystem")">
+                                    <span class="sub-item">Văn bản Nâng cao</span>
+                                </a>
+                            </li>
+                            <li class="@(requestUrl.Equals("/Admin/ExerciseTextSystem/TextCompetition") ? "active" : "")">
+                                <a href="@Url.Action("TextCompetition","ExerciseTextSystem")">
+                                    <span class="sub-item">Văn bản trong Cuộc thi</span>
+                                </a>
+                            </li>
+                            <li class="@(requestUrl.Equals("/Admin/ExerciseTextSystem/TextGame") ? "active" : "")">
+                                <a href="@Url.Action("TextGame","ExerciseTextSystem")">
+                                    <span class="sub-item">Văn bản trò chơi 1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li class="nav-item @(requestUrl.Equals("/Admin/TextPracticeUser") ? "active" : "")">
+                    <a href="@Url.Action("Index","TextPracticeUser")">
+                        <i class="fas fa-pen-square"></i>
+                        <p>QL văn bản người dùng</p>
+                    </a>
+                </li>
+                @*<li class="nav-item">
+                    <a href="#tables">
+                        <i class="fas fa-table"></i>
+                        <p>Tables</p>
+                    </a>
+                </li>*@
+            </ul>
+        </div>
+    </div>
+</div>

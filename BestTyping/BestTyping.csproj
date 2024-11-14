@@ -159,6 +159,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ExerciseTextSystemController.cs" />
+    <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ManageAccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TextPracticeUserController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CompetitionController.cs" />
     <Compile Include="Controllers\CompetitionsTypingController.cs" />
@@ -179,12 +185,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DataBestTyping.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\DTO\ChatRequest.cs" />
     <Compile Include="Models\DTO\CLASSROOMVIEW.cs" />
     <Compile Include="Models\DTO\CLASSTEST.cs" />
     <Compile Include="Models\DTO\COMPETITIONVIEWMODEL.cs" />
     <Compile Include="Models\DTO\DASHBOARDEDU.cs" />
     <Compile Include="Models\DTO\DASHBOARDSTU.cs" />
+    <Compile Include="Models\DTO\DASHBOARDVIEW.cs" />
     <Compile Include="Models\DTO\EDITTEXTPRACTICEVIEW.cs" />
+    <Compile Include="Models\DTO\EXERCISETEXTSYSTEM.cs" />
     <Compile Include="Models\DTO\GAMETYPING.cs" />
     <Compile Include="Models\DTO\GLOBALTABLE.cs" />
     <Compile Include="Models\DTO\LISTEXAMEDU.cs" />
@@ -204,6 +213,7 @@
     <Compile Include="Models\DTO\TEXTPRACTICEMODELVIEW.cs" />
     <Compile Include="Models\DTO\TEXTPRACTICETEST.cs" />
     <Compile Include="Models\DTO\TEXTEDUVIEW.cs" />
+    <Compile Include="Models\DTO\TEXTPRACTICEVIEW.cs" />
     <Compile Include="Models\DTO\TYPINGRESULTSETTING.cs" />
     <Compile Include="Models\DTO\USERCOMPLETED.cs" />
     <Compile Include="Models\DTO\USEREXAMEDU.cs" />
@@ -211,6 +221,7 @@
     <Compile Include="Models\DTO\USERFILTER.cs" />
     <Compile Include="Models\DTO\USERROOM.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\CustomAuthorizeAttribute.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -224,11 +235,25 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_LayoutAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\Auth\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_SidebarAdmin.cshtml" />
+    <Content Include="Areas\Admin\Views\ManageAccount\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\Index.cshtml" />
     <Content Include="Models\DataBestTyping.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>DataBestTyping.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\TextBasic.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\TextAdvanced.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\TextCompetition.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\AddText.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\TextGame.cshtml" />
+    <Content Include="Areas\Admin\Views\ExerciseTextSystem\EditText.cshtml" />
+    <Content Include="Areas\Admin\Views\TextPracticeUser\Index.cshtml" />
     <None Include="Models\DataBestTyping.dbml.layout">
       <DependentUpon>DataBestTyping.dbml</DependentUpon>
     </None>
@@ -247,14 +272,18 @@
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Theme\animated\confetti.js" />
     <Content Include="Theme\css\bootstrap-icons.css" />
+    <Content Include="Theme\css\bootstrap.min-v2.css" />
     <Content Include="Theme\css\bootstrap.min.css" />
     <Content Include="Theme\css\checktesttpye.css" />
     <Content Include="Theme\css\competition.css" />
     <Content Include="Theme\css\competitionstyping.css" />
     <Content Include="Theme\css\dashboardedu.css" />
     <Content Include="Theme\css\dashboardstu.css" />
+    <Content Include="Theme\css\kaiadmin.min.css" />
+    <Content Include="Theme\css\plugins.min.css" />
     <Content Include="Theme\css\settinginfo.css" />
     <Content Include="Theme\css\style.css" />
+    <Content Include="Theme\css\styles.min.css" />
     <Content Include="Theme\css\tablegame.css" />
     <Content Include="Theme\css\textpractice.css" />
     <Content Include="Theme\css\typegame.css" />
@@ -278,6 +307,7 @@
     <Content Include="Theme\images\image_Typing-game2.png" />
     <Content Include="Theme\images\image_Typing-test.png" />
     <Content Include="Theme\images\img_question.png" />
+    <Content Include="Theme\images\login-3.png" />
     <Content Include="Theme\images\next.png" />
     <Content Include="Theme\images\rear-view-young-college-student.jpg" />
     <Content Include="Theme\images\topics\step1.png" />
@@ -295,7 +325,9 @@
     <Content Include="Theme\images\topics\undraw_Graduation_re_gthn.png" />
     <Content Include="Theme\js\addtextedu.js" />
     <Content Include="Theme\js\addtextpractice.js" />
+    <Content Include="Theme\js\bootstrap-notify.min.js" />
     <Content Include="Theme\js\bootstrap.bundle.min.js" />
+    <Content Include="Theme\js\bootstrap.min.js" />
     <Content Include="Theme\js\checktyping.js" />
     <Content Include="Theme\js\checktypingadvanced.js" />
     <Content Include="Theme\js\checktypingcustom.js" />
@@ -305,6 +337,7 @@
     <Content Include="Theme\js\createtestedu.js" />
     <Content Include="Theme\js\custom.js" />
     <Content Include="Theme\js\dashboardedu.js" />
+    <Content Include="Theme\js\datatables.min.js" />
     <Content Include="Theme\js\edittextedu.js" />
     <Content Include="Theme\js\edittextpractice.js" />
     <Content Include="Theme\js\game3typing.js" />
@@ -312,17 +345,22 @@
     <Content Include="Theme\js\game4typing.js" />
     <Content Include="Theme\js\gametyping.js" />
     <Content Include="Theme\js\howler.min.js" />
+    <Content Include="Theme\js\jquery-3.7.1.min.js" />
     <Content Include="Theme\js\jquery.min.js" />
+    <Content Include="Theme\js\jquery.scrollbar.min.js" />
     <Content Include="Theme\js\jquery.sticky.js" />
+    <Content Include="Theme\js\kaiadmin.min.js" />
     <Content Include="Theme\js\login-social.js" />
     <Content Include="Theme\js\main.js" />
     <Content Include="Theme\js\managegroup.js" />
     <Content Include="Theme\js\mytextedu.js" />
     <Content Include="Theme\js\mytextpractice.js" />
+    <Content Include="Theme\js\popper.min.js" />
     <Content Include="Theme\js\settingroomedu.js" />
     <Content Include="Theme\js\settinguser.js" />
     <Content Include="Theme\js\testtypingeduaction.js" />
     <Content Include="Theme\js\textpracticetest.js" />
+    <Content Include="Theme\js\webfont.min.js" />
     <Content Include="Theme\sound\key-sound_Default.wav" />
     <Content Include="Theme\sound\public_sounds_beep.wav" />
     <Content Include="Theme\sound\public_sounds_correct.wav" />
@@ -382,6 +420,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

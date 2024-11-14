@@ -58,17 +58,33 @@
                                         <input id="titletext" class="form-control input-title" placeholder="Nhập tiêu đề văn bản" type="text" />
                                     </div>
                                     <div class="textpractice_form-item">
-                                        <label for="contenttext">Nội dung</label>
+                                        <div class="d-flex justify-content-between mb-2">
+                                            <div class="col-lg-6">
+                                                <label for="contenttext">Nội dung</label>
+                                            </div>
+                                            <div class="col-lg-6 d-flex flex-column justify-content-end">
+                                                <button type="button" class="btn-default" onclick="toggleFormAsk()">Ai Đề xuất văn bản</button>
+                                                <div id="form-ask" class="d-flex flex-column justify-content-end d-none">
+                                                    <p style="font-size:16px;color:#000;margin:12px 0;padding:0">Ghi chú: Nhớ chọn đúng ngôn ngữ và nhập chủ đề trước khi gửi: </p>
+                                                    <strong style="margin-bottom:4px;">Ví dụ: du lịch</strong>
+                                                    <div class="d-flex">
+                                                        <input class="form-control" placeholder="Nhập chủ đề" id="content-ask" />
+                                                        <button class="btn-default" onclick="submitAsk()" style="margin-left:8px;">Tạo</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
                                         <textarea class="form-control textarea-custom" placeholder="Nhập nội dung văn bản" id="contenttext"></textarea>
                                     </div>
-                                    <div class="check-private">
-                                        <input id="checkprivate" type="checkbox" />
-                                        <label for="checkprivate" style="color:black">Không hiển thị</label>
+                                        <div class="check-private">
+                                            <input id="checkprivate" type="checkbox" />
+                                            <label for="checkprivate" style="color:black">Không hiển thị</label>
+                                        </div>
+                                        <div class="textpractice_form-item">
+                                            <button id="btn-createtext" type="button">Lưu văn bản</button>
+                                        </div>
                                     </div>
-                                    <div class="textpractice_form-item">
-                                        <button id="btn-createtext" type="button">Lưu văn bản</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                            
@@ -78,4 +94,62 @@
         </main>
     </div>
 </div>
+<script>
+    function toggleFormAsk() {
+        $("#form-ask").toggleClass("d-none");
+    }
+    function submitAsk() {
+        const contentask = $("#content-ask").val();
+        const language = $("#languageSelect").val();
+        if (contentask == "") {
+            Swal.fire({
+                icon: 'error',
+                title: "Thông báo",
+                html: `<strong>Vui lòng nhập chủ đề</strong>`,
+                showCloseButton: true,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+        $.ajax({
+            url: '@Url.Action("ProposeText", "DashBoardEdu")',
+            type: 'POST',
+            data: {
+                content: contentask,
+                language: language
+            },
+            success: function (response) {
+                try {
+                    const jsonResponse = JSON.parse(response);
+
+                    // Lấy phần "text" từ phản hồi
+                    const assistantResponse = jsonResponse.candidates[0].content.parts[0].text;
+                    console.log(assistantResponse);
+                    $("#contenttext").val(assistantResponse);
+                } catch (ex) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Thông báo",
+                        html: `<strong>Vui lòng nhập chủ đề khác rõ hơn</strong>`,
+                        showCloseButton: true,
+                        showConfirmButton: true,
+                        confirmButtonText: 'OK',
+                    });
+                }
+
+            },
+            error: function (err) {
+                Swal.fire({
+                    icon: 'error',
+                    title: "Thông báo",
+                    html: `<strong>Vui lòng nhập chủ đề khác rõ hơn</strong>`,
+                    showCloseButton: true,
+                    showConfirmButton: true,
+                    confirmButtonText: 'OK',
+                });
+            }
+        });
+    }
+</script>
 <script src="~/Theme/js/addtextedu.js"></script>

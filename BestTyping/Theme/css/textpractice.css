@@ -441,3 +441,11 @@
         color: #ffeb91;
         text-shadow: 0 0 20px #952;
     }
+.btn-default {
+    border: none;
+    background: #1274ad;
+    color: #fff;
+    padding:0 8px;
+    border-radius:4px;
+    width:fit-content;
+}

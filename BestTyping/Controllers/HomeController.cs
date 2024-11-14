@@ -356,7 +356,7 @@ namespace BestTyping.Controllers
         public ActionResult TextPractice()
         {
             List<TEXTPRACTICEMODELVIEW> list = new List<TEXTPRACTICEMODELVIEW>();     
-            var mytext = db.TEXTPRACTICEs.Where(t => t.IsPrivate == false).OrderByDescending(t => t.Rating).ToList();
+            var mytext = db.TEXTPRACTICEs.Where(t => t.IsPrivate == false && t.Status==true).OrderByDescending(t => t.Rating).ToList();
             foreach(var item in mytext)
             {
                 TEXTPRACTICEMODELVIEW text = new TEXTPRACTICEMODELVIEW();
@@ -375,7 +375,7 @@ namespace BestTyping.Controllers
         public ActionResult TextPracticeNew()
         {
             List<TEXTPRACTICEMODELVIEW> list = new List<TEXTPRACTICEMODELVIEW>();
-            var mytext = db.TEXTPRACTICEs.Where(t=>t.IsPrivate == false).OrderByDescending(t => t.CreatedAt).ToList();
+            var mytext = db.TEXTPRACTICEs.Where(t=>t.IsPrivate == false && t.Status== true).OrderByDescending(t => t.CreatedAt).ToList();
             foreach (var item in mytext)
             {
                 TEXTPRACTICEMODELVIEW text = new TEXTPRACTICEMODELVIEW();
@@ -544,7 +544,7 @@ namespace BestTyping.Controllers
                 }
             }
             GAMETYPING view = new GAMETYPING();
-            var getExerciseTexts = db.EXERCISETEXTs.Where(t=>t.ExerciseID == 6).ToList();
+            var getExerciseTexts = db.EXERCISETEXTs.Where(t=>t.ExerciseID == 6 && t.Status == true).ToList();
             var random = new Random();
             // Chọn ngẫu nhiên một mục từ danh sách các mục đã lấy được
             var randomExerciseText = getExerciseTexts[random.Next(getExerciseTexts.Count)];

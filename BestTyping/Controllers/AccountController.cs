@@ -111,11 +111,16 @@ namespace BestTyping.Controllers
                     var checkUser = db.USERs.Where(n => n.Email == email).SingleOrDefault();
                     if (checkUser == null)
                     {
+                        // Đây là ví dụ sử dụng milliseconds từ epoch
+                        DateTime now = DateTime.UtcNow;
+                        DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+                        long milliseconds = (long)(now - epoch).TotalMilliseconds;
                         USER user = new USER();
                         user.HoTen = fullname;
                         user.Email = email;
                         user.Avatar = avatar;
                         user.IsEnable = true;
+                        user.CreateDate = milliseconds;
                         user.TypeAccount = 1;
                         db.USERs.InsertOnSubmit(user);
                         db.SubmitChanges();

@@ -11,7 +11,7 @@ namespace BestTyping
 {
     public class RequestJoinHub : Hub
     {
-        DataBestTypingDataContext db = new DataBestTypingDataContext();
+       DataBestTypingDataContext db = new DataBestTypingDataContext();
 
         public void SendRequsetJoinList(int idroom)
         {

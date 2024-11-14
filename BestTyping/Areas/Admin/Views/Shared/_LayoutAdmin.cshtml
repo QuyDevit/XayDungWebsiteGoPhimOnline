@@ -1,0 +1,221 @@
+﻿@using BestTyping.Models
+@{
+    USER user = (USER)Session["User"];
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="~/Theme/images/icon_logo.png" type="image/png">
+    <!-- Fonts and icons -->
+    <script src="~/Theme/js/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { families: ["Public Sans:300,400,500,600,700"] },
+            custom: {
+                families: [
+                    "Font Awesome 5 Solid",
+                    "Font Awesome 5 Regular",
+                    "Font Awesome 5 Brands",
+                    "simple-line-icons",
+                ],
+                urls: ["assets/css/fonts.min.css"],
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            },
+        });
+    </script>
+    <style>
+        .switch-content {
+            margin-top: 5px;
+            --size: 50px;
+            --inset: 4px;
+            --switch-width: calc(var(--size));
+            --switch-height: calc(var(--size) / 2);
+            --slider-size: calc(var(--size) / 2 - var(--inset));
+            --switch-color-active: #18cf18;
+            display: block;
+            width: var(--switch-width);
+            height: var(--switch-height);
+            position: relative;
+            cursor: pointer;
+        }
+
+            .switch-content input[type="checkbox"] {
+                opacity: 0;
+                width: 0;
+                height: 0;
+                position: absolute;
+            }
+
+            .switch-content .switch {
+                display: block;
+                cursor: pointer;
+                width: 100%;
+                height: 100%;
+                border-radius: 999rem;
+                background: #ddd;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .switch-content .slider {
+                position: absolute;
+                top: calc(50% + var(--inset));
+                left: var(--inset);
+                transform: translate(0, calc(-50% - var(--inset)));
+                width: var(--slider-size);
+                height: var(--slider-size);
+                background: white;
+                border-radius: 999rem;
+                box-shadow: 2px 0px 9px 10px #00000008, 1px 1px 3px 0px #00000024;
+                transition: all 0.2s ease-in-out;
+            }
+
+            .switch-content input[type="checkbox"]:checked + .switch {
+                background: var(--switch-color-active);
+            }
+
+                .switch-content input[type="checkbox"]:checked + .switch .slider {
+                    left: calc(100% - var(--inset));
+                    transform: translate(-100%, calc(-50% - var(--inset)));
+                }
+    </style>
+
+    <!-- CSS Files -->
+    <link href="~/Theme/css/bootstrap.min-v2.css" rel="stylesheet" />
+    <link href="~/Theme/css/plugins.min.css" rel="stylesheet" />
+    <link href="~/Theme/css/kaiadmin.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        @Html.Partial("_SidebarAdmin")
+        <!-- End Sidebar -->
+
+        <div class="main-panel">
+            <div class="main-header">
+                <div class="main-header-logo">
+                    <!-- Logo Header -->
+                    <div class="logo-header" data-background-color="dark">
+                        <a href="@Url.Action("Index","Home")" class="logo">
+                            <img src=""
+                                 alt="navbar brand"
+                                 class="navbar-brand"
+                                 height="20" />
+                        </a>
+                        <div class="nav-toggle">
+                            <button class="btn btn-toggle toggle-sidebar">
+                                <i class="gg-menu-right"></i>
+                            </button>
+                            <button class="btn btn-toggle sidenav-toggler">
+                                <i class="gg-menu-left"></i>
+                            </button>
+                        </div>
+                        <button class="topbar-toggler more">
+                            <i class="gg-more-vertical-alt"></i>
+                        </button>
+                    </div>
+                    <!-- End Logo Header -->
+                </div>
+                <!-- Navbar Header -->
+                <nav class="navbar navbar-header navbar-header-transparent navbar-expand-lg border-bottom">
+                    <div class="container-fluid">
+                        <nav class="navbar navbar-header-left navbar-expand-lg navbar-form nav-search p-0 d-none d-lg-flex">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-search pe-1">
+                                        <i class="fa fa-search search-icon"></i>
+                                    </button>
+                                </div>
+                                <input type="text"
+                                       placeholder="Tìm kiếm ..."
+                                       class="form-control" />
+                            </div>
+                        </nav>
+
+                        <ul class="navbar-nav topbar-nav ms-md-auto align-items-center">
+                            <li class="nav-item topbar-icon dropdown hidden-caret d-flex d-lg-none">
+                                <a class="nav-link dropdown-toggle"
+                                   data-bs-toggle="dropdown"
+                                   href="#"
+                                   role="button"
+                                   aria-expanded="false"
+                                   aria-haspopup="true">
+                                    <i class="fa fa-search"></i>
+                                </a>
+                                <ul class="dropdown-menu dropdown-search animated fadeIn">
+                                    <li class="navbar-left navbar-form nav-search">
+                                        <div class="input-group">
+                                            <input type="text"
+                                                   placeholder="Tìm kiếm ..."
+                                                   class="form-control" />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li class="nav-item topbar-user dropdown hidden-caret">
+                                <a class="dropdown-toggle profile-pic"
+                                   data-bs-toggle="dropdown"
+                                   href="#"
+                                   aria-expanded="false">
+                                    <span class="profile-username">
+                                        <span class="op-7">Xin chào,</span>
+                                        <span class="fw-bold">@(user != null ? user.HoTen : "")</span>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" data-popper-placement="bottom-end" style="position: absolute; inset: 0px 0px auto auto; margin: 0px; transform: translate(-10px, 35px);">
+                                    <a href="@Url.Action("Logout","Auth")"
+                                       class="btn btn-xs btn-secondary btn-sm" style="margin-left:40px">Đăng xuất</a>
+                                </div>
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!-- End Navbar -->
+            </div>
+            @RenderBody()
+
+
+            <footer class="footer">
+                <div class="container-fluid d-flex justify-content-center">
+
+                    <div class="copyright">
+                        2024, được thực hiện <i class="fa fa-heart heart text-danger"></i> bởi
+                        <a href="javavascript:void(0)">BestTyping</a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+
+    </div>
+    <!-- End Custom template -->
+    <!--   Core JS Files   -->
+    <script src="~/Theme/js/jquery-3.7.1.min.js"></script>
+    <script src="~/Theme/js/popper.min.js"></script>
+    <script src="~/Theme/js/bootstrap.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+
+    <script src="~/Theme/js/jquery.scrollbar.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="~/Theme/js/datatables.min.js"></script>
+
+    <!-- Bootstrap Notify -->
+    <script src="~/Theme/js/bootstrap-notify.min.js"></script>
+
+    <!-- Kaiadmin JS -->
+    <script src="~/Theme/js/kaiadmin.min.js"></script>
+
+</body>
+</html>

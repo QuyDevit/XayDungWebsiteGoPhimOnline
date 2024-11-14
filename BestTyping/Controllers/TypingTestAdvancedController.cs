@@ -134,7 +134,7 @@ namespace BestTyping.Controllers
             {
                 var getLanguage = db.EXERCISELANGUAGEs.FirstOrDefault(l => l.LanguageName==language);
                 int languageId = getLanguage.LanguageID;
-                var getExerciseTexts = db.EXERCISETEXTs.Where(t => t.LanguageID == languageId && t.ExerciseID == exerciseid).ToList();
+                var getExerciseTexts = db.EXERCISETEXTs.Where(t => t.LanguageID == languageId && t.ExerciseID == exerciseid && t.Status == true).ToList();
 
                 // Chọn ngẫu nhiên một mục từ danh sách các mục đã lấy được
                 var random = new Random();

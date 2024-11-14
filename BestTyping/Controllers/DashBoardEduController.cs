@@ -3,7 +3,11 @@ using BestTyping.Models.DTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 
@@ -11,6 +15,8 @@ namespace BestTyping.Controllers
 {
     public class DashBoardEduController : Controller
     {
+        private static readonly HttpClient _client = new HttpClient();
+        private const string GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
         DataBestTypingDataContext db = new DataBestTypingDataContext();
         public static string ConvertTimestampToDate(long timestamp)
         {
@@ -990,6 +996,79 @@ namespace BestTyping.Controllers
             } while (db.CLASSROOMs.Any(c => c.JoinCode == code)); // Đảm bảo mã là duy nhất trong DB
 
             return code;
+        }
+        [HttpPost]
+        public async Task<JsonResult> ProposeText(string content, string language)
+        {
+            try
+            {
+                var ask = $"Viết một đoạn văn ngắn về chủ đề \"{content}\" bằng tiếng \"{language}\" cách nhau bằng khoảng trắng, không có dấu . và dấu ,";
+                var request = new ChatRequest
+                {
+                    Model = "gemini-1.5-pro",
+                    MaxTokens = 2048,
+                    Messages = new[]
+                {
+                    new Message
+                    {
+                        Role = "user",
+                        Content = ask
+                    }
+                }
+                };
+                var responseContent = await GenerateResponse(request);
+                return Json(responseContent);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { code = 400 });
+            }
+        }
+        public async Task<string> GenerateResponse(ChatRequest request)
+        {
+            var apiKey = ConfigurationManager.AppSettings["config:ApiKey"];
+            int maxTokens = request.MaxTokens <= 0 ? 2048 : request.MaxTokens;
+
+            var geminiRequest = new
+            {
+                contents = new[]
+                {
+                new
+                {
+                    parts = new[]
+                    {
+                        new
+                        {
+                            text = request.Messages[0].Content
+                        }
+                    }
+                }
+            },
+                generationConfig = new
+                {
+                    maxOutputTokens = maxTokens,
+                    temperature = 0.7,
+                    topP = 0.8,
+                    topK = 40
+                }
+            };
+
+            var requestUrl = $"{GEMINI_API_URL}?key={apiKey}";
+            var requestContent = new StringContent(
+                JsonConvert.SerializeObject(geminiRequest),
+                Encoding.UTF8,
+                "application/json"
+            );
+
+            var geminiResponse = await _client.PostAsync(requestUrl, requestContent);
+            var responseContent = await geminiResponse.Content.ReadAsStringAsync();
+
+            if (!geminiResponse.IsSuccessStatusCode)
+            {
+                throw new Exception($"Gemini API error: {responseContent}");
+            }
+
+            return responseContent;
         }
     }
 }

@@ -9,8 +9,8 @@ namespace BestTyping.Controllers
 {
     public class TypingTestController : Controller
     {
-        DataBestTypingDataContext db = new DataBestTypingDataContext();
 
+        DataBestTypingDataContext db = new DataBestTypingDataContext();
         [HttpPost]
         public JsonResult HandleSaveResult(int sumword, float accuracy, int exercise, int wpm, int mistakes, int correctwords, long timestamp,int totalcharacters)
         {
@@ -133,7 +133,7 @@ namespace BestTyping.Controllers
             {
                 var getLanguage = db.EXERCISELANGUAGEs.FirstOrDefault(l => l.LanguageName==language);
                 int languageId = getLanguage.LanguageID;
-                var getExerciseTexts = db.EXERCISETEXTs.Where(t => t.LanguageID == languageId && t.ExerciseID == exerciseid).ToList();
+                var getExerciseTexts = db.EXERCISETEXTs.Where(t => t.LanguageID == languageId && t.ExerciseID == exerciseid && t.Status == true).ToList();
 
                 // Chọn ngẫu nhiên một mục từ danh sách các mục đã lấy được
                 var random = new Random();

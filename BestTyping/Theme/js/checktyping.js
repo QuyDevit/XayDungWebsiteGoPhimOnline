@@ -137,6 +137,7 @@ $(document).ready(function () {
    
 
     //Xử lý typing test
+    var isSpeak = false;
     var totalCorrectCharacters = 0;
     var totalWrongCharacters = 0;
     var isFullScreen = false;
@@ -168,6 +169,13 @@ $(document).ready(function () {
             isFullScreen = true;
         } else {
             isFullScreen = false;
+        }
+    });
+    $("#checkboxspeak").change(function () {
+        if ($(this).is(":checked")) {
+            isSpeak = true;
+        } else {
+            isSpeak = false;
         }
     });
 
@@ -357,6 +365,12 @@ $(document).ready(function () {
     function highlightNextWord() {
         $(".highlight").removeClass("highlight");
         $("#word" + currentWord).addClass("highlight");
+        if (isSpeak) {
+            var text = $("#word" + currentWord).text()
+            var speech = new SpeechSynthesisUtterance(text);
+            speech.lang = "vi-VN"; // Chọn ngôn ngữ tiếng Việt
+            window.speechSynthesis.speak(speech);
+        }
     }
     var arrchar = [];
 

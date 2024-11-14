@@ -1,0 +1,87 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model ICollection<BestTyping.Models.USER>
+  
+<div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Tài khoản</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                    <div class="col-sm-12">
+                                        <table id="basic-datatables" class="display table table-striped table-hover" style="width:100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Họ tên</th>
+                                                    <th>Email</th>
+                                                    <th>Ngày tạo</th>
+                                                    <th>Loại tài khoản</th>
+                                                    <th>Khóa tài khoản</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach (var item in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@item.HoTen</td>
+                                                        <td>@item.Email</td>
+                                                        <td>@(DateTimeOffset.FromUnixTimeMilliseconds(item.CreateDate ?? 0).DateTime.ToString("yyyy-MM-dd HH:mm:ss"))</td>
+                                                        <td>Người dùng</td>
+                                                        <td>
+                                                            <div class="switch-content">
+                                                                <input type="checkbox" id="checkbox-@item.Id" @(item.IsEnable == true? "":"checked" ) onchange="lockAccount(@item.Id)">
+                                                                <label class="switch" for="checkbox-@item.Id">
+                                                                    <span class="slider"></span>
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#basic-datatables").DataTable();
+    });
+    function lockAccount(value) {
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("LockAccount","ManageAccount")',
+            data: {
+                id: value
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                  
+                } else {
+
+                    console.log(response.msg);
+                }
+            },
+            error: function (err) {
+                // Xử lý lỗi nếu có
+                console.log(err);
+            }
+        });      
+    }
+</script>
+

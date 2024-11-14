@@ -1,0 +1,133 @@
+﻿
+@{
+    ViewBag.Title = "Thêm văn bản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Thêm văn bản</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6 col-lg-5">
+                              
+                                <div class="form-group">
+                                    <label for="languageid">Chọn ngôn ngữ</label>
+                                    <select class="form-select" id="languageid">
+                                        @foreach (var item in ViewBag.Language)
+                                        {
+                                            <option value="@item.LanguageID">@item.LanguageName</option>
+                                        }
+
+                                    </select>
+                                </div>
+                               
+
+                                <div class="form-group">
+                                    <label for="text">Văn bản</label>
+                                    <textarea class="form-control" id="text-input" rows="10"></textarea>
+                                </div>
+                              
+                            </div>
+                            <div class="col-md-6 col-lg-5">
+                                <div class="form-group">
+                                    <label class="form-label">Lưu vào mục</label>
+                                    <div class="selectgroup selectgroup-pills">
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="value" value="1" class="selectgroup-input" checked="">
+                                            <span class="selectgroup-button">Kiểm tra tốc độ đánh máy bình thường</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="value" value="2" class="selectgroup-input">
+                                            <span class="selectgroup-button">Kiểm tra tốc độ đánh máy nâng cao</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="value" value="4" class="selectgroup-input">
+                                            <span class="selectgroup-button">Cuộc thi đánh máy</span>
+                                        </label>
+                                        <label class="selectgroup-item">
+                                            <input type="checkbox" name="value" value="6" class="selectgroup-input">
+                                            <span class="selectgroup-button">Trò chơi gõ phím 1</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Trạng thái</label><br>
+                                    <div class="d-flex">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="show" checked>
+                                            <label class="form-check-label" for="show">
+                                                Hiển thị
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="hide" >
+                                            <label class="form-check-label" for="hide">
+                                                Ẩn
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button onclick="saveText()" class="btn btn-success">Đồng ý</button>
+                                    <a href="@Url.Action("Index","ExerciseTextSystem")" class="btn btn-danger">Hủy</a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var selectedValues = [];
+    function saveText() {
+        selectedValues = [];
+        const language = $("#languageid").val();
+        const text = $("#text-input").val().trim();
+        $('.selectgroup-input:checked').each(function () {
+            selectedValues.push($(this).val());
+        });
+        const display = $("#show").is(":checked");
+        if (text == "" || selectedValues.length < 1) {
+            Swal.fire({
+                icon: 'error',
+                title: "Thông báo",
+                html: `<strong>Vui lòng nhập đầy đủ thông tin</strong>`,
+                showCloseButton: true,
+                showConfirmButton: true,
+                confirmButtonText: 'OK',
+            });
+            return;
+        }
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("CreateText", "ExerciseTextSystem")',
+            data: {
+                languageid: language,
+                text: text,
+                arrcategory: selectedValues,
+                display: display
+            },
+            success: function (response) {
+                if (response.code == 200) {
+                    window.location.href = "@Url.Action("Index", "ExerciseTextSystem")";
+                } else {
+
+                    console.log(response.msg);
+                }
+            },
+            error: function (err) {
+                // Xử lý lỗi nếu có
+                console.log(err);
+            }
+        });
+    }
+</script>

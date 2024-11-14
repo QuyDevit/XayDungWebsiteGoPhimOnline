@@ -30,52 +30,46 @@ namespace BestTyping.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
-    partial void InsertUSERPROGESS(USERPROGESS instance);
-    partial void UpdateUSERPROGESS(USERPROGESS instance);
-    partial void DeleteUSERPROGESS(USERPROGESS instance);
-    partial void InsertEXERCISE(EXERCISE instance);
-    partial void UpdateEXERCISE(EXERCISE instance);
-    partial void DeleteEXERCISE(EXERCISE instance);
-    partial void InsertEXERCISETEXT(EXERCISETEXT instance);
-    partial void UpdateEXERCISETEXT(EXERCISETEXT instance);
-    partial void DeleteEXERCISETEXT(EXERCISETEXT instance);
-    partial void InsertEXERCISELANGUAGE(EXERCISELANGUAGE instance);
-    partial void UpdateEXERCISELANGUAGE(EXERCISELANGUAGE instance);
-    partial void DeleteEXERCISELANGUAGE(EXERCISELANGUAGE instance);
-    partial void InsertTYPINGRESULT(TYPINGRESULT instance);
-    partial void UpdateTYPINGRESULT(TYPINGRESULT instance);
-    partial void DeleteTYPINGRESULT(TYPINGRESULT instance);
-    partial void InsertCOMPETITION(COMPETITION instance);
-    partial void UpdateCOMPETITION(COMPETITION instance);
-    partial void DeleteCOMPETITION(COMPETITION instance);
-    partial void InsertTEXTPRACTICE(TEXTPRACTICE instance);
-    partial void UpdateTEXTPRACTICE(TEXTPRACTICE instance);
-    partial void DeleteTEXTPRACTICE(TEXTPRACTICE instance);
-    partial void InsertTYPINGRESULTGAME(TYPINGRESULTGAME instance);
-    partial void UpdateTYPINGRESULTGAME(TYPINGRESULTGAME instance);
-    partial void DeleteTYPINGRESULTGAME(TYPINGRESULTGAME instance);
     partial void InsertCLASSROOM(CLASSROOM instance);
     partial void UpdateCLASSROOM(CLASSROOM instance);
     partial void DeleteCLASSROOM(CLASSROOM instance);
-    partial void InsertTEXTTESTEDU(TEXTTESTEDU instance);
-    partial void UpdateTEXTTESTEDU(TEXTTESTEDU instance);
-    partial void DeleteTEXTTESTEDU(TEXTTESTEDU instance);
+    partial void InsertUSERPROGESS(USERPROGESS instance);
+    partial void UpdateUSERPROGESS(USERPROGESS instance);
+    partial void DeleteUSERPROGESS(USERPROGESS instance);
+    partial void InsertCOMPETITION(COMPETITION instance);
+    partial void UpdateCOMPETITION(COMPETITION instance);
+    partial void DeleteCOMPETITION(COMPETITION instance);
+    partial void InsertEXERCISE(EXERCISE instance);
+    partial void UpdateEXERCISE(EXERCISE instance);
+    partial void DeleteEXERCISE(EXERCISE instance);
+    partial void InsertEXERCISELANGUAGE(EXERCISELANGUAGE instance);
+    partial void UpdateEXERCISELANGUAGE(EXERCISELANGUAGE instance);
+    partial void DeleteEXERCISELANGUAGE(EXERCISELANGUAGE instance);
+    partial void InsertEXERCISETEXT(EXERCISETEXT instance);
+    partial void UpdateEXERCISETEXT(EXERCISETEXT instance);
+    partial void DeleteEXERCISETEXT(EXERCISETEXT instance);
     partial void InsertTESTEDU(TESTEDU instance);
     partial void UpdateTESTEDU(TESTEDU instance);
     partial void DeleteTESTEDU(TESTEDU instance);
+    partial void InsertTEXTTESTEDU(TEXTTESTEDU instance);
+    partial void UpdateTEXTTESTEDU(TEXTTESTEDU instance);
+    partial void DeleteTEXTTESTEDU(TEXTTESTEDU instance);
     partial void InsertTYPINGRESULTEDU(TYPINGRESULTEDU instance);
     partial void UpdateTYPINGRESULTEDU(TYPINGRESULTEDU instance);
     partial void DeleteTYPINGRESULTEDU(TYPINGRESULTEDU instance);
+    partial void InsertTYPINGRESULTGAME(TYPINGRESULTGAME instance);
+    partial void UpdateTYPINGRESULTGAME(TYPINGRESULTGAME instance);
+    partial void DeleteTYPINGRESULTGAME(TYPINGRESULTGAME instance);
+    partial void InsertTYPINGRESULT(TYPINGRESULT instance);
+    partial void UpdateTYPINGRESULT(TYPINGRESULT instance);
+    partial void DeleteTYPINGRESULT(TYPINGRESULT instance);
     partial void InsertUSER(USER instance);
     partial void UpdateUSER(USER instance);
     partial void DeleteUSER(USER instance);
+    partial void InsertTEXTPRACTICE(TEXTPRACTICE instance);
+    partial void UpdateTEXTPRACTICE(TEXTPRACTICE instance);
+    partial void DeleteTEXTPRACTICE(TEXTPRACTICE instance);
     #endregion
-		
-		public DataBestTypingDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["DbBestTypingConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
 		
 		public DataBestTypingDataContext(string connection) : 
 				base(connection, mappingSource)
@@ -100,44 +94,24 @@ namespace BestTyping.Models
 		{
 			OnCreated();
 		}
+
+        public DataBestTypingDataContext() : base(System.Configuration.ConfigurationManager.ConnectionStrings["DbBestTypingConnectionString"].ConnectionString)
+        {
+        }
+
+        public System.Data.Linq.Table<CLASSROOM> CLASSROOMs
+		{
+			get
+			{
+				return this.GetTable<CLASSROOM>();
+			}
+		}
 		
 		public System.Data.Linq.Table<USERPROGESS> USERPROGESSes
 		{
 			get
 			{
 				return this.GetTable<USERPROGESS>();
-			}
-		}
-		
-		public System.Data.Linq.Table<EXERCISE> EXERCISEs
-		{
-			get
-			{
-				return this.GetTable<EXERCISE>();
-			}
-		}
-		
-		public System.Data.Linq.Table<EXERCISETEXT> EXERCISETEXTs
-		{
-			get
-			{
-				return this.GetTable<EXERCISETEXT>();
-			}
-		}
-		
-		public System.Data.Linq.Table<EXERCISELANGUAGE> EXERCISELANGUAGEs
-		{
-			get
-			{
-				return this.GetTable<EXERCISELANGUAGE>();
-			}
-		}
-		
-		public System.Data.Linq.Table<TYPINGRESULT> TYPINGRESULTs
-		{
-			get
-			{
-				return this.GetTable<TYPINGRESULT>();
 			}
 		}
 		
@@ -149,35 +123,27 @@ namespace BestTyping.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<TEXTPRACTICE> TEXTPRACTICEs
+		public System.Data.Linq.Table<EXERCISE> EXERCISEs
 		{
 			get
 			{
-				return this.GetTable<TEXTPRACTICE>();
+				return this.GetTable<EXERCISE>();
 			}
 		}
 		
-		public System.Data.Linq.Table<TYPINGRESULTGAME> TYPINGRESULTGAMEs
+		public System.Data.Linq.Table<EXERCISELANGUAGE> EXERCISELANGUAGEs
 		{
 			get
 			{
-				return this.GetTable<TYPINGRESULTGAME>();
+				return this.GetTable<EXERCISELANGUAGE>();
 			}
 		}
 		
-		public System.Data.Linq.Table<CLASSROOM> CLASSROOMs
+		public System.Data.Linq.Table<EXERCISETEXT> EXERCISETEXTs
 		{
 			get
 			{
-				return this.GetTable<CLASSROOM>();
-			}
-		}
-		
-		public System.Data.Linq.Table<TEXTTESTEDU> TEXTTESTEDUs
-		{
-			get
-			{
-				return this.GetTable<TEXTTESTEDU>();
+				return this.GetTable<EXERCISETEXT>();
 			}
 		}
 		
@@ -189,11 +155,43 @@ namespace BestTyping.Models
 			}
 		}
 		
+		public System.Data.Linq.Table<TEXTTESTEDU> TEXTTESTEDUs
+		{
+			get
+			{
+				return this.GetTable<TEXTTESTEDU>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TYPEACCOUNT> TYPEACCOUNTs
+		{
+			get
+			{
+				return this.GetTable<TYPEACCOUNT>();
+			}
+		}
+		
 		public System.Data.Linq.Table<TYPINGRESULTEDU> TYPINGRESULTEDUs
 		{
 			get
 			{
 				return this.GetTable<TYPINGRESULTEDU>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TYPINGRESULTGAME> TYPINGRESULTGAMEs
+		{
+			get
+			{
+				return this.GetTable<TYPINGRESULTGAME>();
+			}
+		}
+		
+		public System.Data.Linq.Table<TYPINGRESULT> TYPINGRESULTs
+		{
+			get
+			{
+				return this.GetTable<TYPINGRESULT>();
 			}
 		}
 		
@@ -204,1676 +202,12 @@ namespace BestTyping.Models
 				return this.GetTable<USER>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.USERPROGESS")]
-	public partial class USERPROGESS : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ProgressID;
-		
-		private int _UserID;
-		
-		private int _SoTuDaGo;
-		
-		private int _SoBaiKiemTra;
-		
-		private int _CuocThiThamGia;
-		
-		private int _WPMTotNhat;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnProgressIDChanging(int value);
-    partial void OnProgressIDChanged();
-    partial void OnUserIDChanging(int value);
-    partial void OnUserIDChanged();
-    partial void OnSoTuDaGoChanging(int value);
-    partial void OnSoTuDaGoChanged();
-    partial void OnSoBaiKiemTraChanging(int value);
-    partial void OnSoBaiKiemTraChanged();
-    partial void OnCuocThiThamGiaChanging(int value);
-    partial void OnCuocThiThamGiaChanged();
-    partial void OnWPMTotNhatChanging(int value);
-    partial void OnWPMTotNhatChanged();
-    #endregion
-		
-		public USERPROGESS()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProgressID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ProgressID
+		public System.Data.Linq.Table<TEXTPRACTICE> TEXTPRACTICEs
 		{
 			get
 			{
-				return this._ProgressID;
-			}
-			set
-			{
-				if ((this._ProgressID != value))
-				{
-					this.OnProgressIDChanging(value);
-					this.SendPropertyChanging();
-					this._ProgressID = value;
-					this.SendPropertyChanged("ProgressID");
-					this.OnProgressIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int NOT NULL")]
-		public int UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoTuDaGo", DbType="Int NOT NULL")]
-		public int SoTuDaGo
-		{
-			get
-			{
-				return this._SoTuDaGo;
-			}
-			set
-			{
-				if ((this._SoTuDaGo != value))
-				{
-					this.OnSoTuDaGoChanging(value);
-					this.SendPropertyChanging();
-					this._SoTuDaGo = value;
-					this.SendPropertyChanged("SoTuDaGo");
-					this.OnSoTuDaGoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoBaiKiemTra", DbType="Int NOT NULL")]
-		public int SoBaiKiemTra
-		{
-			get
-			{
-				return this._SoBaiKiemTra;
-			}
-			set
-			{
-				if ((this._SoBaiKiemTra != value))
-				{
-					this.OnSoBaiKiemTraChanging(value);
-					this.SendPropertyChanging();
-					this._SoBaiKiemTra = value;
-					this.SendPropertyChanged("SoBaiKiemTra");
-					this.OnSoBaiKiemTraChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CuocThiThamGia", DbType="Int NOT NULL")]
-		public int CuocThiThamGia
-		{
-			get
-			{
-				return this._CuocThiThamGia;
-			}
-			set
-			{
-				if ((this._CuocThiThamGia != value))
-				{
-					this.OnCuocThiThamGiaChanging(value);
-					this.SendPropertyChanging();
-					this._CuocThiThamGia = value;
-					this.SendPropertyChanged("CuocThiThamGia");
-					this.OnCuocThiThamGiaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPMTotNhat", DbType="Int NOT NULL")]
-		public int WPMTotNhat
-		{
-			get
-			{
-				return this._WPMTotNhat;
-			}
-			set
-			{
-				if ((this._WPMTotNhat != value))
-				{
-					this.OnWPMTotNhatChanging(value);
-					this.SendPropertyChanging();
-					this._WPMTotNhat = value;
-					this.SendPropertyChanged("WPMTotNhat");
-					this.OnWPMTotNhatChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISE")]
-	public partial class EXERCISE : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ExerciseId;
-		
-		private string _Title;
-		
-		private string _Description;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnExerciseIdChanging(int value);
-    partial void OnExerciseIdChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
-		
-		public EXERCISE()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ExerciseId
-		{
-			get
-			{
-				return this._ExerciseId;
-			}
-			set
-			{
-				if ((this._ExerciseId != value))
-				{
-					this.OnExerciseIdChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseId = value;
-					this.SendPropertyChanged("ExerciseId");
-					this.OnExerciseIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255)")]
-		public string Description
-		{
-			get
-			{
-				return this._Description;
-			}
-			set
-			{
-				if ((this._Description != value))
-				{
-					this.OnDescriptionChanging(value);
-					this.SendPropertyChanging();
-					this._Description = value;
-					this.SendPropertyChanged("Description");
-					this.OnDescriptionChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISETEXT")]
-	public partial class EXERCISETEXT : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ExerciseTextID;
-		
-		private System.Nullable<int> _ExerciseID;
-		
-		private string _Text;
-		
-		private System.Nullable<int> _LanguageID;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnExerciseTextIDChanging(int value);
-    partial void OnExerciseTextIDChanged();
-    partial void OnExerciseIDChanging(System.Nullable<int> value);
-    partial void OnExerciseIDChanged();
-    partial void OnTextChanging(string value);
-    partial void OnTextChanged();
-    partial void OnLanguageIDChanging(System.Nullable<int> value);
-    partial void OnLanguageIDChanged();
-    #endregion
-		
-		public EXERCISETEXT()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ExerciseTextID
-		{
-			get
-			{
-				return this._ExerciseTextID;
-			}
-			set
-			{
-				if ((this._ExerciseTextID != value))
-				{
-					this.OnExerciseTextIDChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseTextID = value;
-					this.SendPropertyChanged("ExerciseTextID");
-					this.OnExerciseTextIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseID", DbType="Int")]
-		public System.Nullable<int> ExerciseID
-		{
-			get
-			{
-				return this._ExerciseID;
-			}
-			set
-			{
-				if ((this._ExerciseID != value))
-				{
-					this.OnExerciseIDChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseID = value;
-					this.SendPropertyChanged("ExerciseID");
-					this.OnExerciseIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
-		public string Text
-		{
-			get
-			{
-				return this._Text;
-			}
-			set
-			{
-				if ((this._Text != value))
-				{
-					this.OnTextChanging(value);
-					this.SendPropertyChanging();
-					this._Text = value;
-					this.SendPropertyChanged("Text");
-					this.OnTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
-		public System.Nullable<int> LanguageID
-		{
-			get
-			{
-				return this._LanguageID;
-			}
-			set
-			{
-				if ((this._LanguageID != value))
-				{
-					this.OnLanguageIDChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageID = value;
-					this.SendPropertyChanged("LanguageID");
-					this.OnLanguageIDChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISELANGUAGE")]
-	public partial class EXERCISELANGUAGE : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _LanguageID;
-		
-		private string _LanguageName;
-		
-		private string _LanguageAvatar;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnLanguageIDChanging(int value);
-    partial void OnLanguageIDChanged();
-    partial void OnLanguageNameChanging(string value);
-    partial void OnLanguageNameChanged();
-    partial void OnLanguageAvatarChanging(string value);
-    partial void OnLanguageAvatarChanged();
-    #endregion
-		
-		public EXERCISELANGUAGE()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int LanguageID
-		{
-			get
-			{
-				return this._LanguageID;
-			}
-			set
-			{
-				if ((this._LanguageID != value))
-				{
-					this.OnLanguageIDChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageID = value;
-					this.SendPropertyChanged("LanguageID");
-					this.OnLanguageIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageName", DbType="NVarChar(50)")]
-		public string LanguageName
-		{
-			get
-			{
-				return this._LanguageName;
-			}
-			set
-			{
-				if ((this._LanguageName != value))
-				{
-					this.OnLanguageNameChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageName = value;
-					this.SendPropertyChanged("LanguageName");
-					this.OnLanguageNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageAvatar", DbType="NVarChar(255)")]
-		public string LanguageAvatar
-		{
-			get
-			{
-				return this._LanguageAvatar;
-			}
-			set
-			{
-				if ((this._LanguageAvatar != value))
-				{
-					this.OnLanguageAvatarChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageAvatar = value;
-					this.SendPropertyChanged("LanguageAvatar");
-					this.OnLanguageAvatarChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTS")]
-	public partial class TYPINGRESULT : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ResultId;
-		
-		private System.Nullable<int> _UserID;
-		
-		private System.Nullable<double> _Accuracy;
-		
-		private System.Nullable<int> _WPM;
-		
-		private System.Nullable<int> _Mistakes;
-		
-		private System.Nullable<int> _CorrectWords;
-		
-		private System.Nullable<int> _TotalWords;
-		
-		private System.Nullable<long> _Timestamp;
-		
-		private System.Nullable<int> _ExerciseTextID;
-		
-		private System.Nullable<int> _KeyStrokes;
-		
-		private string _JoinCode;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResultIdChanging(int value);
-    partial void OnResultIdChanged();
-    partial void OnUserIDChanging(System.Nullable<int> value);
-    partial void OnUserIDChanged();
-    partial void OnAccuracyChanging(System.Nullable<double> value);
-    partial void OnAccuracyChanged();
-    partial void OnWPMChanging(System.Nullable<int> value);
-    partial void OnWPMChanged();
-    partial void OnMistakesChanging(System.Nullable<int> value);
-    partial void OnMistakesChanged();
-    partial void OnCorrectWordsChanging(System.Nullable<int> value);
-    partial void OnCorrectWordsChanged();
-    partial void OnTotalWordsChanging(System.Nullable<int> value);
-    partial void OnTotalWordsChanged();
-    partial void OnTimestampChanging(System.Nullable<long> value);
-    partial void OnTimestampChanged();
-    partial void OnExerciseTextIDChanging(System.Nullable<int> value);
-    partial void OnExerciseTextIDChanged();
-    partial void OnKeyStrokesChanging(System.Nullable<int> value);
-    partial void OnKeyStrokesChanged();
-    partial void OnJoinCodeChanging(string value);
-    partial void OnJoinCodeChanged();
-    #endregion
-		
-		public TYPINGRESULT()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResultId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ResultId
-		{
-			get
-			{
-				return this._ResultId;
-			}
-			set
-			{
-				if ((this._ResultId != value))
-				{
-					this.OnResultIdChanging(value);
-					this.SendPropertyChanging();
-					this._ResultId = value;
-					this.SendPropertyChanged("ResultId");
-					this.OnResultIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
-		public System.Nullable<int> UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accuracy", DbType="Float")]
-		public System.Nullable<double> Accuracy
-		{
-			get
-			{
-				return this._Accuracy;
-			}
-			set
-			{
-				if ((this._Accuracy != value))
-				{
-					this.OnAccuracyChanging(value);
-					this.SendPropertyChanging();
-					this._Accuracy = value;
-					this.SendPropertyChanged("Accuracy");
-					this.OnAccuracyChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPM", DbType="Int")]
-		public System.Nullable<int> WPM
-		{
-			get
-			{
-				return this._WPM;
-			}
-			set
-			{
-				if ((this._WPM != value))
-				{
-					this.OnWPMChanging(value);
-					this.SendPropertyChanging();
-					this._WPM = value;
-					this.SendPropertyChanged("WPM");
-					this.OnWPMChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mistakes", DbType="Int")]
-		public System.Nullable<int> Mistakes
-		{
-			get
-			{
-				return this._Mistakes;
-			}
-			set
-			{
-				if ((this._Mistakes != value))
-				{
-					this.OnMistakesChanging(value);
-					this.SendPropertyChanging();
-					this._Mistakes = value;
-					this.SendPropertyChanged("Mistakes");
-					this.OnMistakesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectWords", DbType="Int")]
-		public System.Nullable<int> CorrectWords
-		{
-			get
-			{
-				return this._CorrectWords;
-			}
-			set
-			{
-				if ((this._CorrectWords != value))
-				{
-					this.OnCorrectWordsChanging(value);
-					this.SendPropertyChanging();
-					this._CorrectWords = value;
-					this.SendPropertyChanged("CorrectWords");
-					this.OnCorrectWordsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalWords", DbType="Int")]
-		public System.Nullable<int> TotalWords
-		{
-			get
-			{
-				return this._TotalWords;
-			}
-			set
-			{
-				if ((this._TotalWords != value))
-				{
-					this.OnTotalWordsChanging(value);
-					this.SendPropertyChanging();
-					this._TotalWords = value;
-					this.SendPropertyChanged("TotalWords");
-					this.OnTotalWordsChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="BigInt")]
-		public System.Nullable<long> Timestamp
-		{
-			get
-			{
-				return this._Timestamp;
-			}
-			set
-			{
-				if ((this._Timestamp != value))
-				{
-					this.OnTimestampChanging(value);
-					this.SendPropertyChanging();
-					this._Timestamp = value;
-					this.SendPropertyChanged("Timestamp");
-					this.OnTimestampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", DbType="Int")]
-		public System.Nullable<int> ExerciseTextID
-		{
-			get
-			{
-				return this._ExerciseTextID;
-			}
-			set
-			{
-				if ((this._ExerciseTextID != value))
-				{
-					this.OnExerciseTextIDChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseTextID = value;
-					this.SendPropertyChanged("ExerciseTextID");
-					this.OnExerciseTextIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KeyStrokes", DbType="Int")]
-		public System.Nullable<int> KeyStrokes
-		{
-			get
-			{
-				return this._KeyStrokes;
-			}
-			set
-			{
-				if ((this._KeyStrokes != value))
-				{
-					this.OnKeyStrokesChanging(value);
-					this.SendPropertyChanging();
-					this._KeyStrokes = value;
-					this.SendPropertyChanged("KeyStrokes");
-					this.OnKeyStrokesChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
-		public string JoinCode
-		{
-			get
-			{
-				return this._JoinCode;
-			}
-			set
-			{
-				if ((this._JoinCode != value))
-				{
-					this.OnJoinCodeChanging(value);
-					this.SendPropertyChanging();
-					this._JoinCode = value;
-					this.SendPropertyChanged("JoinCode");
-					this.OnJoinCodeChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.COMPETITION")]
-	public partial class COMPETITION : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CompetitionId;
-		
-		private System.Nullable<int> _PeopleJoin;
-		
-		private System.Nullable<int> _NumberOfTestsPerformed;
-		
-		private System.Nullable<long> _CreateDate;
-		
-		private string _JoinCode;
-		
-		private System.Nullable<int> _LanguageId;
-		
-		private System.Nullable<int> _ExerciseTextID;
-		
-		private System.Nullable<bool> _IsPrivate;
-		
-		private System.Nullable<int> _UserCreate;
-		
-		private System.Nullable<bool> _isOpen;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCompetitionIdChanging(int value);
-    partial void OnCompetitionIdChanged();
-    partial void OnPeopleJoinChanging(System.Nullable<int> value);
-    partial void OnPeopleJoinChanged();
-    partial void OnNumberOfTestsPerformedChanging(System.Nullable<int> value);
-    partial void OnNumberOfTestsPerformedChanged();
-    partial void OnCreateDateChanging(System.Nullable<long> value);
-    partial void OnCreateDateChanged();
-    partial void OnJoinCodeChanging(string value);
-    partial void OnJoinCodeChanged();
-    partial void OnLanguageIdChanging(System.Nullable<int> value);
-    partial void OnLanguageIdChanged();
-    partial void OnExerciseTextIDChanging(System.Nullable<int> value);
-    partial void OnExerciseTextIDChanged();
-    partial void OnIsPrivateChanging(System.Nullable<bool> value);
-    partial void OnIsPrivateChanged();
-    partial void OnUserCreateChanging(System.Nullable<int> value);
-    partial void OnUserCreateChanged();
-    partial void OnisOpenChanging(System.Nullable<bool> value);
-    partial void OnisOpenChanged();
-    #endregion
-		
-		public COMPETITION()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompetitionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CompetitionId
-		{
-			get
-			{
-				return this._CompetitionId;
-			}
-			set
-			{
-				if ((this._CompetitionId != value))
-				{
-					this.OnCompetitionIdChanging(value);
-					this.SendPropertyChanging();
-					this._CompetitionId = value;
-					this.SendPropertyChanged("CompetitionId");
-					this.OnCompetitionIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeopleJoin", DbType="Int")]
-		public System.Nullable<int> PeopleJoin
-		{
-			get
-			{
-				return this._PeopleJoin;
-			}
-			set
-			{
-				if ((this._PeopleJoin != value))
-				{
-					this.OnPeopleJoinChanging(value);
-					this.SendPropertyChanging();
-					this._PeopleJoin = value;
-					this.SendPropertyChanged("PeopleJoin");
-					this.OnPeopleJoinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfTestsPerformed", DbType="Int")]
-		public System.Nullable<int> NumberOfTestsPerformed
-		{
-			get
-			{
-				return this._NumberOfTestsPerformed;
-			}
-			set
-			{
-				if ((this._NumberOfTestsPerformed != value))
-				{
-					this.OnNumberOfTestsPerformedChanging(value);
-					this.SendPropertyChanging();
-					this._NumberOfTestsPerformed = value;
-					this.SendPropertyChanged("NumberOfTestsPerformed");
-					this.OnNumberOfTestsPerformedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="BigInt")]
-		public System.Nullable<long> CreateDate
-		{
-			get
-			{
-				return this._CreateDate;
-			}
-			set
-			{
-				if ((this._CreateDate != value))
-				{
-					this.OnCreateDateChanging(value);
-					this.SendPropertyChanging();
-					this._CreateDate = value;
-					this.SendPropertyChanged("CreateDate");
-					this.OnCreateDateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
-		public string JoinCode
-		{
-			get
-			{
-				return this._JoinCode;
-			}
-			set
-			{
-				if ((this._JoinCode != value))
-				{
-					this.OnJoinCodeChanging(value);
-					this.SendPropertyChanging();
-					this._JoinCode = value;
-					this.SendPropertyChanged("JoinCode");
-					this.OnJoinCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageId", DbType="Int")]
-		public System.Nullable<int> LanguageId
-		{
-			get
-			{
-				return this._LanguageId;
-			}
-			set
-			{
-				if ((this._LanguageId != value))
-				{
-					this.OnLanguageIdChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageId = value;
-					this.SendPropertyChanged("LanguageId");
-					this.OnLanguageIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", DbType="Int")]
-		public System.Nullable<int> ExerciseTextID
-		{
-			get
-			{
-				return this._ExerciseTextID;
-			}
-			set
-			{
-				if ((this._ExerciseTextID != value))
-				{
-					this.OnExerciseTextIDChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseTextID = value;
-					this.SendPropertyChanged("ExerciseTextID");
-					this.OnExerciseTextIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrivate", DbType="Bit")]
-		public System.Nullable<bool> IsPrivate
-		{
-			get
-			{
-				return this._IsPrivate;
-			}
-			set
-			{
-				if ((this._IsPrivate != value))
-				{
-					this.OnIsPrivateChanging(value);
-					this.SendPropertyChanging();
-					this._IsPrivate = value;
-					this.SendPropertyChanged("IsPrivate");
-					this.OnIsPrivateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
-		public System.Nullable<int> UserCreate
-		{
-			get
-			{
-				return this._UserCreate;
-			}
-			set
-			{
-				if ((this._UserCreate != value))
-				{
-					this.OnUserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._UserCreate = value;
-					this.SendPropertyChanged("UserCreate");
-					this.OnUserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOpen", DbType="Bit")]
-		public System.Nullable<bool> isOpen
-		{
-			get
-			{
-				return this._isOpen;
-			}
-			set
-			{
-				if ((this._isOpen != value))
-				{
-					this.OnisOpenChanging(value);
-					this.SendPropertyChanging();
-					this._isOpen = value;
-					this.SendPropertyChanged("isOpen");
-					this.OnisOpenChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TEXTPRACTICE")]
-	public partial class TEXTPRACTICE : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ID;
-		
-		private System.Nullable<int> _UserCreate;
-		
-		private string _Text;
-		
-		private string _Title;
-		
-		private System.Nullable<int> _TextLength;
-		
-		private System.Nullable<int> _PeopleIsCompleted;
-		
-		private System.Nullable<long> _CreatedAt;
-		
-		private System.Nullable<int> _LanguageID;
-		
-		private string _JoinCode;
-		
-		private System.Nullable<bool> _IsPrivate;
-		
-		private System.Nullable<double> _Rating;
-		
-		private string _ListUserLike;
-		
-		private string _ListUserRating;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnUserCreateChanging(System.Nullable<int> value);
-    partial void OnUserCreateChanged();
-    partial void OnTextChanging(string value);
-    partial void OnTextChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnTextLengthChanging(System.Nullable<int> value);
-    partial void OnTextLengthChanged();
-    partial void OnPeopleIsCompletedChanging(System.Nullable<int> value);
-    partial void OnPeopleIsCompletedChanged();
-    partial void OnCreatedAtChanging(System.Nullable<long> value);
-    partial void OnCreatedAtChanged();
-    partial void OnLanguageIDChanging(System.Nullable<int> value);
-    partial void OnLanguageIDChanged();
-    partial void OnJoinCodeChanging(string value);
-    partial void OnJoinCodeChanged();
-    partial void OnIsPrivateChanging(System.Nullable<bool> value);
-    partial void OnIsPrivateChanged();
-    partial void OnRatingChanging(System.Nullable<double> value);
-    partial void OnRatingChanged();
-    partial void OnListUserLikeChanging(string value);
-    partial void OnListUserLikeChanged();
-    partial void OnListUserRatingChanging(string value);
-    partial void OnListUserRatingChanged();
-    #endregion
-		
-		public TEXTPRACTICE()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
-		{
-			get
-			{
-				return this._ID;
-			}
-			set
-			{
-				if ((this._ID != value))
-				{
-					this.OnIDChanging(value);
-					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
-		public System.Nullable<int> UserCreate
-		{
-			get
-			{
-				return this._UserCreate;
-			}
-			set
-			{
-				if ((this._UserCreate != value))
-				{
-					this.OnUserCreateChanging(value);
-					this.SendPropertyChanging();
-					this._UserCreate = value;
-					this.SendPropertyChanged("UserCreate");
-					this.OnUserCreateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
-		public string Text
-		{
-			get
-			{
-				return this._Text;
-			}
-			set
-			{
-				if ((this._Text != value))
-				{
-					this.OnTextChanging(value);
-					this.SendPropertyChanging();
-					this._Text = value;
-					this.SendPropertyChanged("Text");
-					this.OnTextChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
-		public string Title
-		{
-			get
-			{
-				return this._Title;
-			}
-			set
-			{
-				if ((this._Title != value))
-				{
-					this.OnTitleChanging(value);
-					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TextLength", DbType="Int")]
-		public System.Nullable<int> TextLength
-		{
-			get
-			{
-				return this._TextLength;
-			}
-			set
-			{
-				if ((this._TextLength != value))
-				{
-					this.OnTextLengthChanging(value);
-					this.SendPropertyChanging();
-					this._TextLength = value;
-					this.SendPropertyChanged("TextLength");
-					this.OnTextLengthChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeopleIsCompleted", DbType="Int")]
-		public System.Nullable<int> PeopleIsCompleted
-		{
-			get
-			{
-				return this._PeopleIsCompleted;
-			}
-			set
-			{
-				if ((this._PeopleIsCompleted != value))
-				{
-					this.OnPeopleIsCompletedChanging(value);
-					this.SendPropertyChanging();
-					this._PeopleIsCompleted = value;
-					this.SendPropertyChanged("PeopleIsCompleted");
-					this.OnPeopleIsCompletedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="BigInt")]
-		public System.Nullable<long> CreatedAt
-		{
-			get
-			{
-				return this._CreatedAt;
-			}
-			set
-			{
-				if ((this._CreatedAt != value))
-				{
-					this.OnCreatedAtChanging(value);
-					this.SendPropertyChanging();
-					this._CreatedAt = value;
-					this.SendPropertyChanged("CreatedAt");
-					this.OnCreatedAtChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
-		public System.Nullable<int> LanguageID
-		{
-			get
-			{
-				return this._LanguageID;
-			}
-			set
-			{
-				if ((this._LanguageID != value))
-				{
-					this.OnLanguageIDChanging(value);
-					this.SendPropertyChanging();
-					this._LanguageID = value;
-					this.SendPropertyChanged("LanguageID");
-					this.OnLanguageIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
-		public string JoinCode
-		{
-			get
-			{
-				return this._JoinCode;
-			}
-			set
-			{
-				if ((this._JoinCode != value))
-				{
-					this.OnJoinCodeChanging(value);
-					this.SendPropertyChanging();
-					this._JoinCode = value;
-					this.SendPropertyChanged("JoinCode");
-					this.OnJoinCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrivate", DbType="Bit")]
-		public System.Nullable<bool> IsPrivate
-		{
-			get
-			{
-				return this._IsPrivate;
-			}
-			set
-			{
-				if ((this._IsPrivate != value))
-				{
-					this.OnIsPrivateChanging(value);
-					this.SendPropertyChanging();
-					this._IsPrivate = value;
-					this.SendPropertyChanged("IsPrivate");
-					this.OnIsPrivateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rating", DbType="Float")]
-		public System.Nullable<double> Rating
-		{
-			get
-			{
-				return this._Rating;
-			}
-			set
-			{
-				if ((this._Rating != value))
-				{
-					this.OnRatingChanging(value);
-					this.SendPropertyChanging();
-					this._Rating = value;
-					this.SendPropertyChanged("Rating");
-					this.OnRatingChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListUserLike", DbType="NVarChar(MAX)")]
-		public string ListUserLike
-		{
-			get
-			{
-				return this._ListUserLike;
-			}
-			set
-			{
-				if ((this._ListUserLike != value))
-				{
-					this.OnListUserLikeChanging(value);
-					this.SendPropertyChanging();
-					this._ListUserLike = value;
-					this.SendPropertyChanged("ListUserLike");
-					this.OnListUserLikeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListUserRating", DbType="NVarChar(MAX)")]
-		public string ListUserRating
-		{
-			get
-			{
-				return this._ListUserRating;
-			}
-			set
-			{
-				if ((this._ListUserRating != value))
-				{
-					this.OnListUserRatingChanging(value);
-					this.SendPropertyChanging();
-					this._ListUserRating = value;
-					this.SendPropertyChanged("ListUserRating");
-					this.OnListUserRatingChanged();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTGAME")]
-	public partial class TYPINGRESULTGAME : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _ResultId;
-		
-		private System.Nullable<int> _ExerciseId;
-		
-		private System.Nullable<int> _UserID;
-		
-		private System.Nullable<int> _Score;
-		
-		private System.Nullable<int> _Score2;
-		
-		private System.Nullable<long> _Timestamp;
-		
-		private System.Nullable<int> _Score3;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnResultIdChanging(int value);
-    partial void OnResultIdChanged();
-    partial void OnExerciseIdChanging(System.Nullable<int> value);
-    partial void OnExerciseIdChanged();
-    partial void OnUserIDChanging(System.Nullable<int> value);
-    partial void OnUserIDChanged();
-    partial void OnScoreChanging(System.Nullable<int> value);
-    partial void OnScoreChanged();
-    partial void OnScore2Changing(System.Nullable<int> value);
-    partial void OnScore2Changed();
-    partial void OnTimestampChanging(System.Nullable<long> value);
-    partial void OnTimestampChanged();
-    partial void OnScore3Changing(System.Nullable<int> value);
-    partial void OnScore3Changed();
-    #endregion
-		
-		public TYPINGRESULTGAME()
-		{
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResultId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ResultId
-		{
-			get
-			{
-				return this._ResultId;
-			}
-			set
-			{
-				if ((this._ResultId != value))
-				{
-					this.OnResultIdChanging(value);
-					this.SendPropertyChanging();
-					this._ResultId = value;
-					this.SendPropertyChanged("ResultId");
-					this.OnResultIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseId", DbType="Int")]
-		public System.Nullable<int> ExerciseId
-		{
-			get
-			{
-				return this._ExerciseId;
-			}
-			set
-			{
-				if ((this._ExerciseId != value))
-				{
-					this.OnExerciseIdChanging(value);
-					this.SendPropertyChanging();
-					this._ExerciseId = value;
-					this.SendPropertyChanged("ExerciseId");
-					this.OnExerciseIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
-		public System.Nullable<int> UserID
-		{
-			get
-			{
-				return this._UserID;
-			}
-			set
-			{
-				if ((this._UserID != value))
-				{
-					this.OnUserIDChanging(value);
-					this.SendPropertyChanging();
-					this._UserID = value;
-					this.SendPropertyChanged("UserID");
-					this.OnUserIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int")]
-		public System.Nullable<int> Score
-		{
-			get
-			{
-				return this._Score;
-			}
-			set
-			{
-				if ((this._Score != value))
-				{
-					this.OnScoreChanging(value);
-					this.SendPropertyChanging();
-					this._Score = value;
-					this.SendPropertyChanged("Score");
-					this.OnScoreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score2", DbType="Int")]
-		public System.Nullable<int> Score2
-		{
-			get
-			{
-				return this._Score2;
-			}
-			set
-			{
-				if ((this._Score2 != value))
-				{
-					this.OnScore2Changing(value);
-					this.SendPropertyChanging();
-					this._Score2 = value;
-					this.SendPropertyChanged("Score2");
-					this.OnScore2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="BigInt")]
-		public System.Nullable<long> Timestamp
-		{
-			get
-			{
-				return this._Timestamp;
-			}
-			set
-			{
-				if ((this._Timestamp != value))
-				{
-					this.OnTimestampChanging(value);
-					this.SendPropertyChanging();
-					this._Timestamp = value;
-					this.SendPropertyChanged("Timestamp");
-					this.OnTimestampChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score3", DbType="Int")]
-		public System.Nullable<int> Score3
-		{
-			get
-			{
-				return this._Score3;
-			}
-			set
-			{
-				if ((this._Score3 != value))
-				{
-					this.OnScore3Changing(value);
-					this.SendPropertyChanging();
-					this._Score3 = value;
-					this.SendPropertyChanged("Score3");
-					this.OnScore3Changed();
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<TEXTPRACTICE>();
 			}
 		}
 	}
@@ -2180,127 +514,301 @@ namespace BestTyping.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TEXTTESTEDU")]
-	public partial class TEXTTESTEDU : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.USERPROGESS")]
+	public partial class USERPROGESS : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _ID;
+		private int _ProgressID;
 		
-		private System.Nullable<int> _UserCreate;
+		private System.Nullable<int> _UserID;
 		
-		private string _Text;
+		private System.Nullable<int> _SoTuDaGo;
 		
-		private string _Title;
+		private System.Nullable<int> _SoBaiKiemTra;
 		
-		private System.Nullable<long> _CreateDate;
+		private System.Nullable<int> _CuocThiThamGia;
 		
-		private System.Nullable<int> _LanguageID;
-		
-		private System.Nullable<bool> _IsPrivate;
+		private System.Nullable<int> _WPMTotNhat;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIDChanging(int value);
-    partial void OnIDChanged();
-    partial void OnUserCreateChanging(System.Nullable<int> value);
-    partial void OnUserCreateChanged();
-    partial void OnTextChanging(string value);
-    partial void OnTextChanged();
-    partial void OnTitleChanging(string value);
-    partial void OnTitleChanged();
-    partial void OnCreateDateChanging(System.Nullable<long> value);
-    partial void OnCreateDateChanged();
-    partial void OnLanguageIDChanging(System.Nullable<int> value);
-    partial void OnLanguageIDChanged();
-    partial void OnIsPrivateChanging(System.Nullable<bool> value);
-    partial void OnIsPrivateChanged();
+    partial void OnProgressIDChanging(int value);
+    partial void OnProgressIDChanged();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    partial void OnSoTuDaGoChanging(System.Nullable<int> value);
+    partial void OnSoTuDaGoChanged();
+    partial void OnSoBaiKiemTraChanging(System.Nullable<int> value);
+    partial void OnSoBaiKiemTraChanged();
+    partial void OnCuocThiThamGiaChanging(System.Nullable<int> value);
+    partial void OnCuocThiThamGiaChanged();
+    partial void OnWPMTotNhatChanging(System.Nullable<int> value);
+    partial void OnWPMTotNhatChanged();
     #endregion
 		
-		public TEXTTESTEDU()
+		public USERPROGESS()
 		{
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int ID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ProgressID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ProgressID
 		{
 			get
 			{
-				return this._ID;
+				return this._ProgressID;
 			}
 			set
 			{
-				if ((this._ID != value))
+				if ((this._ProgressID != value))
 				{
-					this.OnIDChanging(value);
+					this.OnProgressIDChanging(value);
 					this.SendPropertyChanging();
-					this._ID = value;
-					this.SendPropertyChanged("ID");
-					this.OnIDChanged();
+					this._ProgressID = value;
+					this.SendPropertyChanged("ProgressID");
+					this.OnProgressIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
-		public System.Nullable<int> UserCreate
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
 		{
 			get
 			{
-				return this._UserCreate;
+				return this._UserID;
 			}
 			set
 			{
-				if ((this._UserCreate != value))
+				if ((this._UserID != value))
 				{
-					this.OnUserCreateChanging(value);
+					this.OnUserIDChanging(value);
 					this.SendPropertyChanging();
-					this._UserCreate = value;
-					this.SendPropertyChanged("UserCreate");
-					this.OnUserCreateChanged();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
-		public string Text
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoTuDaGo", DbType="Int")]
+		public System.Nullable<int> SoTuDaGo
 		{
 			get
 			{
-				return this._Text;
+				return this._SoTuDaGo;
 			}
 			set
 			{
-				if ((this._Text != value))
+				if ((this._SoTuDaGo != value))
 				{
-					this.OnTextChanging(value);
+					this.OnSoTuDaGoChanging(value);
 					this.SendPropertyChanging();
-					this._Text = value;
-					this.SendPropertyChanged("Text");
-					this.OnTextChanged();
+					this._SoTuDaGo = value;
+					this.SendPropertyChanged("SoTuDaGo");
+					this.OnSoTuDaGoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
-		public string Title
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_SoBaiKiemTra", DbType="Int")]
+		public System.Nullable<int> SoBaiKiemTra
 		{
 			get
 			{
-				return this._Title;
+				return this._SoBaiKiemTra;
 			}
 			set
 			{
-				if ((this._Title != value))
+				if ((this._SoBaiKiemTra != value))
 				{
-					this.OnTitleChanging(value);
+					this.OnSoBaiKiemTraChanging(value);
 					this.SendPropertyChanging();
-					this._Title = value;
-					this.SendPropertyChanged("Title");
-					this.OnTitleChanged();
+					this._SoBaiKiemTra = value;
+					this.SendPropertyChanged("SoBaiKiemTra");
+					this.OnSoBaiKiemTraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CuocThiThamGia", DbType="Int")]
+		public System.Nullable<int> CuocThiThamGia
+		{
+			get
+			{
+				return this._CuocThiThamGia;
+			}
+			set
+			{
+				if ((this._CuocThiThamGia != value))
+				{
+					this.OnCuocThiThamGiaChanging(value);
+					this.SendPropertyChanging();
+					this._CuocThiThamGia = value;
+					this.SendPropertyChanged("CuocThiThamGia");
+					this.OnCuocThiThamGiaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPMTotNhat", DbType="Int")]
+		public System.Nullable<int> WPMTotNhat
+		{
+			get
+			{
+				return this._WPMTotNhat;
+			}
+			set
+			{
+				if ((this._WPMTotNhat != value))
+				{
+					this.OnWPMTotNhatChanging(value);
+					this.SendPropertyChanging();
+					this._WPMTotNhat = value;
+					this.SendPropertyChanged("WPMTotNhat");
+					this.OnWPMTotNhatChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.COMPETITION")]
+	public partial class COMPETITION : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CompetitionId;
+		
+		private System.Nullable<int> _PeopleJoin;
+		
+		private System.Nullable<int> _NumberOfTestsPerformed;
+		
+		private System.Nullable<long> _CreateDate;
+		
+		private string _JoinCode;
+		
+		private System.Nullable<int> _LanguageId;
+		
+		private System.Nullable<int> _ExerciseTextID;
+		
+		private System.Nullable<bool> _IsPrivate;
+		
+		private System.Nullable<int> _UserCreate;
+		
+		private System.Nullable<bool> _isOpen;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCompetitionIdChanging(int value);
+    partial void OnCompetitionIdChanged();
+    partial void OnPeopleJoinChanging(System.Nullable<int> value);
+    partial void OnPeopleJoinChanged();
+    partial void OnNumberOfTestsPerformedChanging(System.Nullable<int> value);
+    partial void OnNumberOfTestsPerformedChanged();
+    partial void OnCreateDateChanging(System.Nullable<long> value);
+    partial void OnCreateDateChanged();
+    partial void OnJoinCodeChanging(string value);
+    partial void OnJoinCodeChanged();
+    partial void OnLanguageIdChanging(System.Nullable<int> value);
+    partial void OnLanguageIdChanged();
+    partial void OnExerciseTextIDChanging(System.Nullable<int> value);
+    partial void OnExerciseTextIDChanged();
+    partial void OnIsPrivateChanging(System.Nullable<bool> value);
+    partial void OnIsPrivateChanged();
+    partial void OnUserCreateChanging(System.Nullable<int> value);
+    partial void OnUserCreateChanged();
+    partial void OnisOpenChanging(System.Nullable<bool> value);
+    partial void OnisOpenChanged();
+    #endregion
+		
+		public COMPETITION()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CompetitionId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CompetitionId
+		{
+			get
+			{
+				return this._CompetitionId;
+			}
+			set
+			{
+				if ((this._CompetitionId != value))
+				{
+					this.OnCompetitionIdChanging(value);
+					this.SendPropertyChanging();
+					this._CompetitionId = value;
+					this.SendPropertyChanged("CompetitionId");
+					this.OnCompetitionIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeopleJoin", DbType="Int")]
+		public System.Nullable<int> PeopleJoin
+		{
+			get
+			{
+				return this._PeopleJoin;
+			}
+			set
+			{
+				if ((this._PeopleJoin != value))
+				{
+					this.OnPeopleJoinChanging(value);
+					this.SendPropertyChanging();
+					this._PeopleJoin = value;
+					this.SendPropertyChanged("PeopleJoin");
+					this.OnPeopleJoinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NumberOfTestsPerformed", DbType="Int")]
+		public System.Nullable<int> NumberOfTestsPerformed
+		{
+			get
+			{
+				return this._NumberOfTestsPerformed;
+			}
+			set
+			{
+				if ((this._NumberOfTestsPerformed != value))
+				{
+					this.OnNumberOfTestsPerformedChanging(value);
+					this.SendPropertyChanging();
+					this._NumberOfTestsPerformed = value;
+					this.SendPropertyChanged("NumberOfTestsPerformed");
+					this.OnNumberOfTestsPerformedChanged();
 				}
 			}
 		}
@@ -2325,22 +833,62 @@ namespace BestTyping.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
-		public System.Nullable<int> LanguageID
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
+		public string JoinCode
 		{
 			get
 			{
-				return this._LanguageID;
+				return this._JoinCode;
 			}
 			set
 			{
-				if ((this._LanguageID != value))
+				if ((this._JoinCode != value))
 				{
-					this.OnLanguageIDChanging(value);
+					this.OnJoinCodeChanging(value);
 					this.SendPropertyChanging();
-					this._LanguageID = value;
-					this.SendPropertyChanged("LanguageID");
-					this.OnLanguageIDChanged();
+					this._JoinCode = value;
+					this.SendPropertyChanged("JoinCode");
+					this.OnJoinCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageId", DbType="Int")]
+		public System.Nullable<int> LanguageId
+		{
+			get
+			{
+				return this._LanguageId;
+			}
+			set
+			{
+				if ((this._LanguageId != value))
+				{
+					this.OnLanguageIdChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageId = value;
+					this.SendPropertyChanged("LanguageId");
+					this.OnLanguageIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", DbType="Int")]
+		public System.Nullable<int> ExerciseTextID
+		{
+			get
+			{
+				return this._ExerciseTextID;
+			}
+			set
+			{
+				if ((this._ExerciseTextID != value))
+				{
+					this.OnExerciseTextIDChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseTextID = value;
+					this.SendPropertyChanged("ExerciseTextID");
+					this.OnExerciseTextIDChanged();
 				}
 			}
 		}
@@ -2361,6 +909,424 @@ namespace BestTyping.Models
 					this._IsPrivate = value;
 					this.SendPropertyChanged("IsPrivate");
 					this.OnIsPrivateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
+		public System.Nullable<int> UserCreate
+		{
+			get
+			{
+				return this._UserCreate;
+			}
+			set
+			{
+				if ((this._UserCreate != value))
+				{
+					this.OnUserCreateChanging(value);
+					this.SendPropertyChanging();
+					this._UserCreate = value;
+					this.SendPropertyChanged("UserCreate");
+					this.OnUserCreateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_isOpen", DbType="Bit")]
+		public System.Nullable<bool> isOpen
+		{
+			get
+			{
+				return this._isOpen;
+			}
+			set
+			{
+				if ((this._isOpen != value))
+				{
+					this.OnisOpenChanging(value);
+					this.SendPropertyChanging();
+					this._isOpen = value;
+					this.SendPropertyChanged("isOpen");
+					this.OnisOpenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISE")]
+	public partial class EXERCISE : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ExerciseId;
+		
+		private string _Title;
+		
+		private string _Description;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnExerciseIdChanging(int value);
+    partial void OnExerciseIdChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDescriptionChanging(string value);
+    partial void OnDescriptionChanged();
+    #endregion
+		
+		public EXERCISE()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ExerciseId
+		{
+			get
+			{
+				return this._ExerciseId;
+			}
+			set
+			{
+				if ((this._ExerciseId != value))
+				{
+					this.OnExerciseIdChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseId = value;
+					this.SendPropertyChanged("ExerciseId");
+					this.OnExerciseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Description", DbType="NVarChar(255)")]
+		public string Description
+		{
+			get
+			{
+				return this._Description;
+			}
+			set
+			{
+				if ((this._Description != value))
+				{
+					this.OnDescriptionChanging(value);
+					this.SendPropertyChanging();
+					this._Description = value;
+					this.SendPropertyChanged("Description");
+					this.OnDescriptionChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISELANGUAGE")]
+	public partial class EXERCISELANGUAGE : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _LanguageID;
+		
+		private string _LanguageName;
+		
+		private string _LanguageAvatar;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLanguageIDChanging(int value);
+    partial void OnLanguageIDChanged();
+    partial void OnLanguageNameChanging(string value);
+    partial void OnLanguageNameChanged();
+    partial void OnLanguageAvatarChanging(string value);
+    partial void OnLanguageAvatarChanged();
+    #endregion
+		
+		public EXERCISELANGUAGE()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int LanguageID
+		{
+			get
+			{
+				return this._LanguageID;
+			}
+			set
+			{
+				if ((this._LanguageID != value))
+				{
+					this.OnLanguageIDChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageID = value;
+					this.SendPropertyChanged("LanguageID");
+					this.OnLanguageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageName", DbType="NVarChar(50)")]
+		public string LanguageName
+		{
+			get
+			{
+				return this._LanguageName;
+			}
+			set
+			{
+				if ((this._LanguageName != value))
+				{
+					this.OnLanguageNameChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageName = value;
+					this.SendPropertyChanged("LanguageName");
+					this.OnLanguageNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageAvatar", DbType="NVarChar(255)")]
+		public string LanguageAvatar
+		{
+			get
+			{
+				return this._LanguageAvatar;
+			}
+			set
+			{
+				if ((this._LanguageAvatar != value))
+				{
+					this.OnLanguageAvatarChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageAvatar = value;
+					this.SendPropertyChanged("LanguageAvatar");
+					this.OnLanguageAvatarChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.EXERCISETEXT")]
+	public partial class EXERCISETEXT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ExerciseTextID;
+		
+		private System.Nullable<int> _ExerciseID;
+		
+		private string _Text;
+		
+		private System.Nullable<int> _LanguageID;
+		
+		private System.Nullable<bool> _Status;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnExerciseTextIDChanging(int value);
+    partial void OnExerciseTextIDChanged();
+    partial void OnExerciseIDChanging(System.Nullable<int> value);
+    partial void OnExerciseIDChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnLanguageIDChanging(System.Nullable<int> value);
+    partial void OnLanguageIDChanged();
+    partial void OnStatusChanging(System.Nullable<bool> value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public EXERCISETEXT()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ExerciseTextID
+		{
+			get
+			{
+				return this._ExerciseTextID;
+			}
+			set
+			{
+				if ((this._ExerciseTextID != value))
+				{
+					this.OnExerciseTextIDChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseTextID = value;
+					this.SendPropertyChanged("ExerciseTextID");
+					this.OnExerciseTextIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseID", DbType="Int")]
+		public System.Nullable<int> ExerciseID
+		{
+			get
+			{
+				return this._ExerciseID;
+			}
+			set
+			{
+				if ((this._ExerciseID != value))
+				{
+					this.OnExerciseIDChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseID = value;
+					this.SendPropertyChanged("ExerciseID");
+					this.OnExerciseIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this.OnTextChanging(value);
+					this.SendPropertyChanging();
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
+		public System.Nullable<int> LanguageID
+		{
+			get
+			{
+				return this._LanguageID;
+			}
+			set
+			{
+				if ((this._LanguageID != value))
+				{
+					this.OnLanguageIDChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageID = value;
+					this.SendPropertyChanged("LanguageID");
+					this.OnLanguageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
 				}
 			}
 		}
@@ -2760,6 +1726,257 @@ namespace BestTyping.Models
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TEXTTESTEDU")]
+	public partial class TEXTTESTEDU : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _UserCreate;
+		
+		private string _Text;
+		
+		private string _Title;
+		
+		private System.Nullable<long> _CreateDate;
+		
+		private System.Nullable<int> _LanguageID;
+		
+		private System.Nullable<bool> _IsPrivate;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserCreateChanging(System.Nullable<int> value);
+    partial void OnUserCreateChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnCreateDateChanging(System.Nullable<long> value);
+    partial void OnCreateDateChanged();
+    partial void OnLanguageIDChanging(System.Nullable<int> value);
+    partial void OnLanguageIDChanged();
+    partial void OnIsPrivateChanging(System.Nullable<bool> value);
+    partial void OnIsPrivateChanged();
+    #endregion
+		
+		public TEXTTESTEDU()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
+		public System.Nullable<int> UserCreate
+		{
+			get
+			{
+				return this._UserCreate;
+			}
+			set
+			{
+				if ((this._UserCreate != value))
+				{
+					this.OnUserCreateChanging(value);
+					this.SendPropertyChanging();
+					this._UserCreate = value;
+					this.SendPropertyChanged("UserCreate");
+					this.OnUserCreateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this.OnTextChanging(value);
+					this.SendPropertyChanging();
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreateDate", DbType="BigInt")]
+		public System.Nullable<long> CreateDate
+		{
+			get
+			{
+				return this._CreateDate;
+			}
+			set
+			{
+				if ((this._CreateDate != value))
+				{
+					this.OnCreateDateChanging(value);
+					this.SendPropertyChanging();
+					this._CreateDate = value;
+					this.SendPropertyChanged("CreateDate");
+					this.OnCreateDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
+		public System.Nullable<int> LanguageID
+		{
+			get
+			{
+				return this._LanguageID;
+			}
+			set
+			{
+				if ((this._LanguageID != value))
+				{
+					this.OnLanguageIDChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageID = value;
+					this.SendPropertyChanged("LanguageID");
+					this.OnLanguageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrivate", DbType="Bit")]
+		public System.Nullable<bool> IsPrivate
+		{
+			get
+			{
+				return this._IsPrivate;
+			}
+			set
+			{
+				if ((this._IsPrivate != value))
+				{
+					this.OnIsPrivateChanging(value);
+					this.SendPropertyChanging();
+					this._IsPrivate = value;
+					this.SendPropertyChanged("IsPrivate");
+					this.OnIsPrivateChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPEACCOUNT")]
+	public partial class TYPEACCOUNT
+	{
+		
+		private int _IdTypeAccount;
+		
+		private string _NameTypeAccount;
+		
+		public TYPEACCOUNT()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTypeAccount", AutoSync=AutoSync.Always, DbType="Int NOT NULL IDENTITY", IsDbGenerated=true)]
+		public int IdTypeAccount
+		{
+			get
+			{
+				return this._IdTypeAccount;
+			}
+			set
+			{
+				if ((this._IdTypeAccount != value))
+				{
+					this._IdTypeAccount = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NameTypeAccount", DbType="NVarChar(MAX)")]
+		public string NameTypeAccount
+		{
+			get
+			{
+				return this._NameTypeAccount;
+			}
+			set
+			{
+				if ((this._NameTypeAccount != value))
+				{
+					this._NameTypeAccount = value;
+				}
+			}
+		}
+	}
+	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTEDU")]
 	public partial class TYPINGRESULTEDU : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -3061,6 +2278,514 @@ namespace BestTyping.Models
 					this._CorrectCharacter = value;
 					this.SendPropertyChanged("CorrectCharacter");
 					this.OnCorrectCharacterChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTGAME")]
+	public partial class TYPINGRESULTGAME : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ResultId;
+		
+		private System.Nullable<int> _ExerciseId;
+		
+		private System.Nullable<int> _UserID;
+		
+		private System.Nullable<int> _Score;
+		
+		private System.Nullable<int> _Score2;
+		
+		private System.Nullable<long> _Timestamp;
+		
+		private System.Nullable<int> _Score3;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnResultIdChanging(int value);
+    partial void OnResultIdChanged();
+    partial void OnExerciseIdChanging(System.Nullable<int> value);
+    partial void OnExerciseIdChanged();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    partial void OnScoreChanging(System.Nullable<int> value);
+    partial void OnScoreChanged();
+    partial void OnScore2Changing(System.Nullable<int> value);
+    partial void OnScore2Changed();
+    partial void OnTimestampChanging(System.Nullable<long> value);
+    partial void OnTimestampChanged();
+    partial void OnScore3Changing(System.Nullable<int> value);
+    partial void OnScore3Changed();
+    #endregion
+		
+		public TYPINGRESULTGAME()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResultId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ResultId
+		{
+			get
+			{
+				return this._ResultId;
+			}
+			set
+			{
+				if ((this._ResultId != value))
+				{
+					this.OnResultIdChanging(value);
+					this.SendPropertyChanging();
+					this._ResultId = value;
+					this.SendPropertyChanged("ResultId");
+					this.OnResultIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseId", DbType="Int")]
+		public System.Nullable<int> ExerciseId
+		{
+			get
+			{
+				return this._ExerciseId;
+			}
+			set
+			{
+				if ((this._ExerciseId != value))
+				{
+					this.OnExerciseIdChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseId = value;
+					this.SendPropertyChanged("ExerciseId");
+					this.OnExerciseIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score", DbType="Int")]
+		public System.Nullable<int> Score
+		{
+			get
+			{
+				return this._Score;
+			}
+			set
+			{
+				if ((this._Score != value))
+				{
+					this.OnScoreChanging(value);
+					this.SendPropertyChanging();
+					this._Score = value;
+					this.SendPropertyChanged("Score");
+					this.OnScoreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score2", DbType="Int")]
+		public System.Nullable<int> Score2
+		{
+			get
+			{
+				return this._Score2;
+			}
+			set
+			{
+				if ((this._Score2 != value))
+				{
+					this.OnScore2Changing(value);
+					this.SendPropertyChanging();
+					this._Score2 = value;
+					this.SendPropertyChanged("Score2");
+					this.OnScore2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="BigInt")]
+		public System.Nullable<long> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Score3", DbType="Int")]
+		public System.Nullable<int> Score3
+		{
+			get
+			{
+				return this._Score3;
+			}
+			set
+			{
+				if ((this._Score3 != value))
+				{
+					this.OnScore3Changing(value);
+					this.SendPropertyChanging();
+					this._Score3 = value;
+					this.SendPropertyChanged("Score3");
+					this.OnScore3Changed();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TYPINGRESULTS")]
+	public partial class TYPINGRESULT : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ResultId;
+		
+		private System.Nullable<int> _UserID;
+		
+		private System.Nullable<double> _Accuracy;
+		
+		private System.Nullable<int> _WPM;
+		
+		private System.Nullable<int> _Mistakes;
+		
+		private System.Nullable<int> _CorrectWords;
+		
+		private System.Nullable<int> _TotalWords;
+		
+		private System.Nullable<long> _Timestamp;
+		
+		private System.Nullable<int> _ExerciseTextID;
+		
+		private System.Nullable<int> _KeyStrokes;
+		
+		private string _JoinCode;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnResultIdChanging(int value);
+    partial void OnResultIdChanged();
+    partial void OnUserIDChanging(System.Nullable<int> value);
+    partial void OnUserIDChanged();
+    partial void OnAccuracyChanging(System.Nullable<double> value);
+    partial void OnAccuracyChanged();
+    partial void OnWPMChanging(System.Nullable<int> value);
+    partial void OnWPMChanged();
+    partial void OnMistakesChanging(System.Nullable<int> value);
+    partial void OnMistakesChanged();
+    partial void OnCorrectWordsChanging(System.Nullable<int> value);
+    partial void OnCorrectWordsChanged();
+    partial void OnTotalWordsChanging(System.Nullable<int> value);
+    partial void OnTotalWordsChanged();
+    partial void OnTimestampChanging(System.Nullable<long> value);
+    partial void OnTimestampChanged();
+    partial void OnExerciseTextIDChanging(System.Nullable<int> value);
+    partial void OnExerciseTextIDChanged();
+    partial void OnKeyStrokesChanging(System.Nullable<int> value);
+    partial void OnKeyStrokesChanged();
+    partial void OnJoinCodeChanging(string value);
+    partial void OnJoinCodeChanged();
+    #endregion
+		
+		public TYPINGRESULT()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ResultId", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ResultId
+		{
+			get
+			{
+				return this._ResultId;
+			}
+			set
+			{
+				if ((this._ResultId != value))
+				{
+					this.OnResultIdChanging(value);
+					this.SendPropertyChanging();
+					this._ResultId = value;
+					this.SendPropertyChanged("ResultId");
+					this.OnResultIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserID", DbType="Int")]
+		public System.Nullable<int> UserID
+		{
+			get
+			{
+				return this._UserID;
+			}
+			set
+			{
+				if ((this._UserID != value))
+				{
+					this.OnUserIDChanging(value);
+					this.SendPropertyChanging();
+					this._UserID = value;
+					this.SendPropertyChanged("UserID");
+					this.OnUserIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accuracy", DbType="Float")]
+		public System.Nullable<double> Accuracy
+		{
+			get
+			{
+				return this._Accuracy;
+			}
+			set
+			{
+				if ((this._Accuracy != value))
+				{
+					this.OnAccuracyChanging(value);
+					this.SendPropertyChanging();
+					this._Accuracy = value;
+					this.SendPropertyChanged("Accuracy");
+					this.OnAccuracyChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_WPM", DbType="Int")]
+		public System.Nullable<int> WPM
+		{
+			get
+			{
+				return this._WPM;
+			}
+			set
+			{
+				if ((this._WPM != value))
+				{
+					this.OnWPMChanging(value);
+					this.SendPropertyChanging();
+					this._WPM = value;
+					this.SendPropertyChanged("WPM");
+					this.OnWPMChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mistakes", DbType="Int")]
+		public System.Nullable<int> Mistakes
+		{
+			get
+			{
+				return this._Mistakes;
+			}
+			set
+			{
+				if ((this._Mistakes != value))
+				{
+					this.OnMistakesChanging(value);
+					this.SendPropertyChanging();
+					this._Mistakes = value;
+					this.SendPropertyChanged("Mistakes");
+					this.OnMistakesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CorrectWords", DbType="Int")]
+		public System.Nullable<int> CorrectWords
+		{
+			get
+			{
+				return this._CorrectWords;
+			}
+			set
+			{
+				if ((this._CorrectWords != value))
+				{
+					this.OnCorrectWordsChanging(value);
+					this.SendPropertyChanging();
+					this._CorrectWords = value;
+					this.SendPropertyChanged("CorrectWords");
+					this.OnCorrectWordsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TotalWords", DbType="Int")]
+		public System.Nullable<int> TotalWords
+		{
+			get
+			{
+				return this._TotalWords;
+			}
+			set
+			{
+				if ((this._TotalWords != value))
+				{
+					this.OnTotalWordsChanging(value);
+					this.SendPropertyChanging();
+					this._TotalWords = value;
+					this.SendPropertyChanged("TotalWords");
+					this.OnTotalWordsChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Timestamp", DbType="BigInt")]
+		public System.Nullable<long> Timestamp
+		{
+			get
+			{
+				return this._Timestamp;
+			}
+			set
+			{
+				if ((this._Timestamp != value))
+				{
+					this.OnTimestampChanging(value);
+					this.SendPropertyChanging();
+					this._Timestamp = value;
+					this.SendPropertyChanged("Timestamp");
+					this.OnTimestampChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ExerciseTextID", DbType="Int")]
+		public System.Nullable<int> ExerciseTextID
+		{
+			get
+			{
+				return this._ExerciseTextID;
+			}
+			set
+			{
+				if ((this._ExerciseTextID != value))
+				{
+					this.OnExerciseTextIDChanging(value);
+					this.SendPropertyChanging();
+					this._ExerciseTextID = value;
+					this.SendPropertyChanged("ExerciseTextID");
+					this.OnExerciseTextIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_KeyStrokes", DbType="Int")]
+		public System.Nullable<int> KeyStrokes
+		{
+			get
+			{
+				return this._KeyStrokes;
+			}
+			set
+			{
+				if ((this._KeyStrokes != value))
+				{
+					this.OnKeyStrokesChanging(value);
+					this.SendPropertyChanging();
+					this._KeyStrokes = value;
+					this.SendPropertyChanged("KeyStrokes");
+					this.OnKeyStrokesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
+		public string JoinCode
+		{
+			get
+			{
+				return this._JoinCode;
+			}
+			set
+			{
+				if ((this._JoinCode != value))
+				{
+					this.OnJoinCodeChanging(value);
+					this.SendPropertyChanging();
+					this._JoinCode = value;
+					this.SendPropertyChanged("JoinCode");
+					this.OnJoinCodeChanged();
 				}
 			}
 		}
@@ -3435,6 +3160,380 @@ namespace BestTyping.Models
 					this._TypeAccount = value;
 					this.SendPropertyChanged("TypeAccount");
 					this.OnTypeAccountChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.TEXTPRACTICE")]
+	public partial class TEXTPRACTICE : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _ID;
+		
+		private System.Nullable<int> _UserCreate;
+		
+		private string _Text;
+		
+		private string _Title;
+		
+		private System.Nullable<int> _TextLength;
+		
+		private System.Nullable<int> _PeopleIsCompleted;
+		
+		private System.Nullable<long> _CreatedAt;
+		
+		private System.Nullable<int> _LanguageID;
+		
+		private string _JoinCode;
+		
+		private System.Nullable<bool> _IsPrivate;
+		
+		private System.Nullable<double> _Rating;
+		
+		private string _ListUserLike;
+		
+		private string _ListUserRating;
+		
+		private System.Nullable<bool> _Status;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIDChanging(int value);
+    partial void OnIDChanged();
+    partial void OnUserCreateChanging(System.Nullable<int> value);
+    partial void OnUserCreateChanged();
+    partial void OnTextChanging(string value);
+    partial void OnTextChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnTextLengthChanging(System.Nullable<int> value);
+    partial void OnTextLengthChanged();
+    partial void OnPeopleIsCompletedChanging(System.Nullable<int> value);
+    partial void OnPeopleIsCompletedChanged();
+    partial void OnCreatedAtChanging(System.Nullable<long> value);
+    partial void OnCreatedAtChanged();
+    partial void OnLanguageIDChanging(System.Nullable<int> value);
+    partial void OnLanguageIDChanged();
+    partial void OnJoinCodeChanging(string value);
+    partial void OnJoinCodeChanged();
+    partial void OnIsPrivateChanging(System.Nullable<bool> value);
+    partial void OnIsPrivateChanged();
+    partial void OnRatingChanging(System.Nullable<double> value);
+    partial void OnRatingChanged();
+    partial void OnListUserLikeChanging(string value);
+    partial void OnListUserLikeChanged();
+    partial void OnListUserRatingChanging(string value);
+    partial void OnListUserRatingChanged();
+    partial void OnStatusChanging(System.Nullable<bool> value);
+    partial void OnStatusChanged();
+    #endregion
+		
+		public TEXTPRACTICE()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int ID
+		{
+			get
+			{
+				return this._ID;
+			}
+			set
+			{
+				if ((this._ID != value))
+				{
+					this.OnIDChanging(value);
+					this.SendPropertyChanging();
+					this._ID = value;
+					this.SendPropertyChanged("ID");
+					this.OnIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UserCreate", DbType="Int")]
+		public System.Nullable<int> UserCreate
+		{
+			get
+			{
+				return this._UserCreate;
+			}
+			set
+			{
+				if ((this._UserCreate != value))
+				{
+					this.OnUserCreateChanging(value);
+					this.SendPropertyChanging();
+					this._UserCreate = value;
+					this.SendPropertyChanged("UserCreate");
+					this.OnUserCreateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Text", DbType="NVarChar(MAX)")]
+		public string Text
+		{
+			get
+			{
+				return this._Text;
+			}
+			set
+			{
+				if ((this._Text != value))
+				{
+					this.OnTextChanging(value);
+					this.SendPropertyChanging();
+					this._Text = value;
+					this.SendPropertyChanged("Text");
+					this.OnTextChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(255)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TextLength", DbType="Int")]
+		public System.Nullable<int> TextLength
+		{
+			get
+			{
+				return this._TextLength;
+			}
+			set
+			{
+				if ((this._TextLength != value))
+				{
+					this.OnTextLengthChanging(value);
+					this.SendPropertyChanging();
+					this._TextLength = value;
+					this.SendPropertyChanged("TextLength");
+					this.OnTextLengthChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PeopleIsCompleted", DbType="Int")]
+		public System.Nullable<int> PeopleIsCompleted
+		{
+			get
+			{
+				return this._PeopleIsCompleted;
+			}
+			set
+			{
+				if ((this._PeopleIsCompleted != value))
+				{
+					this.OnPeopleIsCompletedChanging(value);
+					this.SendPropertyChanging();
+					this._PeopleIsCompleted = value;
+					this.SendPropertyChanged("PeopleIsCompleted");
+					this.OnPeopleIsCompletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CreatedAt", DbType="BigInt")]
+		public System.Nullable<long> CreatedAt
+		{
+			get
+			{
+				return this._CreatedAt;
+			}
+			set
+			{
+				if ((this._CreatedAt != value))
+				{
+					this.OnCreatedAtChanging(value);
+					this.SendPropertyChanging();
+					this._CreatedAt = value;
+					this.SendPropertyChanged("CreatedAt");
+					this.OnCreatedAtChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LanguageID", DbType="Int")]
+		public System.Nullable<int> LanguageID
+		{
+			get
+			{
+				return this._LanguageID;
+			}
+			set
+			{
+				if ((this._LanguageID != value))
+				{
+					this.OnLanguageIDChanging(value);
+					this.SendPropertyChanging();
+					this._LanguageID = value;
+					this.SendPropertyChanged("LanguageID");
+					this.OnLanguageIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_JoinCode", DbType="VarChar(25)")]
+		public string JoinCode
+		{
+			get
+			{
+				return this._JoinCode;
+			}
+			set
+			{
+				if ((this._JoinCode != value))
+				{
+					this.OnJoinCodeChanging(value);
+					this.SendPropertyChanging();
+					this._JoinCode = value;
+					this.SendPropertyChanged("JoinCode");
+					this.OnJoinCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IsPrivate", DbType="Bit")]
+		public System.Nullable<bool> IsPrivate
+		{
+			get
+			{
+				return this._IsPrivate;
+			}
+			set
+			{
+				if ((this._IsPrivate != value))
+				{
+					this.OnIsPrivateChanging(value);
+					this.SendPropertyChanging();
+					this._IsPrivate = value;
+					this.SendPropertyChanged("IsPrivate");
+					this.OnIsPrivateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Rating", DbType="Float")]
+		public System.Nullable<double> Rating
+		{
+			get
+			{
+				return this._Rating;
+			}
+			set
+			{
+				if ((this._Rating != value))
+				{
+					this.OnRatingChanging(value);
+					this.SendPropertyChanging();
+					this._Rating = value;
+					this.SendPropertyChanged("Rating");
+					this.OnRatingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListUserLike", DbType="NVarChar(MAX)")]
+		public string ListUserLike
+		{
+			get
+			{
+				return this._ListUserLike;
+			}
+			set
+			{
+				if ((this._ListUserLike != value))
+				{
+					this.OnListUserLikeChanging(value);
+					this.SendPropertyChanging();
+					this._ListUserLike = value;
+					this.SendPropertyChanged("ListUserLike");
+					this.OnListUserLikeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ListUserRating", DbType="NVarChar(MAX)")]
+		public string ListUserRating
+		{
+			get
+			{
+				return this._ListUserRating;
+			}
+			set
+			{
+				if ((this._ListUserRating != value))
+				{
+					this.OnListUserRatingChanging(value);
+					this.SendPropertyChanging();
+					this._ListUserRating = value;
+					this.SendPropertyChanged("ListUserRating");
+					this.OnListUserRatingChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Status", DbType="Bit")]
+		public System.Nullable<bool> Status
+		{
+			get
+			{
+				return this._Status;
+			}
+			set
+			{
+				if ((this._Status != value))
+				{
+					this.OnStatusChanging(value);
+					this.SendPropertyChanging();
+					this._Status = value;
+					this.SendPropertyChanged("Status");
+					this.OnStatusChanged();
 				}
 			}
 		}

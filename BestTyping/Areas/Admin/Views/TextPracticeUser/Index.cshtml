@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+@{
+    ViewBag.Title = "Tất cả văn bản";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model ICollection<BestTyping.Models.DTO.TEXTPRACTICEVIEW>
+<div class="container">
+    <div class="page-inner">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 class="card-title">Văn bản luyện tập của người dùng</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <div id="basic-datatables_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
+                                <div class="col-sm-12">
+                                    <table id="basic-datatables" class="display table table-striped table-hover" style="width:100%">
+                                        <thead>
+                                            <tr>
+
+                                                <th width="12%">Người tạo</th>
+                                                <th>Tiêu đề</th>
+                                                <th>Nội dung</th>
+                                                <th>Ngôn ngữ</th>
+                                                <th>Đánh giá</th>
+                                                <th>Trạng thái</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model)
+                                            {
+                                                <tr>
+
+                                                    <td>
+                                                        <div class="avatar avatar-xs">
+                                                            <img src="@item.Avatart" alt="..." class="avatar-img rounded-circle">
+                                                        </div>
+
+                                                        @item.Name
+                                                    </td>
+                                                    <td>@item.Title</td>
+                                                    <td>@item.Text</td>
+                                                    <td>@item.Language</td>
+                                                    <td>@item.Rating</td>
+                                                    <td>
+                                                        <div class="switch-content">
+                                                            <input type="checkbox" id="checkbox-@item.Id" @(item.Status == true ? "checked" : "" ) onchange="lockText(@item.Id)">
+                                                            <label class="switch" for="checkbox-@item.Id">
+                                                                <span class="slider"></span>
+                                                            </label>
+                                                        </div>
+                                                    </td>
+
+                                                </tr>
+
+                                            }
+
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#basic-datatables").DataTable();
+    });
+    function lockText(value) {
+        $.ajax({
+            type: 'post',
+            url: '@Url.Action("LockTextPractice", "TextPracticeUser")',
+            data: {
+                id: value
+            },
+            success: function (response) {
+                if (response.code == 200) {
+
+                } else {
+
+                    console.log(response.msg);
+                }
+            },
+            error: function (err) {
+                // Xử lý lỗi nếu có
+                console.log(err);
+            }
+        });
+    }
+</script>
+
+

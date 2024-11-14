@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model BestTyping.Models.DTO.DASHBOARDVIEW
+<div class="container">
+    <div class="page-inner">
+        <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
+            <div>
+                <h3 class="fw-bold mb-3">Bảng điều khiển</h3>
+            </div>  
+        </div>
+        <div class="row">
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-primary bubble-shadow-small">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Số lượng người dùng</p>
+                                    <h4 class="card-title">@Model.SumUser</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-info bubble-shadow-small">
+                                    <i class="fas fa-user-check"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Văn bản hệ thống</p>
+                                    <h4 class="card-title">@Model.SumExerciseText</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-success bubble-shadow-small">
+                                    <i class="fas fa-luggage-cart"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Văn bản người dùng</p>
+                                    <h4 class="card-title">@Model.SumTextPractice</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-md-3">
+                <div class="card card-stats card-round">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-icon">
+                                <div class="icon-big text-center icon-secondary bubble-shadow-small">
+                                    <i class="far fa-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="col col-stats ms-3 ms-sm-0">
+                                <div class="numbers">
+                                    <p class="card-category">Nhóm học</p>
+                                    <h4 class="card-title">@Model.ListClass.Count()</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card card-round">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <div class="card-title">Danh sách nhóm học</div>
+                           
+                        </div>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table id="table-class" class="table align-items-center mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col"  width="40%" >Tên nhóm</th>
+                                        <th scope="col" class="text-end">Hiển thị</th>
+                                        <th scope="col" class="text-end">Số lượng thành viên</th>
+                                        <th scope="col" width="20%" class="text-end">Ngày tạo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach(var item in Model.ListClass)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="avatar avatar-xs">
+                                                    <img src="@item.AvatarClassRoom" alt="..." class="avatar-img rounded-circle">
+                                                </div>
+
+                                                @item.ClassName
+                                            </th>
+                                            <td class="text-end">
+                                                <span class="badge @(item.IsPrivate == true ?"badge-warning":"badge-success")">@(item.IsPrivate == true ?"Riêng tư":"Công khai")</span>
+                                            </td>
+                                            <td class="text-center">@item.SumMember</td>
+                                            <td class="text-center">@(DateTimeOffset.FromUnixTimeMilliseconds(item.CreateDate).DateTime.ToString("yyyy-MM-dd"))</td>
+
+
+                                        </tr>
+                                    }
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-round">
+                    <div class="card-header">
+                        <div class="card-head-row card-tools-still-right">
+                            <div class="card-title">Danh sách kết quả đánh máy mới nhất</div>
+                            
+                        </div>
+                    </div>
+                    <div class="card-body py-3">
+                        <div class="table-responsive">
+                            <!-- Projects table -->
+                            <table id="table-result" class="table align-items-center mb-0">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th scope="col">Tên người dùng</th>
+                                        <th scope="col" class="text-end">WPM</th>
+                                        <th scope="col" class="text-end">Tổ hợp phím</th>
+                                        <th scope="col" class="text-end">Thời gian</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ListResult)
+                                    {
+                                        <tr>
+                                            <th scope="row">
+                                                <div class="avatar avatar-xs">
+                                                    <img src="@item.Avatar" alt="..." class="avatar-img rounded-circle">
+                                                </div>
+
+                                                @item.Name
+                                            </th>
+                                            <td class="text-center">@item.Wpm</td>
+                                            <td class="text-center">@item.Keystrokes</td>
+                                            <td class="text-end">
+                                                @item.TimeLastResult
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $("#table-class").DataTable();
+        $("#table-result").DataTable();
+    });
+</script>
