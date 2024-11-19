@@ -11,7 +11,7 @@
 <nav class="navbar navbar-expand-lg">
     <div class="container">
         <a class="navbar-brand" href="@Url.Action("Index","Home")">
-            <img class="nav__icon-logo" src="~/Theme/images/icon_logo.png">
+            <img class="nav__icon-logo" src="~/Theme/images/icon_main2.png">
             <span>FastTyping</span>
         </a>
 
@@ -42,8 +42,8 @@
                 </li>
 
             </ul>
-            <a href="@(user != null ?Url.Action("DashboardEdu","DashBoardEdu"):"javascript:void(0)")" class="header_text-lang">Dành cho giáo viên</a>
-            <a href="@(user != null ?Url.Action("DashBoardStudent","DashBoardStudent"):"javascript:void(0)")" style="margin-left:0" class="header_text-lang">Dành cho học sinh</a>
+            <a href="@(user != null ?Url.Action("DashboardEdu","DashBoardEdu"):"javascript:void(0)")" class="header_text-lang @(user != null ?"":"login-flag")">Dành cho giáo viên</a>
+            <a href="@(user != null ?Url.Action("DashBoardStudent","DashBoardStudent"):"javascript:void(0)")" style="margin-left:0" class="header_text-lang @(user != null ?"":"login-flag")">Dành cho học sinh</a>
             @*<p class="header_text-lang">Ngôn ngữ</p>
         <div class="nav-item dropdown">
             <div class="nav-lang_dropdown">
@@ -95,7 +95,7 @@
             else
             {
                 <div class="d-none d-lg-block">
-                    <button id="login" class="navbar-icon bi-person smoothscroll" style="border:none"></button>
+                    <button id="login" class="login-flag navbar-icon bi-person smoothscroll" style="border:none"></button>
                 </div>
             }
             <div class="modal-container">

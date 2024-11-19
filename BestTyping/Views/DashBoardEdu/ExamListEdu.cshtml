@@ -39,6 +39,13 @@
         .div-result::-webkit-scrollbar-thumb:hover {
             background: #555; /* Màu của thanh cuộn khi hover */
         }
+    .btn-print {
+        border: none;
+        background-color: #40b2b6;
+        border-radius:4px;
+        color:#fff;
+        padding:6px 8px;
+    }
 </style>
 <div class="wrapper">
     @Html.Action("_PartialSideBarEdu", "Home")
@@ -89,6 +96,9 @@
                                         }
 
                                     </select>
+                                </div>
+                                <div class="col-lg-3" style="margin:20px">
+                                    <button class="btn-print">Xuất Excel</button>
                                 </div>
                             </div>
 
@@ -322,6 +332,44 @@
         $(changeicon).toggleClass("fa-chevron-down fa-chevron-right");
         $(showresult).toggle();
     })
+    $(".btn-print").click(function () {
+        const nameroom = $('#choose-classroom option:selected').text();
+        const nametest = $('#choose-test option:selected').text();
+        var selectedTestId = $("#choose-test").val();
+        var selectedClassroomId = $("#choose-classroom").val();
+        $.ajax({
+            type: "post",
+            url: "/DashBoardEdu/ExportResult",
+            data: {
+                testid: selectedTestId,
+                roomid: selectedClassroomId
+            },
+            success: function (res) {
+                if (res.code == 200) {
+                    // Process the data to generate the Excel file
+                    var data = res.listexcel.map(function (item) {
+                        return {
+                            "Tên người dùng": item.UserName,
+                            "Email": item.Email,
+                            "Lớp học": item.ClassName,
+                            "Bài kiểm tra": item.TitleTest,
+                            "Số từ đúng mỗi phút (WPM)": item.WPM,
+                            "Số từ đúng": item.CorrectWords,
+                            "Số từ sai": item.WrongWords,
+                            "Tổ hợp phím": item.KeyStrokes,
+                            "Ký tự sai": item.WrongCharacters,
+                            "Ký tự đúng": item.CorrectCharacters
+                        };
+                    });
+                    var wb = XLSX.utils.book_new();
+                    var ws = XLSX.utils.json_to_sheet(data);
+                    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+                    XLSX.writeFile(wb, `Kết quả bài thi ${nametest}- Lớp ${nameroom}.xlsx`);
+                }
+            }
+        })
+    });
+
 
     $(".operations-print").click(function () {
         let name = $(this).data("name");

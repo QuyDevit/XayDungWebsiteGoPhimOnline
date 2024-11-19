@@ -313,8 +313,8 @@ strong {
 
 .navbar-expand-lg .navbar-nav .nav-link {
     border-radius: var(--border-radius-large);
-    margin: 10px;
-    padding: 10px;
+    margin: 10px 5px;
+    padding: 11px;
 }
 
 .navbar-nav .nav-link {
@@ -504,7 +504,7 @@ strong {
 
 @media screen and (min-width: 992px) {
     .header_text-lang {
-        margin: 0 18px 0 24px;
+        margin: 0 14px 0 0;
         font-size: 16px;
         color: var(--white-color);
     }
@@ -1222,7 +1222,7 @@ blockquote {
     }
 
     .navbar {
-        background-color: var(--secondary-color);
+        background-color: #3fbbc0;
     }
 
     .navbar-nav .dropdown-menu {
@@ -1540,13 +1540,13 @@ blockquote {
 .up button:hover{
     opacity:0.8;
 }
-    .form-signup .btn {
-        color:white;
-        background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
-    }
-.form-signup .btn:hover{
-    background-image: linear-gradient(-15deg, #13547a 0%, #80d0c7 100%);
+.form-signup .btn {
+    color: white;
+    background-image: linear-gradient(15deg, #1cb7bd 0%, #80d0c7 100%);
 }
+    .form-signup .btn:hover {
+        background-image: linear-gradient(-15deg, #80d0c7 0%, #1cb7bd 100%);
+    }
 
     .up input:focus,
     .in input:focus {
@@ -1564,7 +1564,7 @@ input::placeholder {
     width: 390px;
     border: 1px solid gray;
     border-radius: 5px;
-    background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    background-image: linear-gradient(15deg, #1da8ad 0%, #80d0c7 100%);
     color: white;
     font-weight: 600;
     font-size: 13px;
@@ -1572,7 +1572,7 @@ input::placeholder {
 }
 
     .form-login button:hover {
-        background-image: linear-gradient(-15deg, #13547a 0%, #80d0c7 100%);
+        background-image: linear-gradient(-15deg, #80d0c7 0%, #1da8ad 100%);
         color: white;
     }
 

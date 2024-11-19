@@ -18,7 +18,7 @@
 }
 
     .button__rank-background.show {
-        background-color: #eaeff9;
+        background-color: #fff;
     }
 
         .button__rank-background.show span {
@@ -32,7 +32,7 @@
         width: 50px;
         top: 0;
         right: 0;
-        background-color: var(--white-color);
+        background-color: #ecf8f9;
         height: 100%;
         clip-path: polygon(102% 0, 0 0%, 102% 100%);
     }
@@ -42,5 +42,5 @@
     }
 
 #table-rank {
-    background-color: #eaeff9;
+    background-color: #FFF;
 }

@@ -74,7 +74,7 @@ $(document).ready(function() {
     });
 
 
-    $("#login").click(function () {
+    $(".login-flag").click(function () {
         $("body").addClass("modal-open"); // Thêm lớp modal-open vào thẻ body
         $(".modal_overlay, #login-modal").fadeIn();
     });

@@ -1,5 +1,6 @@
 ﻿using BestTyping.Models;
 using BestTyping.Models.DTO;
+using BestTyping.Security;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -337,6 +338,53 @@ namespace BestTyping.Controllers
             }
         }
         [HttpPost]
+        public JsonResult ExportResult(int testid, int roomid)
+        {
+            try
+            {
+                USER user = (USER)Session["User"];
+                if (user == null)
+                {
+                    return Json(new { code = 500, msg = "Vui lòng đăng nhập để tiếp tục" });
+                }
+                else
+                {
+                    var gettest = db.TESTEDUs.FirstOrDefault(t => t.ID == testid);
+                    var getclassroom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == roomid);
+                    var usersInClass = JsonConvert.DeserializeObject<List<USERROOM>>(getclassroom.ListUserJoin).Select(n=>n.UserId);
+                    var listInfoUser = db.USERs.Where(n => usersInClass.Contains(n.Id)).ToList();
+                    var listresult = db.TYPINGRESULTEDUs
+                        .Where(r => r.TestId == testid && r.ClassRoomId == roomid)
+                        .GroupBy(r => r.UserID)
+                        .Select(g => g.OrderByDescending(r => r.WPM).FirstOrDefault())
+                        .ToList();
+                    var resultexcel = new List<USEREXAMEDU>();
+                    foreach (var item in listInfoUser)
+                    {
+                        var getresult = listresult.FirstOrDefault(u => u.UserID == item.Id);
+                        var result = new USEREXAMEDU();
+                        result.ClassName = getclassroom.ClassName;
+                        result.Email = item.Email;
+                        result.TitleTest = gettest.TitleTest;
+                        result.UserName = item.HoTen;
+                        result.WPM = getresult == null ? 0 : getresult.WPM ?? 0;
+                        result.KeyStrokes = getresult == null ? 0: getresult.KeyStrokes ?? 0;
+                        result.CorrectCharacters = getresult == null ? 0: getresult.CorrectCharacter ?? 0;
+                        result.CorrectWords = getresult==null ?0: getresult.CorrectWords ?? 0;
+                        result.WrongWords = getresult == null ? 0 : getresult.Mistakes ?? 0;
+                        result.WrongCharacters = getresult == null ? 0 : getresult.WrongCharacter ?? 0;
+                        resultexcel.Add(result);
+                    }
+
+                    return Json(new { code = 200, list = listresult, listexcel = resultexcel, msg = "Lấy dữ liệu thành công" });
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { code = 500, msg = "Lỗi" });
+            }
+        }
+        [HttpPost]
         public JsonResult GetResultByUser(int keyuser,int testid,int roomid)
         {
             try
@@ -348,14 +396,13 @@ namespace BestTyping.Controllers
                 }
                 else
                 {
+                    var gettest = db.TESTEDUs.FirstOrDefault(t => t.ID == testid);
+                    var getclassroom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == roomid);
                     var listresult = db.TYPINGRESULTEDUs.Where(r => r.UserID == keyuser && r.TestId == testid && r.ClassRoomId == roomid).ToList();
                     var resultexcel = new List<USEREXAMEDU>();
                     foreach(var item in listresult)
                     {
-                        var getuser = db.USERs.FirstOrDefault(u => u.Id == item.UserID);
-                        var gettest = db.TESTEDUs.FirstOrDefault(t => t.ID == item.TestId);
-                        var getclassroom = db.CLASSROOMs.FirstOrDefault(c => c.ClassRoomId == item.ClassRoomId);
-                        var result = new USEREXAMEDU();
+                        var getuser = db.USERs.FirstOrDefault(u => u.Id == item.UserID);                        var result = new USEREXAMEDU();
                         result.ClassName = getclassroom.ClassName;
                         result.Email = getuser.Email;
                         result.TitleTest = gettest.TitleTest;
@@ -1002,10 +1049,10 @@ namespace BestTyping.Controllers
         {
             try
             {
-                var ask = $"Viết một đoạn văn ngắn về chủ đề \"{content}\" bằng tiếng \"{language}\" cách nhau bằng khoảng trắng, không có dấu . và dấu ,";
+                var ask = $"Viết một 1 đoạn văn ngắn về chủ đề \"{content}\" bằng tiếng \"{language}\"";
                 var request = new ChatRequest
                 {
-                    Model = "gemini-1.5-pro",
+                    Model = "gemini-1.5-flash",
                     MaxTokens = 2048,
                     Messages = new[]
                 {

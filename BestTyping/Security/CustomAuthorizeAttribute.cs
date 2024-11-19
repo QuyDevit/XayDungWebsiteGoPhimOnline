@@ -23,7 +23,6 @@ namespace BestTyping.Security
         }
         private bool IsAuthorized(object user)
         {
-            // Giả sử user là một đối tượng có thuộc tính typeaccount
             dynamic userObj = user;
             return userObj.TypeAccount == 2;
         }

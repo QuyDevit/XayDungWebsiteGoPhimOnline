@@ -11,6 +11,21 @@
 </header>
 <link href="~/Theme/css/checktesttpye.css" rel="stylesheet" />
 <link href="~/Theme/css/textpractice.css" rel="stylesheet" />
+<style>
+    .wapper-content {
+        position: relative;
+    }
+
+    .loading-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .btn-default:disabled{
+        background-color:#ccc;
+    }
+</style>
 <div class="wrapper">
     @Html.Action("_PartialSideBarTest", "Home")
     <!-- Main Component -->
@@ -86,23 +101,30 @@
                                                    <strong style="margin-bottom:4px;">Ví dụ: du lịch</strong>
                                                    <div class="d-flex">
                                                        <input class="form-control" placeholder="Nhập chủ đề" id="content-ask" />
-                                                       <button class="btn-default" onclick="submitAsk()" style="margin-left:8px;">Tạo</button>
+                                                       <button class="btn-default" onclick="submitAsk(this)" style="margin-left:8px;">Tạo</button>
                                                    </div>
                                                </div>
 
                                            </div>
-                                          
+
                                        </div>
-                                       <textarea class="form-control textarea-custom" placeholder="Nhập nội dung văn bản" id="contenttext"></textarea>
+                                       <div class="wapper-content">
+                                           <div class="loading-spinner d-none">
+                                               <div class="spinner-border" style="color: #3fbbc0;width:3rem;height:3rem" role="status">
+                                                   <span class="sr-only">Loading...</span>
+                                               </div>
+                                           </div>
+                                           <textarea class="form-control textarea-custom" placeholder="Nhập nội dung văn bản" id="contenttext"></textarea>
+                                       </div>
                                    </div>
-                                   <div class="check-private">
-                                       <input id="checkprivate" type="checkbox" />
-                                       <label for="checkprivate" style="color:black">Văn bản riêng tư</label>
+                                       <div class="check-private">
+                                           <input id="checkprivate" type="checkbox" />
+                                           <label for="checkprivate" style="color:black">Văn bản riêng tư</label>
+                                       </div>
+                                       <div class="textpractice_form-item">
+                                           <button id="btn-createtext" type="button">Lưu văn bản</button>
+                                       </div>
                                    </div>
-                                   <div class="textpractice_form-item">
-                                       <button id="btn-createtext" type="button">Lưu văn bản</button>
-                                   </div>
-                               </div>
                             </div>
                         </div>
                     </div>
@@ -115,7 +137,7 @@
     function toggleFormAsk() {
         $("#form-ask").toggleClass("d-none");
     }
-    function submitAsk() {
+    function submitAsk(button) {
         const contentask = $("#content-ask").val();
         const language = $("#languageSelect").val();
         if (contentask == "") {
@@ -129,6 +151,8 @@
             });
             return;
         }
+        $(button).attr("disabled", true);
+        $(".loading-spinner").removeClass("d-none");
         $.ajax({
             url: '@Url.Action("Chat", "TextPractice")',
             type: 'POST',
@@ -143,8 +167,12 @@
                     // Lấy phần "text" từ phản hồi
                     const assistantResponse = jsonResponse.candidates[0].content.parts[0].text;
                     console.log(assistantResponse);
+                    $(button).attr("disabled", false);
+                    $(".loading-spinner").addClass("d-none");
                     $("#contenttext").val(assistantResponse);
                 } catch (ex) {
+                    $(button).attr("disabled", false);
+                    $(".loading-spinner").addClass("d-none");
                     Swal.fire({
                         icon: 'error',
                         title: "Thông báo",
@@ -157,6 +185,8 @@
                
             },
             error: function (err) {
+                $(button).attr("disabled", false);
+                $(".loading-spinner").addClass("d-none");
                 Swal.fire({
                     icon: 'error',
                     title: "Thông báo",

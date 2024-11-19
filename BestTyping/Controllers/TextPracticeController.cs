@@ -269,10 +269,10 @@ namespace BestTyping.Controllers
         {
             try
             {
-                var ask = $"Viết một (đoạn văn, bài thơ, lời bài hát,...) về chủ đề \"{content}\" bằng tiếng \"{language}\" ";
+                var ask = $"Viết một (đoạn văn, bài thơ, lời bài hát,...) về chủ đề \"{content}\" bằng tiếng \"{language}\".";
                 var request = new ChatRequest
                 {
-                    Model = "gemini-1.5-pro",
+                    Model = "gemini-1.5-flash",
                     MaxTokens = 2048,
                     Messages = new[]
                 {

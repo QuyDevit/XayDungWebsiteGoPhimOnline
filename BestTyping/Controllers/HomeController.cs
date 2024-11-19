@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using BestTyping.Models.DTO;
 using System.Text;
 using Newtonsoft.Json;
+using BestTyping.Security;
 
 namespace BestTyping.Controllers
 {

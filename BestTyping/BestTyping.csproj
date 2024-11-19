@@ -302,6 +302,7 @@
     <Content Include="Theme\images\Finger_position_on_a_keyboard.png" />
     <Content Include="Theme\images\google.png" />
     <Content Include="Theme\images\icon_logo.png" />
+    <Content Include="Theme\images\icon_main2.png" />
     <Content Include="Theme\images\image_Learn-how-to-type.png" />
     <Content Include="Theme\images\image_Typing-game.jpg" />
     <Content Include="Theme\images\image_Typing-game2.png" />

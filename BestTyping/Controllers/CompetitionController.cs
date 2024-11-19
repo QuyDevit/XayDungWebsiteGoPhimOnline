@@ -1,5 +1,6 @@
 ﻿using BestTyping.Models;
 using BestTyping.Models.DTO;
+using BestTyping.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
