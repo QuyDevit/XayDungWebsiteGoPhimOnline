@@ -1,12 +1,12 @@
-﻿.dashboard_wrapper {
+﻿#join-group.dashboard_wrapper {
     padding: 30px;
     margin-top: 30px;
-    min-height:800px;
+    min-height: 800px;
     box-shadow: 1px 1px 10px 0 rgba(49, 57, 66, 0.5);
 }
 #join-group {
     padding: 5px 15px;
-    background-color: #61869d;
+    background-color: #40b2b6;
     color: white;
     font-size: 16px;
     border-radius: 5px;
@@ -183,7 +183,7 @@
 }
 
     .form-custom::-webkit-scrollbar-thumb {
-        background-color: rgb(105 148 155); /* Màu của phần thumb trong suốt */
+        background-color: #40b2b6; /* Màu của phần thumb trong suốt */
         border-radius: 6px; /* Độ bo tròn của góc thanh cuộn */
     }
 .title-test{
@@ -193,7 +193,7 @@
     .title-test p {
         font-size: 28px;
         font-weight: 600;
-        color: #61869d;
+        color: #40b2b6;
     }
     .test__form-item {
         display: flex;
@@ -214,10 +214,10 @@
     opacity:0.8;
 }
 #title-choose {
-    cursor:unset;
+    cursor: unset;
     font-size: 20px;
     font-weight: 600;
-    color: #61869d;
+    color: #40b2b6;
 }
 #create-test {
     padding:3px 10px;
@@ -242,8 +242,8 @@
 .event-title {
     text-align: center;
     font-size: 36px;
-    font-weight:600;
-    color: #61869d;
+    font-weight: 600;
+    color: #40b2b6;
 }
 .note-numtest{
     color:black;

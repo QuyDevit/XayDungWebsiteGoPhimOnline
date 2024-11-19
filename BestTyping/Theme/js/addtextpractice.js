@@ -41,6 +41,10 @@ $(document).ready(function () {
         }
 
         const wordCount = content.trim().split(/\s+/).length;
+        if (wordCount > 1000) {
+            ToastError("Văn bản không được quá 1000 từ!")
+            return;
+        }
         var currentTimestamp = new Date().getTime();
         $.ajax({
             type: "post",

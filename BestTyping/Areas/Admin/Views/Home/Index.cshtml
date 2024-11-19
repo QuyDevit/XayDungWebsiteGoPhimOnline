@@ -9,7 +9,7 @@
         <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row pt-2 pb-4">
             <div>
                 <h3 class="fw-bold mb-3">Bảng điều khiển</h3>
-            </div>  
+            </div>
         </div>
         <div class="row">
             <div class="col-sm-6 col-md-3">
@@ -22,11 +22,17 @@
                                 </div>
                             </div>
                             <div class="col col-stats ms-3 ms-sm-0">
-                                <div class="numbers">
+                                <div class="numbers" style="margin-right:12px;">
                                     <p class="card-category">Số lượng người dùng</p>
                                     <h4 class="card-title">@Model.SumUser</h4>
                                 </div>
+                                <div style="height:55px;width:2px;background:#000"></div>
+                                <div class="numbers" style="margin-left:12px;">
+                                    <p class="card-category">Đang Online</p>
+                                    <h4 class="card-title" id="count-online"></h4>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -95,7 +101,7 @@
                     <div class="card-header">
                         <div class="card-head-row card-tools-still-right">
                             <div class="card-title">Danh sách nhóm học</div>
-                           
+
                         </div>
                     </div>
                     <div class="card-body py-3">
@@ -104,14 +110,14 @@
                             <table id="table-class" class="table align-items-center mb-0">
                                 <thead class="thead-light">
                                     <tr>
-                                        <th scope="col"  width="40%" >Tên nhóm</th>
+                                        <th scope="col" width="40%">Tên nhóm</th>
                                         <th scope="col" class="text-end">Hiển thị</th>
                                         <th scope="col" class="text-end">Số lượng thành viên</th>
                                         <th scope="col" width="20%" class="text-end">Ngày tạo</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(var item in Model.ListClass)
+                                    @foreach (var item in Model.ListClass)
                                     {
                                         <tr>
                                             <th scope="row">
@@ -130,7 +136,7 @@
 
                                         </tr>
                                     }
-                                    
+
                                 </tbody>
                             </table>
                         </div>
@@ -142,7 +148,7 @@
                     <div class="card-header">
                         <div class="card-head-row card-tools-still-right">
                             <div class="card-title">Danh sách kết quả đánh máy mới nhất</div>
-                            
+
                         </div>
                     </div>
                     <div class="card-body py-3">
@@ -185,9 +191,21 @@
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $("#table-class").DataTable();
-        $("#table-result").DataTable();
-    });
-</script>
+
+    <script>
+        $(function () {
+            var hub = $.connection.requestJoinHub;
+            hub.client.updateOnlineCount = function (count) {
+                $('#count-online').text(count);
+                console.log(count)
+            };
+            $.connection.hub.start().done(function () {
+                console.log("Connected to SignalR Hub");
+            });
+
+            $(document).ready(function () {
+                $("#table-class").DataTable();
+                $("#table-result").DataTable();
+            });
+        })
+    </script>

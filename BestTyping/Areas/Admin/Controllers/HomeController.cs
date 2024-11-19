@@ -22,7 +22,6 @@ namespace BestTyping.Areas.Admin.Controllers
             data.SumUser = db.USERs.Count(x => x.Id != 6);
             data.SumExerciseText = db.EXERCISETEXTs.Count();
             data.SumTextPractice = db.TEXTPRACTICEs.Count();
-
             var classrooms = db.CLASSROOMs.Select(n => new {
                 n.ClassName,
                 n.AvatarClassRoom,

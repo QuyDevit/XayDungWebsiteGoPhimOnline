@@ -31,17 +31,17 @@
     <div class="h-100 sidebar__content">
 
         <div class="sidebar-edu__wrapper">
-            <div class="sidebar-edu__wrapper-box">
-                <img src="@(user != null? user.Avatar : "")" />
-                <p>@(user != null ? user.HoTen : "")</p>
-            </div>
-            <div class="box_setting">
-                <a href=""><i class="fa fa-user" aria-hidden="true"></i><span>Hồ sơ</span></a>
-                <a href=""><i class="fa fa-cog" aria-hidden="true"><span>Thiết lập</span></i></a>
-            </div>
-            <div class="box_setting">
-                <a href=""><i class="fa fa-bell" aria-hidden="true"></i><span>Thông báo</span></a>
-                <a href="@Url.Action("LogoutEdu","Account")"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Đăng xuất</span></a>
+            <div class="d-flex justify-content-center">
+                <div class="sidebar-edu__wrapper-box">
+                    <img src="@(user != null? user.Avatar : "")" />
+                    <p>@(user != null ? user.HoTen : "")</p>
+                </div>
+                <div class="box_setting flex-column">
+                    <a href=""><i class="fa fa-user" aria-hidden="true"></i><span>Hồ sơ</span></a>
+                    <a href=""><i class="fa fa-cog" aria-hidden="true"><span>Thiết lập</span></i></a>
+                    <a href=""><i class="fa fa-bell" aria-hidden="true"></i><span>Thông báo</span></a>
+                    <a href="@Url.Action("LogoutEdu","Account")"><i class="fa fa-sign-out" aria-hidden="true"></i><span>Đăng xuất</span></a>
+                </div>
             </div>
             <div class="box_wrapper-dashboard">
                 <ul class="list-dashboard">

@@ -392,7 +392,6 @@ $(document).ready(function () {
         typingStarted = false;
         updateTimer();
         getExerciseText();      
-        highlightNextWord();
     }
 
     function highlightNextWord() {
@@ -487,13 +486,9 @@ $(document).ready(function () {
         container.empty();
 
         for (var i = 0; i < wordsArray.length; i++) {
-            if (i == 0) {
-                container.append("<span class='word highlight' id='word" + (i + 1) + "'>" + wordsArray[i] + "</span>\n");
-            }
-            else {
-                container.append("<span class='word' id='word" + (i + 1) + "'>" + wordsArray[i] + "</span>\n");
-            }
+            container.append("<span class='word' id='word" + (i + 1) + "'>" + wordsArray[i] + "</span>\n");
         }
+        highlightNextWord();
     }
 
     $(".btn-reset").on("click", function () {

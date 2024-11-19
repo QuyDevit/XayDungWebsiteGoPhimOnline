@@ -7,6 +7,7 @@ namespace BestTyping.Models.DTO
 {
     public class DASHBOARDVIEW
     {
+        public int SumOnline { get; set; }
         public int SumUser { get; set; }
         public int SumExerciseText { get; set; }
         public int SumTextPractice { get; set; }

@@ -6,12 +6,14 @@ using BestTyping.Models;
 using BestTyping.Models.DTO;
 using Microsoft.AspNet.SignalR;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace BestTyping
 {
     public class RequestJoinHub : Hub
     {
-       DataBestTypingDataContext db = new DataBestTypingDataContext();
+        private static int _onlineUsers = 0;
+        DataBestTypingDataContext db = new DataBestTypingDataContext();
 
         public void SendRequsetJoinList(int idroom)
         {
@@ -28,5 +30,20 @@ namespace BestTyping
                 Clients.All.updateRequestJoinTable(new List<USERROOM>(), idroom);
             }
         }
+
+        public override Task OnConnected()
+        {
+            _onlineUsers++;
+            Clients.All.updateOnlineCount(_onlineUsers);
+            return base.OnConnected();
+        }
+
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            _onlineUsers--;
+            Clients.All.updateOnlineCount(_onlineUsers);
+            return base.OnDisconnected(stopCalled);
+        }
+
     }
 }

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using BestTyping.Models;
 using hbehr.recaptcha;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace BestTyping.Controllers
 {
@@ -223,6 +224,7 @@ namespace BestTyping.Controllers
                         else
                         {
                             Session["User"] = checkUser;
+                           
                             return Json(new { code = 200, msg = "Đăng Nhập thành công" });
                         }
                     }
@@ -369,9 +371,9 @@ namespace BestTyping.Controllers
         }
         public ActionResult LogoutEdu()
         {
-                FormsAuthentication.SignOut();
-                Session["User"] = null;
-                return RedirectToAction("CheckTyping", "Home");
+            FormsAuthentication.SignOut();
+            Session["User"] = null;
+            return RedirectToAction("CheckTyping", "Home");
         }
 
         [HttpPost]

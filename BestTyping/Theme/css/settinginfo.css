@@ -2,7 +2,7 @@
     margin: 50px 0;
 }
 .container-settings {
-    background: #eaeff9;
+    background: #fff;
     padding:0 0 10px 0;
     border-radius: 0 10px 10px 10px;
 }
@@ -11,7 +11,7 @@
 }
 .button__setting-background {
     border-top-left-radius: 10px;
-    background-color: #d1def8;
+    background-color: #d7edef;
     position: relative;
     border: none;
     padding: 6px 90px 6px 36px;
@@ -24,7 +24,7 @@
         width: 50px;
         top: 0;
         right: 0;
-        background-color: var(--white-color);
+        background-color: #ecf8f9;
         height: 100%;
         clip-path: polygon(100% 0, 0 0%, 100% 100%);
     }
@@ -34,14 +34,14 @@
     }
 
     .button__setting-background.show {
-        background: #eaeff9;
+        background: #fff;
     }
 
 .button__setting-info {
     border-top-left-radius: 10px;
     position: relative;
     border: none;
-    background-color:white;
+    background-color: #d7edef;
     padding: 6px 90px 6px 36px;
     transition: background-color 0.2s ease;
 }
@@ -52,7 +52,7 @@
         width: 50px;
         top: 0;
         right: 0;
-        background-color: #eaeff9;
+        background-color: #fff;
         height: 100%;
         clip-path: polygon(100% 0, 0 0%, 100% 100%);
     }
@@ -66,6 +66,7 @@
     background: white;
     margin-bottom: 20px;
     border-radius: 0 10px 10px 10px;
+    border:1px solid #ccc;
 }
 
 .table__info thead{

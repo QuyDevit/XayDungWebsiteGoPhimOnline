@@ -3,7 +3,7 @@
 }
 
 .container-textpractice {
-    background: #eaeff9;
+    background: #fff; /*#eaeff9*/
     padding: 0 0 10px 0;
     border-radius: 0 10px 10px 10px;
 }
@@ -14,7 +14,7 @@
 
 .button__textpractice-background {
     border-top-left-radius: 10px;
-    background-color: #d1def8;
+    background-color: #d7edef; /*#d1def8*/
     position: relative;
     border: none;
     padding: 6px 65px 6px 26px;
@@ -28,7 +28,7 @@
         width: 50px;
         top: 0;
         right: 0;
-        background-color: var(--white-color);
+        background-color: #ecf8f9;
         height: 100%;
         clip-path: polygon(102% 0, 0 0%, 102% 100%);
     }
@@ -38,7 +38,7 @@
     }
 
     .button__textpractice-background.show {
-        background: #eaeff9;
+        background: #fff; /*#eaeff9*/
     }
 
 .container-textpractice__tab {
@@ -67,7 +67,7 @@
     font-size: 12px;
 }
 .text-rank:hover {
-    background: #d9e0ed;
+    background: #f0f2f7;
 }
 .title-textpractice {
     align-items: flex-end;
@@ -443,9 +443,9 @@
     }
 .btn-default {
     border: none;
-    background: #1274ad;
+    background: #40b2b6;
     color: #fff;
-    padding:0 8px;
-    border-radius:4px;
-    width:fit-content;
+    padding: 0 8px;
+    border-radius: 4px;
+    width: fit-content;
 }
