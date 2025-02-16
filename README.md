@@ -2,8 +2,8 @@
 1. Landing page giới thiệu hệ thống
 2. Đăng nhập, Đăng ký, đăng xuất.
 3. Đăng ký gửi xác thực về email.
-4. Đăng nhập sử dụng tài khoản Google (trường hợp đã liên kết với tài khoản Google).
-5. Quên mật khẩu gửi mã OTP về email (trường hợp đã liên kết với tài khoản Google).
+4. Đăng nhập sử dụng tài khoản Google(Firebase Auth).
+5. Quên mật khẩu gửi mã OTP về email.
 6. Cho phép người dùng cập nhật hồ sơ.
 7. Thêm, xóa, chỉnh sửa câu hỏi, văn bản, lớp, văn bản luyện tập,người dùng.
 8. Sinh viên tham gia nhóm học phần bằng mã mời.
